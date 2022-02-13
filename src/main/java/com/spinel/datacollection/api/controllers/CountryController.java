@@ -1,14 +1,14 @@
-package com.sabi.logistics.api.controllers;
+package com.spinel.datacollection.api.controllers;
 
 
 import com.sabi.framework.dto.requestDto.EnableDisEnableDto;
 import com.sabi.framework.dto.responseDto.Response;
 import com.sabi.framework.utils.Constants;
 import com.sabi.framework.utils.CustomResponseCode;
-import com.sabi.logistics.core.dto.request.CountryDto;
-import com.sabi.logistics.core.dto.response.CountryResponseDto;
-import com.sabi.logistics.core.models.Country;
-import com.sabi.logistics.service.services.CountryService;
+import com.spinel.datacollection.core.dto.request.CountryDto;
+import com.spinel.datacollection.core.dto.response.CountryResponseDto;
+import com.spinel.datacollection.core.models.Country;
+import com.spinel.datacollection.service.services.CountryService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;

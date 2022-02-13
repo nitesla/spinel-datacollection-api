@@ -1,4 +1,4 @@
-package com.sabi.logistics.api.controllers;
+package com.spinel.datacollection.api.controllers;
 
 
 import com.sabi.framework.dto.requestDto.EnableDisEnableDto;

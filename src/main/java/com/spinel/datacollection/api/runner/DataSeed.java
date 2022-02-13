@@ -1,17 +1,17 @@
-package com.sabi.logistics.api.runner;
+package com.spinel.datacollection.api.runner;
 
 
 import com.sabi.framework.models.User;
 import com.sabi.framework.repositories.UserRepository;
 import com.sabi.framework.utils.Constants;
-import com.sabi.logistics.core.models.Bank;
-import com.sabi.logistics.core.models.Country;
-import com.sabi.logistics.core.models.LGA;
-import com.sabi.logistics.core.models.State;
-import com.sabi.logistics.service.repositories.BankRepository;
-import com.sabi.logistics.service.repositories.CountryRepository;
-import com.sabi.logistics.service.repositories.LGARepository;
-import com.sabi.logistics.service.repositories.StateRepository;
+import com.spinel.datacollection.core.models.Bank;
+import com.spinel.datacollection.core.models.Country;
+import com.spinel.datacollection.core.models.LGA;
+import com.spinel.datacollection.core.models.State;
+import com.spinel.datacollection.service.repositories.BankRepository;
+import com.spinel.datacollection.service.repositories.CountryRepository;
+import com.spinel.datacollection.service.repositories.LGARepository;
+import com.spinel.datacollection.service.repositories.StateRepository;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,13 +51,13 @@ public class DataSeed implements ApplicationListener<ContextRefreshedEvent> {
     @Override
     public void onApplicationEvent(ContextRefreshedEvent event) {
 
-//        seedCountries();
-//        seedStates();
-//        seedLocalGovernments();
-//        seedBanks();
-//        seedAppleUsers();
-//        seedSabiUsers();
-//        seedAdminUsers();
+        seedCountries();
+        seedStates();
+        seedLocalGovernments();
+        seedBanks();
+        seedAppleUsers();
+        seedSabiUsers();
+        seedAdminUsers();
 
     }
 

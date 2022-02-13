@@ -1,4 +1,4 @@
-package com.sabi.logistics.api.helper;
+package com.spinel.datacollection.api.helper;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
@@ -8,7 +8,6 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 
 @Configuration
 public class CustomWebMvcAutoConfig extends WebMvcConfigurerAdapter {
-//public class CustomWebMvcAutoConfig implements WebMvcConfigurer {
 
     @Value("${external-resource-location}")
     String externalResourceLocation;

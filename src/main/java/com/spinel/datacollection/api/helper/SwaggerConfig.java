@@ -1,4 +1,4 @@
-package com.sabi.logistics.api.helper;
+package com.spinel.datacollection.api.helper;
 
 
 import org.springframework.context.annotation.Bean;
@@ -23,16 +23,16 @@ public class SwaggerConfig {
     public Docket productApi() {
         return new Docket(DocumentationType.SWAGGER_2).select()
 
-                .apis(RequestHandlerSelectors.basePackage("com.sabi.logistics.api"))
+                .apis(RequestHandlerSelectors.basePackage("com.spinel.datacollection.api"))
                 .paths(regex("/*.*")).build()
                 .apiInfo(metaData());
     }
 
     private ApiInfo metaData() {
-        return new ApiInfoBuilder().title("Sabi Nig LTD")
-                .description("Sabi logistic application").version("1.0.0")
+        return new ApiInfoBuilder().title("Spinel Consulting LTD")
+                .description("Data Collector Application").version("1.0.0")
                 .license("Apache License Version 2.0").licenseUrl("https://www.apache.org/licenses/LICENSE-2.0\"")
-                .contact(new Contact("SABI Nig LTD", "www.xxxxxxx.com ", "info@xxxxxx.com")).build();
+                .contact(new Contact("Spinel Consulting LTD", "www.xxxxxxx.com ", "info@xxxxxx.com")).build();
     }
 
 
