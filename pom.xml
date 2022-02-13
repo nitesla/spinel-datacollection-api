@@ -9,7 +9,7 @@
 		<version>2.1.6.RELEASE</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.spinel.api</groupId>
+	<groupId>com.spinel.datacollection.api</groupId>
 	<artifactId>spinel-datacollection-api</artifactId>
 	<version>1.0</version>
 	<name>spinel-datacollection-api</name>
@@ -117,13 +117,13 @@
 		</dependency>
 
 		<dependency>
-			<groupId>com.spinel.core</groupId>
+			<groupId>com.spinel.datacollection.core</groupId>
 			<artifactId>spinel-datacollection-core</artifactId>
 			<version>1.0</version>
 		</dependency>
 
 		<dependency>
-			<groupId>com.spinel.service</groupId>
+			<groupId>com.spinel.datacollection.service</groupId>
 			<artifactId>spinel-datacollection-service</artifactId>
 			<version>1.0</version>
 		</dependency>
@@ -280,7 +280,7 @@
 						<configuration>
 							<file>${basedir}/lib/spinel-datacollection-core.jar</file>
 							<repositoryLayout>default</repositoryLayout>
-							<groupId>com.spinel.core</groupId>
+							<groupId>com.spinel.datacollection.core</groupId>
 							<artifactId>spinel-datacollection-core</artifactId>
 							<version>1.0</version>
 							<packaging>jar</packaging>
@@ -312,7 +312,7 @@
 						<configuration>
 							<file>${basedir}/lib/spinel-datacollection-service.jar</file>
 							<repositoryLayout>default</repositoryLayout>
-							<groupId>com.spinel.service</groupId>
+							<groupId>com.spinel.datacollection.service</groupId>
 							<artifactId>spinel-datacollection-service</artifactId>
 							<version>1.0</version>
 							<packaging>jar</packaging>

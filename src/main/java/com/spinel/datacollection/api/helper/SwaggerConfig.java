@@ -20,7 +20,7 @@ public class SwaggerConfig {
 
 
     @Bean
-    public Docket productApi() {
+    public Docket dataCollectionApi() {
         return new Docket(DocumentationType.SWAGGER_2).select()
 
                 .apis(RequestHandlerSelectors.basePackage("com.spinel.datacollection.api"))
