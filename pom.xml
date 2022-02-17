@@ -9,10 +9,10 @@
 		<version>2.1.6.RELEASE</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.spinel.datacollection.api</groupId>
-	<artifactId>spinel-datacollection-api</artifactId>
+	<groupId>com.sabi.datacollection.api</groupId>
+	<artifactId>sabi-datacollection-api</artifactId>
 	<version>1.0</version>
-	<name>spinel-datacollection-api</name>
+	<name>sabi-datacollection-api</name>
 	<description>api</description>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -36,6 +36,7 @@
 			<artifactId>spring-boot-configuration-processor</artifactId>
 			<optional>true</optional>
 		</dependency>
+
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
@@ -46,11 +47,11 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-		<!--<dependency>-->
-			<!--<groupId>com.microsoft.sqlserver</groupId>-->
-			<!--<artifactId>mssql-jdbc</artifactId>-->
-			<!--<version>6.1.0.jre7</version>-->
-		<!--</dependency>-->
+		<dependency>
+			<groupId>com.microsoft.sqlserver</groupId>
+			<artifactId>mssql-jdbc</artifactId>
+			<version>6.1.0.jre7</version>
+		</dependency>
 
 
 
@@ -117,14 +118,14 @@
 		</dependency>
 
 		<dependency>
-			<groupId>com.spinel.datacollection.core</groupId>
-			<artifactId>spinel-datacollection-core</artifactId>
+			<groupId>com.sabi.datacollection.core</groupId>
+			<artifactId>sabi-datacollection-core</artifactId>
 			<version>1.0</version>
 		</dependency>
 
 		<dependency>
-			<groupId>com.spinel.datacollection.service</groupId>
-			<artifactId>spinel-datacollection-service</artifactId>
+			<groupId>com.sabi.datacollection.service</groupId>
+			<artifactId>sabi-datacollection-service</artifactId>
 			<version>1.0</version>
 		</dependency>
 
@@ -239,31 +240,11 @@
 			<scope>provided</scope>
 		</dependency>
 
-		<dependency>
-			<groupId>net.javacrumbs.shedlock</groupId>
-			<artifactId>shedlock-spring</artifactId>
-			<version>4.23.0</version>
-		</dependency>
-
-		<dependency>
-			<groupId>net.javacrumbs.shedlock</groupId>
-			<artifactId>shedlock-provider-jdbc-template</artifactId>
-			<version>4.23.0</version>
-		</dependency>
-
-
-		<dependency>
-			<groupId>org.apache.commons</groupId>
-			<artifactId>commons-lang3</artifactId>
-			<version>3.4</version>
-		</dependency>
-
-
 	</dependencies>
 
 
 	<build>
-		<finalName>spinel-datacollection-api-1.0</finalName>
+		<finalName>sabi-datacollection-api-1.0</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
@@ -278,10 +259,10 @@
 						<id>install-datacollection-core</id>
 						<phase>clean</phase>
 						<configuration>
-							<file>${basedir}/lib/spinel-datacollection-core.jar</file>
+							<file>${basedir}/lib/sabi-datacollection-core.jar</file>
 							<repositoryLayout>default</repositoryLayout>
-							<groupId>com.spinel.datacollection.core</groupId>
-							<artifactId>spinel-datacollection-core</artifactId>
+							<groupId>com.sabi.datacollection.core</groupId>
+							<artifactId>sabi-datacollection-core</artifactId>
 							<version>1.0</version>
 							<packaging>jar</packaging>
 							<generatePom>true</generatePom>
@@ -310,10 +291,10 @@
 						<id>install-datacollection-service</id>
 						<phase>clean</phase>
 						<configuration>
-							<file>${basedir}/lib/spinel-datacollection-service.jar</file>
+							<file>${basedir}/lib/sabi-datacollection-service.jar</file>
 							<repositoryLayout>default</repositoryLayout>
-							<groupId>com.spinel.datacollection.service</groupId>
-							<artifactId>spinel-datacollection-service</artifactId>
+							<groupId>com.sabi.datacollection.service</groupId>
+							<artifactId>sabi-datacollection-service</artifactId>
 							<version>1.0</version>
 							<packaging>jar</packaging>
 							<generatePom>true</generatePom>

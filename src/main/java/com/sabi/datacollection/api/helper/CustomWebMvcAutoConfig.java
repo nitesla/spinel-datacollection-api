@@ -1,4 +1,4 @@
-package com.spinel.datacollection.api.helper;
+package com.sabi.datacollection.api.helper;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;

@@ -1,4 +1,4 @@
-package com.spinel.datacollection.api.helper;
+package com.sabi.datacollection.api.helper;
 
 
 import org.springframework.context.annotation.Bean;
@@ -23,7 +23,7 @@ public class SwaggerConfig {
     public Docket dataCollectionApi() {
         return new Docket(DocumentationType.SWAGGER_2).select()
 
-                .apis(RequestHandlerSelectors.basePackage("com.spinel.datacollection.api"))
+                .apis(RequestHandlerSelectors.basePackage("com.sabi.datacollection.api"))
                 .paths(regex("/*.*")).build()
                 .apiInfo(metaData());
     }

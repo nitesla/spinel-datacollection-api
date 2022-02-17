@@ -1,4 +1,4 @@
-package com.spinel.datacollection.api;
+package com.sabi.datacollection.api;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -9,8 +9,8 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @ComponentScan(basePackages = "com.sabi.framework")
-@EntityScan(basePackages = {"com.spinel.datacollection.core.models"})
-@EnableJpaRepositories({"com.spinel.datacollection.service.repositories","com.sabi.framework.repositories"})
+@EntityScan(basePackages = {"com.sabi.datacollection.core.models"})
+@EnableJpaRepositories({"com.sabi.datacollection.service.repositories","com.sabi.framework.repositories"})
 @SpringBootApplication
 @EnableScheduling
 @EnableTransactionManagement
