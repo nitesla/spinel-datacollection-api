@@ -1,18 +1,15 @@
 package com.sabi.datacollection.api.runner;
 
 
-import com.sabi.datacollection.core.models.Bank;
 import com.sabi.datacollection.core.models.Country;
 import com.sabi.datacollection.core.models.LGA;
 import com.sabi.datacollection.core.models.State;
-import com.sabi.datacollection.service.repositories.BankRepository;
 import com.sabi.datacollection.service.repositories.CountryRepository;
 import com.sabi.datacollection.service.repositories.LGARepository;
 import com.sabi.datacollection.service.repositories.StateRepository;
 import com.sabi.framework.models.User;
 import com.sabi.framework.repositories.UserRepository;
 import com.sabi.framework.utils.Constants;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,8 +33,6 @@ public class DataSeed implements ApplicationListener<ContextRefreshedEvent> {
     @Autowired
     private LGARepository localGovernmentRepository;
     @Autowired
-    private BankRepository bankRepository;
-    @Autowired
     private UserRepository userRepo;
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -52,10 +47,10 @@ public class DataSeed implements ApplicationListener<ContextRefreshedEvent> {
     @Override
     public void onApplicationEvent(ContextRefreshedEvent event) {
 
-        seedCountries();
-        seedStates();
-        seedLocalGovernments();
-        seedBanks();
+//        seedCountries();
+//        seedStates();
+//        seedLocalGovernments();
+//        seedBanks();
         seedAppleUsers();
         seedSabiUsers();
         seedAdminUsers();
@@ -371,40 +366,6 @@ public class DataSeed implements ApplicationListener<ContextRefreshedEvent> {
         });
     }
 
-
-
-    private void seedBanks() {
-        List<Bank> banks = new ArrayList<Bank>() {
-            {
-                add(new Bank("First Bank of Nigeria Plc","011"));
-                add(new Bank("Citibank Nigeria Limited","023"));
-                add(new Bank("Heritage Bank Plc","030"));
-                add(new Bank("Union Bank of Nigeria","032"));
-                add(new Bank("United Bank for Africa Plc","033"));
-                add(new Bank("Wema Bank Plc","035"));
-                add(new Bank("Access Bank Plc","044"));
-                add(new Bank("Ecobank Nigeria Plc","050"));
-                add(new Bank("Zenith International Bank Plc","057"));
-                add(new Bank("Guaranty Trust Bank Plc","058"));
-                add(new Bank("Standard Chartered Bank Plc","068"));
-                add(new Bank("Fidelity Bank Plc","070"));
-                add(new Bank("Polaris Bank Plc","076"));
-                add(new Bank("Keystone Bank Limited","082"));
-                add(new Bank("First City Monument Bank Plc","214"));
-                add(new Bank("Unity Bank Plc","215"));
-                add(new Bank("Stanbic IBTC Bank Plc","221"));
-                add(new Bank("Sterling Bank Plc","232"));
-                add(new Bank("Jaiz Bank Plc","301"));
-            }
-        };
-
-        banks.forEach(bank -> {
-            Bank fetchBank = bankRepository.findByName(bank.getName());
-            if (fetchBank == null) {
-                bankRepository.saveAndFlush(bank);
-            }
-        });
-    }
 
 
     private void seedAppleUsers() {
