@@ -57,12 +57,12 @@ public class EnumeratorRatingController {
     }
 
     @GetMapping("/page")
-    public ResponseEntity<Response> getProjectCategories(@RequestParam(value = "name",required = false)String name,
-                                                         @RequestParam(value = "description",required = false)String description,
+    public ResponseEntity<Response> getProjectCategories(@RequestParam(value = "enumeratorProjectId",required = false)Long enumeratorProjectId,
+                                                         @RequestParam(value = "rating",required = false)Integer rating,
                                                          @RequestParam(value = "page") Integer page,
                                                          @RequestParam(value = "pageSize") Integer pageSize) {
         Response response = new Response();
-        Page<EnumeratorRating> enumeratorRatingPage = service.findAll(name, description, PageRequest.of(page, pageSize));
+        Page<EnumeratorRating> enumeratorRatingPage = service.findAll(enumeratorProjectId, rating, PageRequest.of(page, pageSize));
         response.setCode(CustomResponseCode.SUCCESS);
         response.setDescription("Record fetched successfully !");
         response.setData(enumeratorRatingPage);
