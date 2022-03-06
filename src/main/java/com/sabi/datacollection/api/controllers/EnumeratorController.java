@@ -2,6 +2,7 @@ package com.sabi.datacollection.api.controllers;
 
 
 import com.sabi.datacollection.core.dto.request.CompleteSignupRequest;
+import com.sabi.datacollection.core.dto.request.EnableDisableDto;
 import com.sabi.datacollection.core.dto.request.EnumeratorDto;
 import com.sabi.datacollection.core.dto.request.EnumeratorSignUpDto;
 import com.sabi.datacollection.core.dto.response.CompleteSignUpResponse;
@@ -11,7 +12,6 @@ import com.sabi.datacollection.core.dto.response.EnumeratorSignUpResponseDto;
 import com.sabi.datacollection.core.models.Enumerator;
 import com.sabi.datacollection.service.services.EnumeratorService;
 import com.sabi.framework.dto.requestDto.ChangePasswordDto;
-import com.sabi.framework.dto.requestDto.EnableDisEnableDto;
 import com.sabi.framework.dto.responseDto.Response;
 import com.sabi.framework.utils.Constants;
 import com.sabi.framework.utils.CustomResponseCode;
@@ -137,7 +137,7 @@ public class EnumeratorController {
 
 
     @PutMapping("/enabledisenable")
-    public ResponseEntity<Response> enableDisEnable(@Validated @RequestBody EnableDisEnableDto request,HttpServletRequest request1){
+    public ResponseEntity<Response> enableDisEnable(@Validated @RequestBody EnableDisableDto request, HttpServletRequest request1){
         HttpStatus httpCode ;
         Response resp = new Response();
         service.enableDisEnable(request,request1);

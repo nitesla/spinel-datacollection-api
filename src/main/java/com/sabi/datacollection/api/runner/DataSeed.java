@@ -52,7 +52,7 @@ public class DataSeed implements ApplicationListener<ContextRefreshedEvent> {
 //        seedLocalGovernments();
 //        seedBanks();
         seedAppleUsers();
-        seedSabiUsers();
+        seedSpinelUsers();
         seedAdminUsers();
 
     }
@@ -369,7 +369,7 @@ public class DataSeed implements ApplicationListener<ContextRefreshedEvent> {
 
 
     private void seedAppleUsers() {
-        User user = userRepo.findByEmail("appleUser@sabi.com");
+        User user = userRepo.findByEmail("appleUser@spinel.com");
         if (user == null) {
             createUser();
         }
@@ -382,8 +382,8 @@ public class DataSeed implements ApplicationListener<ContextRefreshedEvent> {
         appleUser.setLastName("appleUser2");
         appleUser.setPassword(passwordEncoder.encode("000000"));
         appleUser.setPhone("01156548654");
-        appleUser.setEmail("appleUser@sabi.com");
-        appleUser.setUsername("appleUser@sabi.com");
+        appleUser.setEmail("appleUser@spinel.com");
+        appleUser.setUsername("appleUser@spinel.com");
         appleUser.setLoginAttempts(0);
         appleUser.setUserCategory(Constants.OTHER_USER);
         appleUser.setIsActive(true);
@@ -396,35 +396,35 @@ public class DataSeed implements ApplicationListener<ContextRefreshedEvent> {
     }
 
 
-    private void seedSabiUsers() {
-        User user = userRepo.findByEmail("sabi@sabi.com");
+    private void seedSpinelUsers() {
+        User user = userRepo.findByEmail("spinel@spinel.com");
         if (user == null) {
-            createSabiUser();
+            createSpinelUser();
         }
     }
 
-    private User createSabiUser() {
-        User sabiUser = new User();
-        sabiUser.setFirstName("sabi");
-        sabiUser.setLastName("sabi2");
-        sabiUser.setPassword(passwordEncoder.encode("777777"));
-        sabiUser.setPhone("02163976228");
-        sabiUser.setEmail("sabi@sabi.com");
-        sabiUser.setUsername("sabi@sabi.com");
-        sabiUser.setLoginAttempts(0);
-        sabiUser.setUserCategory(Constants.ADMIN_USER);
-        sabiUser.setIsActive(true);
-        sabiUser.setPasswordChangedOn(LocalDateTime.now());
-        sabiUser.setCreatedBy(0L);
-        sabiUser.setCreatedDate(LocalDateTime.now());
-        sabiUser.setUpdatedDate(LocalDateTime.now());
-        userRepo.saveAndFlush(sabiUser);
-        return sabiUser;
+    private User createSpinelUser() {
+        User spinelUser = new User();
+        spinelUser.setFirstName("spinel");
+        spinelUser.setLastName("spinel2");
+        spinelUser.setPassword(passwordEncoder.encode("777777"));
+        spinelUser.setPhone("02163976228");
+        spinelUser.setEmail("spinel@spinel.com");
+        spinelUser.setUsername("spinel@spinel.com");
+        spinelUser.setLoginAttempts(0);
+        spinelUser.setUserCategory(Constants.ADMIN_USER);
+        spinelUser.setIsActive(true);
+        spinelUser.setPasswordChangedOn(LocalDateTime.now());
+        spinelUser.setCreatedBy(0L);
+        spinelUser.setCreatedDate(LocalDateTime.now());
+        spinelUser.setUpdatedDate(LocalDateTime.now());
+        userRepo.saveAndFlush(spinelUser);
+        return spinelUser;
     }
 
 
     private void seedAdminUsers() {
-        User user = userRepo.findByEmail("admin@sabi.com");
+        User user = userRepo.findByEmail("admin@spinel.com");
         if (user == null) {
             createAdminUser();
         }
@@ -436,8 +436,8 @@ public class DataSeed implements ApplicationListener<ContextRefreshedEvent> {
         user.setLastName("adminUser2");
         user.setPassword(passwordEncoder.encode("1111111"));
         user.setPhone("08136529363");
-        user.setEmail("admin@sabi.com");
-        user.setUsername("admin@sabi.com");
+        user.setEmail("admin@spinel.com");
+        user.setUsername("admin@spinel.com");
         user.setLoginAttempts(0);
         user.setUserCategory(Constants.ADMIN_USER);
         user.setIsActive(true);
