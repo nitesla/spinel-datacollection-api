@@ -73,10 +73,9 @@ public class OrganisationTypeController {
     @PutMapping("/enabledisable")
     public ResponseEntity<Response> enableDisable(@RequestBody EnableDisableDto request) {
         Response response = new Response();
-        OrganisationTypeResponseDto organisationTypeResponseDto = service.enableDisableState(request);
+        service.enableDisableState(request);
         response.setCode(CustomResponseCode.SUCCESS);
         response.setDescription("Successful");
-        response.setData(organisationTypeResponseDto);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
