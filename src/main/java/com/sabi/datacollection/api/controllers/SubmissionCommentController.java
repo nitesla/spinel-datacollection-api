@@ -1,10 +1,10 @@
 package com.sabi.datacollection.api.controllers;
 
 import com.sabi.datacollection.core.dto.request.EnableDisableDto;
-import com.sabi.datacollection.core.dto.request.OrganisationTypeDto;
-import com.sabi.datacollection.core.dto.response.OrganisationTypeResponseDto;
-import com.sabi.datacollection.core.models.OrganisationType;
-import com.sabi.datacollection.service.services.OrganisationTypeService;
+import com.sabi.datacollection.core.dto.request.SubmissionCommentDto;
+import com.sabi.datacollection.core.dto.response.SubmissionCommentResponseDto;
+import com.sabi.datacollection.core.models.SubmissionComment;
+import com.sabi.datacollection.service.services.SubmissionCommentService;
 import com.sabi.framework.dto.responseDto.Response;
 import com.sabi.framework.utils.Constants;
 import com.sabi.framework.utils.CustomResponseCode;
@@ -16,57 +16,57 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-
 @RestController
-@RequestMapping(Constants.APP_CONTENT+"organisationType")
-public class OrganisationTypeController {
+@RequestMapping(Constants.APP_CONTENT+"submissioncomment")
+public class SubmissionCommentController {
 
-    private final OrganisationTypeService service;
+    private final SubmissionCommentService service;
 
-
-    public OrganisationTypeController(OrganisationTypeService service) {
+    public SubmissionCommentController(SubmissionCommentService service) {
         this.service = service;
     }
 
+
     @PostMapping("")
-    public ResponseEntity<Response> createOrganisationType(@RequestBody OrganisationTypeDto request) {
+    public ResponseEntity<Response> createSubmissionComment(@RequestBody SubmissionCommentDto request) {
         Response response = new Response();
-        OrganisationTypeResponseDto organisationTypeResponse = service.createOrganisationType(request);
+        SubmissionCommentResponseDto submissionCommentResponse = service.createSubmissionComment(request);
         response.setCode(CustomResponseCode.SUCCESS);
         response.setDescription("Successful");
-        response.setData(organisationTypeResponse);
+        response.setData(submissionCommentResponse);
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 
     @PutMapping("")
-    public ResponseEntity<Response> updateOrganisationType(@RequestBody OrganisationTypeDto request) {
+    public ResponseEntity<Response> updateSubmissionComment(@RequestBody SubmissionCommentDto request) {
         Response response = new Response();
-        OrganisationTypeResponseDto organisationTypeResponse = service.updateOrganisationType(request);
+        SubmissionCommentResponseDto submissionCommentResponse = service.updateSubmissionComment(request);
         response.setDescription("Update Successful");
-        response.setData(organisationTypeResponse);
+        response.setData(submissionCommentResponse);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Response> getOrganisationType(@PathVariable Long id) {
+    public ResponseEntity<Response> getSubmissionComment(@PathVariable Long id) {
         Response response = new Response();
-        OrganisationTypeResponseDto organisationTypeResponse = service.findOrganisationTypeById(id);
+        SubmissionCommentResponseDto submissionCommentResponse = service.findSubmissionCommentById(id);
         response.setCode(CustomResponseCode.SUCCESS);
         response.setDescription("Record fetched Successfully");
-        response.setData(organisationTypeResponse);
+        response.setData(submissionCommentResponse);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
     @GetMapping("/page")
-    public ResponseEntity<Response> getOrganisationTypes(@RequestParam(value = "name",required = false)String name,
-                                                         @RequestParam(value = "description",required = false)String description,
+    public ResponseEntity<Response> getProjectCategories(@RequestParam(value = "submissionId",required = false)Long submissionId,
+                                                         @RequestParam(value = "commentId",required = false)Long commentId,
+                                                         @RequestParam(value = "additionalInfo",required = false)String additionalInfo,
                                                          @RequestParam(value = "page") Integer page,
                                                          @RequestParam(value = "pageSize") Integer pageSize) {
         Response response = new Response();
-        Page<OrganisationType> organisationTypePage = service.findAll(name, description, PageRequest.of(page, pageSize));
+        Page<SubmissionComment> submissionCommentPage = service.findAll(submissionId, commentId, additionalInfo, PageRequest.of(page, pageSize));
         response.setCode(CustomResponseCode.SUCCESS);
         response.setDescription("Record fetched successfully !");
-        response.setData(organisationTypePage);
+        response.setData(submissionCommentPage);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
@@ -82,11 +82,10 @@ public class OrganisationTypeController {
     @GetMapping("/active/list")
     public ResponseEntity<Response> getAllByActive(@RequestParam(value = "isActive")Boolean isActive){
         Response response = new Response();
-        List<OrganisationType> organisationTypePage = service.getAll(isActive);
+        List<SubmissionComment> submissionCommentPage = service.getAll(isActive);
         response.setCode(CustomResponseCode.SUCCESS);
-        response.setDescription("Record fetched successfully !");
-        response.setData(organisationTypePage);
+        response.setDescription("Record fetched successfully!");
+        response.setData(submissionCommentPage);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
-
 }
