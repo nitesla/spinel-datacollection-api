@@ -38,7 +38,7 @@ public class DataSecurityConfig extends WebSecurityConfigurerAdapter {
                 "/datacollection/api/v1/user/forgetpassword","/datacollection/api/v1/authenticate/externaltoken",
                 "/api/v1/enumerator/completesignup","/api/v1/enumerator/signup","/datacollection/api/v1/state/list","/datacollection/api/v1/state/page",
                 "/datacollection/api/v1/lga/list","/datacollection/api/v1/lga/page","/datacollection/api/v1/country/list","/datacollection/api/v1/country/page",
-                "/v2/api-docs","/actuator/health","/actuator/**",
+                "/v2/api-docs","/actuator/health","/actuator/**","/datacollection/api/v1/projectowner/completesignup","/datacollection/api/v1/projectowner/signup",
                 "/swagger-ui.html/**",
                 "/webjars/springfox-swagger-ui/**",
                 "/swagger-resources/**",
