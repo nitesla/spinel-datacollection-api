@@ -2,10 +2,10 @@ package com.sabi.datacollection.api.controllers;
 
 
 import com.sabi.datacollection.core.dto.request.EnableDisableDto;
-import com.sabi.datacollection.core.dto.request.StateDto;
-import com.sabi.datacollection.core.dto.response.StateResponseDto;
-import com.sabi.datacollection.core.models.State;
-import com.sabi.datacollection.service.services.StateService;
+import com.sabi.datacollection.core.dto.request.FormDto;
+import com.sabi.datacollection.core.dto.response.FormResponseDto;
+import com.sabi.datacollection.core.models.Form;
+import com.sabi.datacollection.service.services.FormService;
 import com.sabi.framework.dto.responseDto.Response;
 import com.sabi.framework.utils.Constants;
 import com.sabi.framework.utils.CustomResponseCode;
@@ -21,28 +21,28 @@ import java.util.List;
 
 @SuppressWarnings("All")
 @RestController
-@RequestMapping(Constants.APP_CONTENT+"state")
-public class StateController {
+@RequestMapping(Constants.APP_CONTENT+"form")
+public class FormController {
 
 
-    private final StateService service;
+    private final FormService service;
 
-    public StateController(StateService service) {
+    public FormController(FormService service) {
         this.service = service;
     }
 
 
     /** <summary>
-     * State creation endpoint
+     * Form creation endpoint
      * </summary>
-     * <remarks>this endpoint is responsible for creation of new states</remarks>
+     * <remarks>this endpoint is responsible for creation of new forms</remarks>
      */
 
     @PostMapping("")
-    public ResponseEntity<Response> createState(@Validated @RequestBody StateDto request){
+    public ResponseEntity<Response> createForm(@Validated @RequestBody FormDto request){
         HttpStatus httpCode ;
         Response resp = new Response();
-        StateResponseDto response = service.createState(request);
+        FormResponseDto response = service.createForm(request);
         resp.setCode(CustomResponseCode.SUCCESS);
         resp.setDescription("Successful");
         resp.setData(response);
@@ -53,17 +53,16 @@ public class StateController {
 
 
     /** <summary>
-     * State update endpoint
+     * Form update endpoint
      * </summary>
-     * <remarks>this endpoint is responsible for updating states</remarks>
+     * <remarks>this endpoint is responsible for updating forms</remarks>
      */
 
     @PutMapping("")
-    // @PreAuthorize("hasAnyRole('ROLE_SUPER_ADMIN','ROLE_CREATE_USER')")
-    public ResponseEntity<Response> updateState(@Validated @RequestBody  StateDto request){
+    public ResponseEntity<Response> updateForm(@Validated @RequestBody  FormDto request){
         HttpStatus httpCode ;
         Response resp = new Response();
-        StateResponseDto response = service.updateState(request);
+        FormResponseDto response = service.updateForm(request);
         resp.setCode(CustomResponseCode.SUCCESS);
         resp.setDescription("Update Successful");
         resp.setData(response);
@@ -79,11 +78,10 @@ public class StateController {
      * <remarks>this endpoint is responsible for getting a single record</remarks>
      */
     @GetMapping("/{id}")
-    // @PreAuthorize("hasAnyRole('ROLE_SUPER_ADMIN','ROLE_CREATE_USER')")
-    public ResponseEntity<Response> getState(@PathVariable Long id){
+    public ResponseEntity<Response> getForm(@PathVariable Long id){
         HttpStatus httpCode ;
         Response resp = new Response();
-        StateResponseDto response = service.findState(id);
+        FormResponseDto response = service.findForm(id);
         resp.setCode(CustomResponseCode.SUCCESS);
         resp.setDescription("Record fetched successfully !");
         resp.setData(response);
@@ -99,13 +97,14 @@ public class StateController {
      */
 
     @GetMapping("/page")
-    public ResponseEntity<Response> getStates(@RequestParam(value = "name",required = false)String name,
-                                              @RequestParam(value = "countryId",required = false)Long countryId,
+    public ResponseEntity<Response> getForms(@RequestParam(value = "name",required = false)String name,
+                                              @RequestParam(value = "version",required = false)String version,
+                                             @RequestParam(value = "description",required = false)String description,
                                              @RequestParam(value = "page") int page,
                                              @RequestParam(value = "pageSize") int pageSize){
         HttpStatus httpCode ;
         Response resp = new Response();
-        Page<State> response = service.findAll(name,countryId, PageRequest.of(page, pageSize));
+        Page<Form> response = service.findAll(name, version, description, PageRequest.of(page, pageSize));
         resp.setCode(CustomResponseCode.SUCCESS);
         resp.setDescription("Record fetched successfully !");
         resp.setData(response);
@@ -117,14 +116,14 @@ public class StateController {
     /** <summary>
      * Enable disenable
      * </summary>
-     * <remarks>this endpoint is responsible for enabling and disenabling a State</remarks>
+     * <remarks>this endpoint is responsible for enabling and disenabling a Form</remarks>
      */
 
     @PutMapping("/enabledisenable")
     public ResponseEntity<Response> enableDisEnable(@Validated @RequestBody EnableDisableDto request){
         HttpStatus httpCode ;
         Response resp = new Response();
-        service.enableDisEnableState(request);
+        service.enableDisEnableForm(request);
         resp.setCode(CustomResponseCode.SUCCESS);
         resp.setDescription("Successful");
         httpCode = HttpStatus.OK;
@@ -132,22 +131,10 @@ public class StateController {
     }
 
     @GetMapping("/list")
-    public ResponseEntity<Response> getAll(@RequestParam(value = "countryId",required = false)Long countryId){
-        HttpStatus httpCode ;
-        Response resp = new Response();
-        List<State> response = service.getAllByCountryId(countryId);
-        resp.setCode(CustomResponseCode.SUCCESS);
-        resp.setDescription("Record fetched successfully !");
-        resp.setData(response);
-        httpCode = HttpStatus.OK;
-        return new ResponseEntity<>(resp, httpCode);
-    }
-
-    @GetMapping("/active/list")
     public ResponseEntity<Response> getAllByActive(@RequestParam(value = "isActive",required = false)Boolean isActive){
         HttpStatus httpCode ;
         Response resp = new Response();
-        List<State> response = service.getAll(isActive);
+        List<Form> response = service.getAll(isActive);
         resp.setCode(CustomResponseCode.SUCCESS);
         resp.setDescription("Record fetched successfully !");
         resp.setData(response);

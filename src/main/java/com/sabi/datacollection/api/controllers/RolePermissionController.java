@@ -1,7 +1,6 @@
 package com.sabi.datacollection.api.controllers;
 
 
-import com.sabi.framework.dto.requestDto.RolePermissionDto;
 import com.sabi.framework.dto.responseDto.Response;
 import com.sabi.framework.dto.responseDto.RolePermissionResponseDto;
 import com.sabi.framework.models.RolePermission;
@@ -13,10 +12,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @Slf4j
@@ -36,17 +33,17 @@ public class RolePermissionController {
      * <remarks>this endpoint is responsible for creation of new RolePermission</remarks>
      */
 
-    @PostMapping("")
-    public ResponseEntity<Response> createRolePermission(@Validated @RequestBody RolePermissionDto request,HttpServletRequest request1){
-        HttpStatus httpCode ;
-        Response resp = new Response();
-        RolePermissionResponseDto response = service.createRolePermission(request,request1);
-        resp.setCode(CustomResponseCode.SUCCESS);
-        resp.setDescription("Successful");
-        resp.setData(response);
-        httpCode = HttpStatus.CREATED;
-        return new ResponseEntity<>(resp, httpCode);
-    }
+//    @PostMapping("")
+//    public ResponseEntity<Response> createRolePermission(@Validated @RequestBody RolePermissionDto request,HttpServletRequest request1){
+//        HttpStatus httpCode ;
+//        Response resp = new Response();
+//        RolePermissionResponseDto response = service.createRolePermission(request,request1);
+//        resp.setCode(CustomResponseCode.SUCCESS);
+//        resp.setDescription("Successful");
+//        resp.setData(response);
+//        httpCode = HttpStatus.CREATED;
+//        return new ResponseEntity<>(resp, httpCode);
+//    }
 
 
     /** <summary>
@@ -55,17 +52,17 @@ public class RolePermissionController {
      * <remarks>this endpoint is responsible for updating RolePermission</remarks>
      */
 
-    @PutMapping("")
-    public ResponseEntity<Response> updateRolePermission(@Validated @RequestBody  RolePermissionDto request,HttpServletRequest request1){
-        HttpStatus httpCode ;
-        Response resp = new Response();
-        RolePermissionResponseDto response = service.updateRolePermission(request,request1);
-        resp.setCode(CustomResponseCode.SUCCESS);
-        resp.setDescription("Update Successful");
-        resp.setData(response);
-        httpCode = HttpStatus.OK;
-        return new ResponseEntity<>(resp, httpCode);
-    }
+//    @PutMapping("")
+//    public ResponseEntity<Response> updateRolePermission(@Validated @RequestBody  RolePermissionDto request,HttpServletRequest request1){
+//        HttpStatus httpCode ;
+//        Response resp = new Response();
+//        RolePermissionResponseDto response = service.updateRolePermission(request,request1);
+//        resp.setCode(CustomResponseCode.SUCCESS);
+//        resp.setDescription("Update Successful");
+//        resp.setData(response);
+//        httpCode = HttpStatus.OK;
+//        return new ResponseEntity<>(resp, httpCode);
+//    }
 
 
     /** <summary>

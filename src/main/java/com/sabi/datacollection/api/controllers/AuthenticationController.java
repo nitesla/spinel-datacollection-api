@@ -148,11 +148,4 @@ public class AuthenticationController {
 
 
 
-
-    @PostMapping("/externaltoken")
-    public void externalToken() throws Exception {
-        externalTokenService.externalTokenRequest();
-    }
-
-
 }
