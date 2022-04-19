@@ -1,11 +1,11 @@
 package com.sabi.datacollection.api.controllers;
 
 
-import com.sabi.framework.dto.requestDto.PermissionDto;
-import com.sabi.framework.dto.responseDto.PermissionResponseDto;
+import com.sabi.datacollection.core.dto.request.DataPermissionDto;
+import com.sabi.datacollection.core.dto.response.DataPermissionResponseDto;
+import com.sabi.datacollection.core.models.DataPermission;
+import com.sabi.datacollection.service.services.DataPermissionService;
 import com.sabi.framework.dto.responseDto.Response;
-import com.sabi.framework.models.Permission;
-import com.sabi.framework.service.PermissionService;
 import com.sabi.framework.utils.Constants;
 import com.sabi.framework.utils.CustomResponseCode;
 import org.springframework.data.domain.Page;
@@ -24,9 +24,9 @@ public class PermissionController {
 
 
 
-    private final PermissionService service;
+    private final DataPermissionService service;
 
-    public PermissionController(PermissionService service) {
+    public PermissionController(DataPermissionService service) {
         this.service = service;
     }
 
@@ -38,10 +38,10 @@ public class PermissionController {
      */
 
     @PostMapping("")
-    public ResponseEntity<Response> createPermission(@Validated @RequestBody PermissionDto request,HttpServletRequest request1){
+    public ResponseEntity<Response> createPermission(@Validated @RequestBody DataPermissionDto request, HttpServletRequest request1){
         HttpStatus httpCode ;
         Response resp = new Response();
-        PermissionResponseDto response = service.createPermission(request,request1);
+        DataPermissionResponseDto response = service.createPermission(request,request1);
         resp.setCode(CustomResponseCode.SUCCESS);
         resp.setDescription("Successful");
         resp.setData(response);
@@ -57,10 +57,10 @@ public class PermissionController {
      */
 
     @PutMapping("")
-    public ResponseEntity<Response> updatePermission(@Validated @RequestBody  PermissionDto request,HttpServletRequest request1){
+    public ResponseEntity<Response> updatePermission(@Validated @RequestBody  DataPermissionDto request,HttpServletRequest request1){
         HttpStatus httpCode ;
         Response resp = new Response();
-        PermissionResponseDto response = service.updatePermission(request,request1);
+        DataPermissionResponseDto response = service.updatePermission(request,request1);
         resp.setCode(CustomResponseCode.SUCCESS);
         resp.setDescription("Update Successful");
         resp.setData(response);
@@ -78,7 +78,7 @@ public class PermissionController {
     public ResponseEntity<Response> getPermission(@PathVariable Long id){
         HttpStatus httpCode ;
         Response resp = new Response();
-        PermissionResponseDto response = service.findPermission(id);
+        DataPermissionResponseDto response = service.findPermission(id);
         resp.setCode(CustomResponseCode.SUCCESS);
         resp.setDescription("Record fetched successfully !");
         resp.setData(response);
@@ -94,12 +94,12 @@ public class PermissionController {
      */
     @GetMapping("")
     public ResponseEntity<Response> getPermissions(@RequestParam(value = "name",required = false)String name,
-                                                   @RequestParam(value = "isActive",required = false)Boolean isActive,
-                                             @RequestParam(value = "page") int page,
-                                             @RequestParam(value = "pageSize") int pageSize){
+                                                   @RequestParam(value = "appPermission")String appPermission,
+                                                   @RequestParam(value = "page") int page,
+                                                   @RequestParam(value = "pageSize") int pageSize){
         HttpStatus httpCode ;
         Response resp = new Response();
-        Page<Permission> response = service.findAll(name,isActive, PageRequest.of(page, pageSize));
+        Page<DataPermission> response = service.findAll(name,appPermission, PageRequest.of(page, pageSize));
         resp.setCode(CustomResponseCode.SUCCESS);
         resp.setDescription("Record fetched successfully !");
         resp.setData(response);
@@ -108,10 +108,11 @@ public class PermissionController {
     }
 
     @GetMapping("/list")
-    public ResponseEntity<Response> getAll(@RequestParam(value = "isActive")Boolean isActive){
+    public ResponseEntity<Response> getAll(@RequestParam(value = "name",required = false)String name,
+                                           @RequestParam(value = "appPermission")String appPermission){
         HttpStatus httpCode ;
         Response resp = new Response();
-        List<Permission> response = service.getAll(isActive);
+        List<DataPermission> response = service.getAll(name, appPermission);
         resp.setCode(CustomResponseCode.SUCCESS);
         resp.setDescription("Record fetched successfully !");
         resp.setData(response);
