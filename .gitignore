@@ -18,6 +18,8 @@ target/
 *.iws
 *.iml
 *.ipr
+compiler.xml
+modules.xml
 application-local.properties
 application-dev.properties
 

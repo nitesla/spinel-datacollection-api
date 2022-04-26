@@ -403,6 +403,79 @@ public class DataSeed implements ApplicationListener<ContextRefreshedEvent> {
         }
     }
 
+    private void seedUser1() {
+        User user1 = new User();
+        user1.setFirstName("diekola");
+        user1.setLastName("alabi");
+        user1.setPassword(passwordEncoder.encode("1111111"));
+        user1.setPhone("02163976228");
+        user1.setEmail("diekola@spinel.consulting");
+        user1.setUsername("diekola@spinel.consulting");
+        user1.setLoginAttempts(0);
+        user1.setUserCategory(Constants.ADMIN_USER);
+        user1.setIsActive(true);
+        user1.setPasswordChangedOn(LocalDateTime.now());
+        user1.setCreatedBy(0L);
+        user1.setCreatedDate(LocalDateTime.now());
+        user1.setUpdatedDate(LocalDateTime.now());
+        userRepo.saveAndFlush(user1);
+    }
+
+    private void seedUser2() {
+        User user1 = new User();
+        user1.setFirstName("chioma");
+        user1.setLastName("Udoh");
+        user1.setPassword(passwordEncoder.encode("1111111"));
+        user1.setPhone("02163976228");
+        user1.setEmail("chioma.u@spinel.consulting");
+        user1.setUsername("chioma.u@spinel.consulting");
+        user1.setLoginAttempts(0);
+        user1.setUserCategory(Constants.ADMIN_USER);
+        user1.setIsActive(true);
+        user1.setPasswordChangedOn(LocalDateTime.now());
+        user1.setCreatedBy(0L);
+        user1.setCreatedDate(LocalDateTime.now());
+        user1.setUpdatedDate(LocalDateTime.now());
+        userRepo.save(user1);
+    }
+
+    private void seedUser3() {
+        User user1 = new User();
+        user1.setFirstName("mumin");
+        user1.setLastName("abubakar");
+        user1.setPassword(passwordEncoder.encode("1111111"));
+        user1.setPhone("02163976228");
+        user1.setEmail("mumin.a@spinel.consulting");
+        user1.setUsername("mumin.a@spinel.consulting");
+        user1.setLoginAttempts(0);
+        user1.setUserCategory(Constants.ADMIN_USER);
+        user1.setIsActive(true);
+        user1.setPasswordChangedOn(LocalDateTime.now());
+        user1.setCreatedBy(0L);
+        user1.setCreatedDate(LocalDateTime.now());
+        user1.setUpdatedDate(LocalDateTime.now());
+        userRepo.save(user1);
+    }
+
+    private void seedUser4() {
+        User user1 = new User();
+        user1.setFirstName("deborah");
+        user1.setLastName("durosinmi");
+        user1.setPassword(passwordEncoder.encode("1111111"));
+        user1.setPhone("02163976228");
+        user1.setEmail("deborah.d@spinel.consulting");
+        user1.setUsername("deborah.d@spinel.consulting");
+        user1.setLoginAttempts(0);
+        user1.setUserCategory(Constants.ADMIN_USER);
+        user1.setIsActive(true);
+        user1.setPasswordChangedOn(LocalDateTime.now());
+        user1.setCreatedBy(0L);
+        user1.setCreatedDate(LocalDateTime.now());
+        user1.setUpdatedDate(LocalDateTime.now());
+        userRepo.save(user1);
+    }
+
+
     private User createSpinelUser() {
         User spinelUser = new User();
         spinelUser.setFirstName("spinel");
@@ -418,7 +491,7 @@ public class DataSeed implements ApplicationListener<ContextRefreshedEvent> {
         spinelUser.setCreatedBy(0L);
         spinelUser.setCreatedDate(LocalDateTime.now());
         spinelUser.setUpdatedDate(LocalDateTime.now());
-        userRepo.saveAndFlush(spinelUser);
+        userRepo.save(spinelUser);
         return spinelUser;
     }
 
