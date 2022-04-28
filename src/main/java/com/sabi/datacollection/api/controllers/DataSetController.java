@@ -77,6 +77,15 @@ public class DataSetController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
+    @PutMapping("/enabledisableDataSet")
+    public ResponseEntity<Response> enableDisableDataSet(@RequestBody EnableDisableDto request) {
+        Response response = new Response();
+        service.enableDisableDataSet(request);
+        response.setCode(CustomResponseCode.SUCCESS);
+        response.setDescription("Successful");
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
     @GetMapping("/active/list")
     public ResponseEntity<Response> getAllByActive(@RequestParam(value = "isActive")Boolean isActive){
         Response response = new Response();
