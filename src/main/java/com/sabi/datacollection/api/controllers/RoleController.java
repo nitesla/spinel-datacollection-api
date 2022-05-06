@@ -110,18 +110,17 @@ public class RoleController {
     }
 
 
-
-//    @GetMapping("/list")
-//    public ResponseEntity<Response> getAll(@RequestParam(value = "isActive")Boolean isActive){
-//        HttpStatus httpCode ;
-//        Response resp = new Response();
-//        List<Role> response = service.getAll(isActive);
-//        resp.setCode(CustomResponseCode.SUCCESS);
-//        resp.setDescription("Record fetched successfully !");
-//        resp.setData(response);
-//        httpCode = HttpStatus.OK;
-//        return new ResponseEntity<>(resp, httpCode);
-//    }
+    @GetMapping("/list")
+    public ResponseEntity<Response> getAll(){
+        HttpStatus httpCode;
+        Response resp = new Response();
+        List<DataRole> response = service.getAll();
+        resp.setCode(CustomResponseCode.SUCCESS);
+        resp.setDescription("Record fetched successfully !");
+        resp.setData(response);
+        httpCode = HttpStatus.OK;
+        return new ResponseEntity<>(resp, httpCode);
+    }
 
     /** <summary>
      * Enable disable
