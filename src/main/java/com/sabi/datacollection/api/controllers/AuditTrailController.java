@@ -1,6 +1,8 @@
 package com.sabi.datacollection.api.controllers;
 
 
+import com.sabi.datacollection.core.models.DataAuditTrail;
+import com.sabi.datacollection.service.services.DataAuditTrailService;
 import com.sabi.framework.dto.responseDto.Response;
 import com.sabi.framework.models.AuditTrail;
 import com.sabi.framework.service.AsyncService;
@@ -24,9 +26,9 @@ public class AuditTrailController {
 
     @Autowired
     private AsyncService asyncService;
-    private final AuditTrailService service;
+    private final DataAuditTrailService service;
 
-    public AuditTrailController(AuditTrailService service) {
+    public AuditTrailController(DataAuditTrailService service) {
         this.service = service;
     }
 
@@ -39,7 +41,7 @@ public class AuditTrailController {
     public ResponseEntity<Response> getAudit(@PathVariable Long id){
         HttpStatus httpCode ;
         Response resp = new Response();
-        AuditTrail response = service.getAudit(id);
+        DataAuditTrail response = service.getAudit(id);
         resp.setCode(CustomResponseCode.SUCCESS);
         resp.setDescription("Record fetched successfully !");
         resp.setData(response);
@@ -60,11 +62,22 @@ public class AuditTrailController {
 
         HttpStatus httpCode;
         Response resp = new Response();
-        Page<AuditTrail> response = service.findAll(username,event,flag, startDate, endDate, PageRequest.of(page, pageSize));
+        Page<DataAuditTrail> response = service.findAll(username,event,flag, startDate, endDate, PageRequest.of(page, pageSize));
         resp.setCode(CustomResponseCode.SUCCESS);
         resp.setDescription("Successful");
         resp.setData(response);
-        httpCode = HttpStatus.CREATED;
+        httpCode = HttpStatus.OK;
         return new ResponseEntity<>(resp, httpCode);
+    }
+
+    @GetMapping("/getSingleUserAudit")
+    public ResponseEntity<Response> getSingleUserAudit(@RequestParam(value = "username")String username,
+                                                       @RequestParam(value = "page") int page,
+                                                       @RequestParam(value = "pageSize") int pageSize){
+        Response resp = new Response();
+        resp.setCode(CustomResponseCode.SUCCESS);
+        resp.setDescription("Successful");
+        resp.setData(service.getUserAudit(username,  PageRequest.of(page, pageSize)));
+        return new ResponseEntity<>(resp, HttpStatus.OK);
     }
 }
