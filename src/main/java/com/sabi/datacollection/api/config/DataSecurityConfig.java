@@ -34,7 +34,7 @@ public class DataSecurityConfig extends WebSecurityConfigurerAdapter {
                 "/api/v1/user/forgetpassword","/api/v1/agent/signup","/api/v1/authenticate/externaltoken","/api/v1/agent/validateotp",
                 "/api/v1/agent/resendotp","/api/v1/agent/activateUser","/api/v1/ping/check",
                 "/datacollection/api/v1/authenticate/login","/datacollection/api/v1/authenticate/generatepassword",
-                "/datacollection/api/v1/authenticate/logout","/datacollection/api/v1/user/activateUser","/api/v1/enumerator/passwordactivation",
+                "/datacollection/api/v1/authenticate/logout", "/datacollection/api/v1/user/activateUser","/api/v1/enumerator/passwordactivation",
                 "/datacollection/api/v1/user/forgetpassword","/datacollection/api/v1/authenticate/externaltoken",
                 "/api/v1/enumerator/completesignup","/api/v1/enumerator/signup","/datacollection/api/v1/state/list","/datacollection/api/v1/state/page",
                 "/datacollection/api/v1/lga/list","/datacollection/api/v1/lga/page","/datacollection/api/v1/country/list","/datacollection/api/v1/country/page",
