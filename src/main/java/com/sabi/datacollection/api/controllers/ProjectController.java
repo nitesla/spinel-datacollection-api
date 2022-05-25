@@ -86,4 +86,32 @@ public class ProjectController {
         response.setData(projectPage);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
+
+    @GetMapping("/projectowner/{id}")
+    public ResponseEntity<Response> getProjectByProjectOwnerId(@PathVariable Long projectOwnerId) {
+        Response response = new Response();
+        response.setCode(CustomResponseCode.SUCCESS);
+        response.setDescription("Record fetched successfully!");
+        response.setData(service.findProjectByProjectOwner(projectOwnerId));
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    @GetMapping("/category/{id}")
+    public ResponseEntity<Response> getProjectByProjectCategoryId(@PathVariable Long categoryId) {
+        Response response = new Response();
+        response.setCode(CustomResponseCode.SUCCESS);
+        response.setDescription("Record fetched successfully!");
+        response.setData(service.findProjectByCategory(categoryId));
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    @GetMapping("/category/status")
+    public ResponseEntity<Response> getProjectByCategoryAndStatus(@RequestParam(value = "status")String status,
+                                                                  @RequestParam(value = "categoryId",required = false) Long categoryId) {
+        Response response = new Response();
+        response.setCode(CustomResponseCode.SUCCESS);
+        response.setDescription("Record fetched successfully!");
+        response.setData(service.findProjectByStatusAndCategory(status, categoryId));
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
 }

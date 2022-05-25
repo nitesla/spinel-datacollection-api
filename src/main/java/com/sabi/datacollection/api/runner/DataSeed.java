@@ -475,6 +475,24 @@ public class DataSeed implements ApplicationListener<ContextRefreshedEvent> {
         userRepo.save(user1);
     }
 
+    private void seedUser5() {
+//        User user1 = new User();
+//        user1.setFirstName("chika");
+//        user1.setLastName("iduma");
+//        user1.setPassword(passwordEncoder.encode("1111111"));
+//        user1.setPhone("02163976228");
+//        user1.setEmail("chika.i@spinel.com");
+//        user1.setUsername("chika.i@spinel.com");
+//        user1.setLoginAttempts(0);
+//        user1.setUserCategory(Constants.ADMIN_USER);
+//        user1.setIsActive(true);
+//        user1.setPasswordChangedOn(LocalDateTime.now());
+//        user1.setCreatedBy(0L);
+//        user1.setCreatedDate(LocalDateTime.now());
+//        user1.setUpdatedDate(LocalDateTime.now());
+//        userRepo.save(user1);
+    }
+
 
     private User createSpinelUser() {
         User spinelUser = new User();
