@@ -14,6 +14,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @RestController
@@ -28,9 +29,9 @@ public class ProjectController {
     }
 
     @PostMapping("")
-    public ResponseEntity<Response> createProject(@RequestBody ProjectDto request) {
+    public ResponseEntity<Response> createProject(@RequestBody ProjectDto projectDto, HttpServletRequest request) {
         Response response = new Response();
-        ProjectResponseDto projectResponse = service.createProject(request);
+        ProjectResponseDto projectResponse = service.createProject(projectDto, request);
         response.setCode(CustomResponseCode.SUCCESS);
         response.setDescription("Successful");
         response.setData(projectResponse);
@@ -113,5 +114,17 @@ public class ProjectController {
         response.setDescription("Record fetched successfully!");
         response.setData(service.findProjectByStatusAndCategory(status, categoryId));
         return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    @GetMapping("/audittrail")
+    public ResponseEntity<Response> getProjectAuditTrail(@RequestParam(value = "username",required = false) String username,
+                                                         @RequestParam(value = "projectName",required = false) String projectName,
+                                                         @RequestParam(value = "page") Integer page,
+                                                         @RequestParam(value = "pageSize") Integer pageSize){
+        Response resp = new Response();
+        service.getProjectAuditTrail(username, projectName, PageRequest.of(page, pageSize));
+        resp.setCode(CustomResponseCode.SUCCESS);
+        resp.setDescription("Successfully");
+        return new ResponseEntity<>(resp, HttpStatus.OK);
     }
 }
