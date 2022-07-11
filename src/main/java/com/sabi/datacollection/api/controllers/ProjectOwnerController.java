@@ -65,6 +65,7 @@ public class ProjectOwnerController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
+    @Deprecated
     @PostMapping("")
     public ResponseEntity<Response> createProjectOwner(@RequestBody ProjectOwnerDto request) {
         Response response = new Response();

@@ -18,7 +18,7 @@ import java.util.List;
 
 
 @RestController
-@RequestMapping(Constants.APP_CONTENT+"organisationType")
+@RequestMapping(Constants.APP_CONTENT+"organisationtype")
 public class OrganisationTypeController {
 
     private final OrganisationTypeService service;
