@@ -208,7 +208,7 @@ public class UserController {
     public ResponseEntity<Response> transactionPinOtp(@Validated @RequestBody CreateTransactionPinDto request){
         HttpStatus httpCode ;
         Response resp = new Response();
-        service.changePinOTP(request);
+        service.resetPinOTP(request);
         resp.setCode(CustomResponseCode.SUCCESS);
         resp.setDescription("Successful");
         httpCode = HttpStatus.OK;
@@ -220,7 +220,7 @@ public class UserController {
     public ResponseEntity<Response> changeTransactionPin(@Validated @RequestBody CreateTransactionPinDto request){
         HttpStatus httpCode ;
         Response resp = new Response();
-        service.changePin(request);
+        service.resetPin(request);
         resp.setCode(CustomResponseCode.SUCCESS);
         resp.setDescription("Successful");
         httpCode = HttpStatus.OK;
