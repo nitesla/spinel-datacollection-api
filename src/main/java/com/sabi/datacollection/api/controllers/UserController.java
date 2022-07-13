@@ -1,12 +1,12 @@
 package com.sabi.datacollection.api.controllers;
 
 
-import com.sabi.datacollection.service.services.DataUserService;
 import com.sabi.framework.dto.requestDto.*;
 import com.sabi.framework.dto.responseDto.ActivateUserResponse;
 import com.sabi.framework.dto.responseDto.Response;
 import com.sabi.framework.dto.responseDto.UserResponse;
 import com.sabi.framework.models.User;
+import com.sabi.framework.service.UserService;
 import com.sabi.framework.utils.Constants;
 import com.sabi.framework.utils.CustomResponseCode;
 import org.modelmapper.ModelMapper;
@@ -29,10 +29,10 @@ public class UserController {
 
     private  static final Logger logger = LoggerFactory.getLogger(UserController.class);
 
-    private final DataUserService service;
+    private final UserService service;
     private final ModelMapper mapper;
 
-    public UserController(DataUserService service,ModelMapper mapper) {
+    public UserController(UserService service,ModelMapper mapper) {
         this.service = service;
         this.mapper = mapper;
     }
@@ -192,7 +192,7 @@ public class UserController {
 
 
     @PutMapping("/changepin")
-    public ResponseEntity<Response> transactionPin(@Validated @RequestBody ChangeTransactionPin request){
+    public ResponseEntity<Response> transactionPin(@Validated @RequestBody SetTransactionPin request){
         HttpStatus httpCode ;
         Response resp = new Response();
         service.setPin(request);
@@ -208,7 +208,7 @@ public class UserController {
     public ResponseEntity<Response> transactionPinOtp(@Validated @RequestBody CreateTransactionPinDto request){
         HttpStatus httpCode ;
         Response resp = new Response();
-        service.changePinOTP(request);
+        service.resetPinOTP(request);
         resp.setCode(CustomResponseCode.SUCCESS);
         resp.setDescription("Successful");
         httpCode = HttpStatus.OK;
@@ -220,7 +220,7 @@ public class UserController {
     public ResponseEntity<Response> changeTransactionPin(@Validated @RequestBody CreateTransactionPinDto request){
         HttpStatus httpCode ;
         Response resp = new Response();
-        service.changePin(request);
+        service.resetPin(request);
         resp.setCode(CustomResponseCode.SUCCESS);
         resp.setDescription("Successful");
         httpCode = HttpStatus.OK;

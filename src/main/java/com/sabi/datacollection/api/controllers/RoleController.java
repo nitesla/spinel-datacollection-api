@@ -1,12 +1,13 @@
 package com.sabi.datacollection.api.controllers;
 
 
-import com.sabi.datacollection.core.dto.request.EnableDisEnableDto;
-import com.sabi.datacollection.core.dto.request.DataRoleDto;
-import com.sabi.datacollection.core.dto.response.DataRoleResponseDto;
-import com.sabi.datacollection.core.models.DataRole;
-import com.sabi.datacollection.service.services.DataRoleService;
+
+import com.sabi.framework.dto.requestDto.EnableDisEnableDto;
+import com.sabi.framework.dto.requestDto.RoleDto;
 import com.sabi.framework.dto.responseDto.Response;
+import com.sabi.framework.dto.responseDto.RoleResponseDto;
+import com.sabi.framework.models.Role;
+import com.sabi.framework.service.RoleService;
 import com.sabi.framework.utils.Constants;
 import com.sabi.framework.utils.CustomResponseCode;
 import org.springframework.data.domain.Page;
@@ -26,9 +27,9 @@ public class RoleController {
 
 
 
-    private final DataRoleService service;
+    private final RoleService service;
 
-    public RoleController(DataRoleService service) {
+    public RoleController(RoleService service) {
         this.service = service;
     }
 
@@ -40,10 +41,10 @@ public class RoleController {
      */
 
     @PostMapping("")
-    public ResponseEntity<Response> createRole(@Validated @RequestBody DataRoleDto request, HttpServletRequest request1){
+    public ResponseEntity<Response> createRole(@Validated @RequestBody RoleDto request, HttpServletRequest request1){
         HttpStatus httpCode ;
         Response resp = new Response();
-        DataRoleResponseDto response = service.createRole(request,request1);
+        RoleResponseDto response = service.createRole(request,request1);
         resp.setCode(CustomResponseCode.SUCCESS);
         resp.setDescription("Successful");
         resp.setData(response);
@@ -59,10 +60,10 @@ public class RoleController {
      */
 
     @PutMapping("")
-    public ResponseEntity<Response> updateRole(@Validated @RequestBody DataRoleDto request,HttpServletRequest request1){
+    public ResponseEntity<Response> updateRole(@Validated @RequestBody RoleDto request,HttpServletRequest request1){
         HttpStatus httpCode ;
         Response resp = new Response();
-        DataRoleResponseDto response = service.updateRole(request,request1);
+        RoleResponseDto response = service.updateRole(request,request1);
         resp.setCode(CustomResponseCode.SUCCESS);
         resp.setDescription("Update Successful");
         resp.setData(response);
@@ -80,7 +81,7 @@ public class RoleController {
     public ResponseEntity<Response> getRole(@PathVariable Long id){
         HttpStatus httpCode ;
         Response resp = new Response();
-        DataRoleResponseDto response = service.findRole(id);
+        RoleResponseDto response = service.findRole(id);
         resp.setCode(CustomResponseCode.SUCCESS);
         resp.setDescription("Record fetched successfully !");
         resp.setData(response);
@@ -96,12 +97,12 @@ public class RoleController {
      */
     @GetMapping("")
     public ResponseEntity<Response> getRoles(@RequestParam(value = "name",required = false)String name,
-                                             @RequestParam(value = "status",required = false)Integer status,
+                                             @RequestParam(value = "isActive",required = false)Boolean isActive,
                                                        @RequestParam(value = "page") int page,
                                                        @RequestParam(value = "pageSize") int pageSize){
         HttpStatus httpCode ;
         Response resp = new Response();
-        Page<DataRole> response = service.findAll(name,status, PageRequest.of(page, pageSize));
+        Page<Role> response = service.findAll(name,isActive, PageRequest.of(page, pageSize));
         resp.setCode(CustomResponseCode.SUCCESS);
         resp.setDescription("Record fetched successfully !");
         resp.setData(response);
@@ -111,10 +112,10 @@ public class RoleController {
 
 
     @GetMapping("/list")
-    public ResponseEntity<Response> getAll(){
+    public ResponseEntity<Response> getAll(@RequestParam(value = "isActive")Boolean isActive){
         HttpStatus httpCode;
         Response resp = new Response();
-        List<DataRole> response = service.getAll();
+        List<Role> response = service.getAll(isActive);
         resp.setCode(CustomResponseCode.SUCCESS);
         resp.setDescription("Record fetched successfully !");
         resp.setData(response);

@@ -11,6 +11,7 @@ import com.sabi.datacollection.core.dto.response.ProjectOwnerSignUpResponseDto;
 import com.sabi.datacollection.core.models.ProjectOwner;
 import com.sabi.datacollection.service.services.ProjectOwnerService;
 import com.sabi.framework.dto.requestDto.ChangePasswordDto;
+import com.sabi.framework.dto.requestDto.ForgetPasswordDto;
 import com.sabi.framework.dto.responseDto.Response;
 import com.sabi.framework.utils.Constants;
 import com.sabi.framework.utils.CustomResponseCode;
@@ -18,6 +19,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -63,6 +65,7 @@ public class ProjectOwnerController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
+    @Deprecated
     @PostMapping("")
     public ResponseEntity<Response> createProjectOwner(@RequestBody ProjectOwnerDto request) {
         Response response = new Response();
@@ -123,5 +126,14 @@ public class ProjectOwnerController {
         response.setDescription("Record fetched successfully!");
         response.setData(projectOwnerPage);
         return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    @PutMapping("/forgetpassword")
+    public ResponseEntity<Response> forgetPassword(@Validated @RequestBody ForgetPasswordDto request){
+        Response resp = new Response();
+        service.forgetPassword(request);
+        resp.setCode(CustomResponseCode.SUCCESS);
+        resp.setDescription("Successfully");
+        return new ResponseEntity<>(resp, HttpStatus.OK);
     }
 }

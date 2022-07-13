@@ -80,6 +80,7 @@ public class EnumeratorController {
     }
 
 
+    @Deprecated
     @PostMapping("")
     // @PreAuthorize("hasAnyRole('ROLE_SUPER_ADMIN','ROLE_CREATE_USER')")
     public ResponseEntity<Response> createEnumeratorProperties(@Validated @RequestBody EnumeratorDto request){
