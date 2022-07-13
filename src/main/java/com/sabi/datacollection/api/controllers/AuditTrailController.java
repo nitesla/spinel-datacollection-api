@@ -70,14 +70,14 @@ public class AuditTrailController {
         return new ResponseEntity<>(resp, httpCode);
     }
 
-    @GetMapping("/getSingleUserAudit")
-    public ResponseEntity<Response> getSingleUserAudit(@RequestParam(value = "username")String username,
-                                                       @RequestParam(value = "page") int page,
-                                                       @RequestParam(value = "pageSize") int pageSize){
-        Response resp = new Response();
-        resp.setCode(CustomResponseCode.SUCCESS);
-        resp.setDescription("Successful");
-        resp.setData(service.getUserAudit(username,  PageRequest.of(page, pageSize)));
-        return new ResponseEntity<>(resp, HttpStatus.OK);
-    }
+//    @GetMapping("/getSingleUserAudit")
+//    public ResponseEntity<Response> getSingleUserAudit(@RequestParam(value = "username")String username,
+//                                                       @RequestParam(value = "page") int page,
+//                                                       @RequestParam(value = "pageSize") int pageSize){
+//        Response resp = new Response();
+//        resp.setCode(CustomResponseCode.SUCCESS);
+//        resp.setDescription("Successful");
+//        resp.setData(service.getUserAudit(username,  PageRequest.of(page, pageSize)));
+//        return new ResponseEntity<>(resp, HttpStatus.OK);
+//    }
 }
