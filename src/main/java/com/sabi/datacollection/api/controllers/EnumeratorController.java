@@ -122,7 +122,6 @@ public class EnumeratorController {
         HttpStatus httpCode ;
         Response resp = new Response();
         EnumeratorResponseDto response = service.findEnumeratorAsset(id);
-        log.info("response {}", response);
         resp.setCode(CustomResponseCode.SUCCESS);
         resp.setDescription("Record fetched successfully !");
         resp.setData(response);

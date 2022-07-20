@@ -39,18 +39,18 @@ public class ProjectController {
     }
 
     @PutMapping("")
-    public ResponseEntity<Response> updateProject(@RequestBody ProjectDto request) {
+    public ResponseEntity<Response> updateProject(@RequestBody ProjectDto request, HttpServletRequest request1) {
         Response response = new Response();
-        ProjectResponseDto projectResponse = service.updateProject(request);
+        ProjectResponseDto projectResponse = service.updateProject(request, request1);
         response.setDescription("Update Successful");
         response.setData(projectResponse);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Response> getProject(@PathVariable Long id) {
+    public ResponseEntity<Response> getProject(@PathVariable Long id, HttpServletRequest request1) {
         Response response = new Response();
-        ProjectResponseDto projectResponse = service.findProjectById(id);
+        ProjectResponseDto projectResponse = service.findProjectById(id, request1);
         response.setCode(CustomResponseCode.SUCCESS);
         response.setDescription("Record fetched Successfully");
         response.setData(projectResponse);
@@ -119,10 +119,11 @@ public class ProjectController {
     @GetMapping("/audittrail")
     public ResponseEntity<Response> getProjectAuditTrail(@RequestParam(value = "username",required = false) String username,
                                                          @RequestParam(value = "projectName",required = false) String projectName,
+                                                         @RequestParam(value = "auditTrailFlag",required = false) String auditTrailFlag,
                                                          @RequestParam(value = "page") Integer page,
                                                          @RequestParam(value = "pageSize") Integer pageSize){
         Response resp = new Response();
-        service.getProjectAuditTrail(username, projectName, PageRequest.of(page, pageSize));
+        service.getProjectAuditTrail(username, projectName, auditTrailFlag, PageRequest.of(page, pageSize));
         resp.setCode(CustomResponseCode.SUCCESS);
         resp.setDescription("Successfully");
         return new ResponseEntity<>(resp, HttpStatus.OK);
