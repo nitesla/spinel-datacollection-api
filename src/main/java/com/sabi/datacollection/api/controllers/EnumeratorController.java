@@ -11,10 +11,14 @@ import com.sabi.datacollection.core.dto.response.EnumeratorResponseDto;
 import com.sabi.datacollection.core.dto.response.EnumeratorSignUpResponseDto;
 import com.sabi.datacollection.core.models.Enumerator;
 import com.sabi.datacollection.service.services.EnumeratorService;
+import com.sabi.framework.dto.requestDto.ActivateUserAccountDto;
 import com.sabi.framework.dto.requestDto.ChangePasswordDto;
+import com.sabi.framework.dto.requestDto.PasswordActivationRequest;
 import com.sabi.framework.dto.responseDto.Response;
+import com.sabi.framework.service.UserService;
 import com.sabi.framework.utils.Constants;
 import com.sabi.framework.utils.CustomResponseCode;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
@@ -25,16 +29,18 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
-
+@Slf4j
 @SuppressWarnings("All")
 @RestController
 @RequestMapping(Constants.APP_CONTENT+"enumerator")
 public class EnumeratorController {
 
     private final EnumeratorService service;
+    private final UserService userService;
 
-    public EnumeratorController(EnumeratorService service) {
+    public EnumeratorController(EnumeratorService service, UserService userService) {
         this.service = service;
+        this.userService = userService;
     }
 
 
@@ -54,10 +60,10 @@ public class EnumeratorController {
 
 
     @PutMapping("/completesignup")
-    public ResponseEntity<Response> completeSignUp(@Validated @RequestBody CompleteSignupRequest request){
+    public ResponseEntity<Response> completeSignUp(@Validated @RequestBody CompleteSignupRequest request, HttpServletRequest request1){
         HttpStatus httpCode ;
         Response resp = new Response();
-        CompleteSignUpResponse response = service.completeSignUp(request);
+        CompleteSignUpResponse response = service.completeSignUp(request, request1);
         resp.setCode(CustomResponseCode.SUCCESS);
         resp.setDescription("Successful");
         resp.setData(response);
@@ -116,6 +122,7 @@ public class EnumeratorController {
         HttpStatus httpCode ;
         Response resp = new Response();
         EnumeratorResponseDto response = service.findEnumeratorAsset(id);
+        log.info("response {}", response);
         resp.setCode(CustomResponseCode.SUCCESS);
         resp.setDescription("Record fetched successfully !");
         resp.setData(response);
@@ -169,6 +176,24 @@ public class EnumeratorController {
         resp.setData(service.enumeratorSummary(enumeratorId));
         resp.setCode(CustomResponseCode.SUCCESS);
         resp.setDescription("Record fetched successfully !");
+        return new ResponseEntity<>(resp, HttpStatus.OK);
+    }
+
+    @PutMapping("/validateOtp")
+    public ResponseEntity<Response> validateOtpAndActivateUser(@Validated @RequestBody ActivateUserAccountDto request){
+        Response resp = new Response();
+        resp.setCode(CustomResponseCode.SUCCESS);
+        resp.setDescription("Successful");
+        resp.setData(userService.activateUser(request));
+        return new ResponseEntity<>(resp, HttpStatus.OK);
+    }
+
+    @PostMapping("/passwordactivation")
+    public ResponseEntity<Response> passwordActivation(@Validated @RequestBody PasswordActivationRequest request) {
+        Response resp = new Response();
+        resp.setCode(CustomResponseCode.SUCCESS);
+        resp.setDescription("Record fetched successfully !");
+        resp.setData(userService.userPasswordActivation(request));
         return new ResponseEntity<>(resp, HttpStatus.OK);
     }
 
