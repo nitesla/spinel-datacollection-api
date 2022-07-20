@@ -163,4 +163,13 @@ public class EnumeratorController {
         return new ResponseEntity<>(resp, httpCode);
     }
 
+    @GetMapping("/enumeratorsummary")
+    public ResponseEntity<Response> enumeratorSummary(@RequestParam(value = "enumeratorId")Long enumeratorId) {
+        Response resp = new Response();
+        resp.setData(service.enumeratorSummary(enumeratorId));
+        resp.setCode(CustomResponseCode.SUCCESS);
+        resp.setDescription("Record fetched successfully !");
+        return new ResponseEntity<>(resp, HttpStatus.OK);
+    }
+
 }
