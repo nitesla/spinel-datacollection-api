@@ -117,13 +117,12 @@ public class ProjectController {
     }
 
     @GetMapping("/audittrail")
-    public ResponseEntity<Response> getProjectAuditTrail(@RequestParam(value = "username",required = false) String username,
-                                                         @RequestParam(value = "projectName",required = false) String projectName,
+    public ResponseEntity<Response> getProjectAuditTrail(@RequestParam(value = "projectName",required = false) String projectName,
                                                          @RequestParam(value = "auditTrailFlag",required = false) String auditTrailFlag,
                                                          @RequestParam(value = "page") Integer page,
                                                          @RequestParam(value = "pageSize") Integer pageSize){
         Response resp = new Response();
-        service.getProjectAuditTrail(username, projectName, auditTrailFlag, PageRequest.of(page, pageSize));
+        resp.setData(service.getProjectAuditTrail(projectName, auditTrailFlag, PageRequest.of(page, pageSize)));
         resp.setCode(CustomResponseCode.SUCCESS);
         resp.setDescription("Successfully");
         return new ResponseEntity<>(resp, HttpStatus.OK);
