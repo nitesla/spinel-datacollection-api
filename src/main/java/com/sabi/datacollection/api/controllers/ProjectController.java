@@ -41,7 +41,7 @@ public class ProjectController {
     @PutMapping("")
     public ResponseEntity<Response> updateProject(@RequestBody ProjectDto request, HttpServletRequest request1) {
         Response response = new Response();
-        ProjectResponseDto projectResponse = service.updateProject(request, request1);
+        ProjectResponseDto projectResponse = service.updateProject(request);
         response.setDescription("Update Successful");
         response.setData(projectResponse);
         return new ResponseEntity<>(response, HttpStatus.OK);
@@ -50,7 +50,7 @@ public class ProjectController {
     @GetMapping("/{id}")
     public ResponseEntity<Response> getProject(@PathVariable Long id, HttpServletRequest request1) {
         Response response = new Response();
-        ProjectResponseDto projectResponse = service.findProjectById(id, request1);
+        ProjectResponseDto projectResponse = service.findProjectById(id);
         response.setCode(CustomResponseCode.SUCCESS);
         response.setDescription("Record fetched Successfully");
         response.setData(projectResponse);
