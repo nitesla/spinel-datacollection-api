@@ -63,7 +63,7 @@ public class EnumeratorController {
     public ResponseEntity<Response> completeSignUp(@Validated @RequestBody CompleteSignupRequest request, HttpServletRequest request1){
         HttpStatus httpCode ;
         Response resp = new Response();
-        CompleteSignUpResponse response = service.completeSignUp(request, request1);
+        CompleteSignUpResponse response = service.completeSignUp(request);
         resp.setCode(CustomResponseCode.SUCCESS);
         resp.setDescription("Successful");
         resp.setData(response);
