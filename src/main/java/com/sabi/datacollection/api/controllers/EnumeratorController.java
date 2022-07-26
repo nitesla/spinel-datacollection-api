@@ -178,6 +178,17 @@ public class EnumeratorController {
         return new ResponseEntity<>(resp, HttpStatus.OK);
     }
 
+    @GetMapping("/enumeratorsummarywithdate")
+    public ResponseEntity<Response> enumeratorSummaryWithDate(@RequestParam(value = "enumeratorId")Long enumeratorId,
+                                                      @RequestParam(value = "startDate")String startDate,
+                                                      @RequestParam(value = "endDate", required = false)String endDate) {
+        Response resp = new Response();
+        resp.setData(service.enumeratorSummary(enumeratorId, startDate, endDate));
+        resp.setCode(CustomResponseCode.SUCCESS);
+        resp.setDescription("Record fetched successfully !");
+        return new ResponseEntity<>(resp, HttpStatus.OK);
+    }
+
     @PutMapping("/validateOtp")
     public ResponseEntity<Response> validateOtpAndActivateUser(@Validated @RequestBody ActivateUserAccountDto request){
         Response resp = new Response();
