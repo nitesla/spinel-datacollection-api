@@ -59,11 +59,12 @@ public class ProjectEnumeratorController {
 
     @GetMapping("/page")
     public ResponseEntity<Response> getProjectEnumerators(@RequestParam(value = "projectId", required = false)Long projectId,
-                                                @RequestParam(value = "enumeratorId", required = false)Long enumeratorId,
-                                                @RequestParam(value = "page") Integer page,
-                                                @RequestParam(value = "pageSize")Integer pageSize) {
+                                                          @RequestParam(value = "enumeratorId", required = false)Long enumeratorId,
+                                                          @RequestParam(value = "name", required = false)String name,
+                                                        @RequestParam(value = "page") Integer page,
+                                                        @RequestParam(value = "pageSize")Integer pageSize) {
         Response response = new Response(CustomResponseCode.SUCCESS,"Record fetched Successfully");
-        response.setData(projectEnumeratorService.searchAll(projectId,enumeratorId, PageRequest.of(page,pageSize)));
+        response.setData(projectEnumeratorService.searchAll(projectId,enumeratorId,name, PageRequest.of(page,pageSize)));
         return new ResponseEntity<>(response,HttpStatus.OK);
     }
 
