@@ -1,6 +1,6 @@
 package com.sabi.datacollection.api.controllers;
 
-import com.sabi.datacollection.core.dto.response.BackOfficeResponseDto;
+import com.sabi.datacollection.core.dto.response.*;
 import com.sabi.datacollection.service.services.BackOfficeDashboardService;
 import com.sabi.framework.utils.Constants;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +18,48 @@ public class BackOfficeController {
     @PostMapping("")
     public BackOfficeResponseDto populateBackOfficeInfo(){
         BackOfficeResponseDto responseDto = service.populateBackOfficeInfo();
+        return responseDto;
+    }
+
+    @PostMapping("client")
+    public ClientDashboradResponseDto populateClientBackOfficeInfo(){
+        ClientDashboradResponseDto responseDto = service.populateClientBackOfficeInfo();
+        return responseDto;
+    }
+
+    @PostMapping("project")
+    public ProjectDashboardResponse populateProjectBackOfficeInfo(){
+        ProjectDashboardResponse responseDto = service.populateProjectBackOfficeInfo();
+        return responseDto;
+    }
+
+    @PostMapping("role")
+    public RoleDashboardResponseDto populateRoleBackOfficeInfo(){
+        RoleDashboardResponseDto responseDto = service.populateRoleBackOfficeInfo();
+        return responseDto;
+    }
+
+    @PostMapping("user")
+    public BackOfficeUserResponseDto populateBackOfficeUserInfo(){
+        BackOfficeUserResponseDto responseDto = service.populateBackOfficeUserInfo();
+        return responseDto;
+    }
+
+    @PostMapping("auditTrail")
+    public BackOfficeAuditTrailResponseDto populateBackOfficeAuditTrailInfo(){
+        BackOfficeAuditTrailResponseDto responseDto = service.populateBackOfficeAuditTrailInfo();
+        return responseDto;
+    }
+
+    @PostMapping("location")
+    public BackOfficeLocationResponseDto populateBackOfficeLocationInfo(){
+        BackOfficeLocationResponseDto responseDto = service.populateBackOfficeLocationInfo();
+        return responseDto;
+    }
+
+    @PostMapping("enumerator")
+    public BackOfficeEnumeratorResponseDto populateBackOfficeEnumeratorInfo(){
+        BackOfficeEnumeratorResponseDto responseDto = service.populateBackOfficeEnumeratorInfo();
         return responseDto;
     }
 }
