@@ -241,4 +241,13 @@ public class UserController {
         return new ResponseEntity<>(resp, httpCode);
     }
 
+    @PostMapping("/passwordactivation")
+    public ResponseEntity<Response> passwordActivation(@Validated @RequestBody PasswordActivationRequest request) {
+        Response resp = new Response();
+        resp.setCode(CustomResponseCode.SUCCESS);
+        resp.setDescription("Record fetched successfully !");
+        resp.setData(service.userPasswordActivation(request));
+        return new ResponseEntity<>(resp, HttpStatus.OK);
+    }
+
 }
