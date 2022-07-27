@@ -198,8 +198,8 @@ public class EnumeratorController {
         return new ResponseEntity<>(resp, HttpStatus.OK);
     }
 
-    @PostMapping("/passwordactivation")
-    public ResponseEntity<Response> passwordActivation(@Validated @RequestBody PasswordActivationRequest request) {
+    @PostMapping("/accountactivation")
+    public ResponseEntity<Response> accountActivation(@Validated @RequestBody PasswordActivationRequest request) {
         Response resp = new Response();
         resp.setCode(CustomResponseCode.SUCCESS);
         resp.setDescription("Record fetched successfully !");
