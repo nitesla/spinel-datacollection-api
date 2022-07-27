@@ -207,4 +207,13 @@ public class EnumeratorController {
         return new ResponseEntity<>(resp, HttpStatus.OK);
     }
 
+    @GetMapping("/getenumeratorwithuserid")
+    public ResponseEntity<Response> getEnumeratorWithUserId(@RequestParam(value = "userId")Long userId) {
+        Response resp = new Response();
+        resp.setCode(CustomResponseCode.SUCCESS);
+        resp.setDescription("Record fetched successfully !");
+        resp.setData(service.getEnumeratorWithUserId(userId));
+        return new ResponseEntity<>(resp, HttpStatus.OK);
+    }
+
 }
