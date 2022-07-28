@@ -144,5 +144,15 @@ public class SubmissionController {
         return new ResponseEntity<>(resp, httpCode);
     }
 
+    @GetMapping("/getSubmissionGraph")
+    public ResponseEntity<Response> getSubmissionsGraph(@RequestParam(value = "duration")int duration,
+                                                      @RequestParam(value = "dateType")String dateType) {
+        Response resp = new Response();
+        resp.setCode(CustomResponseCode.SUCCESS);
+        resp.setDescription("Records fetched successfully");
+        resp.setData(service.getSubmissions(duration, dateType));
+        return new ResponseEntity<>(resp, HttpStatus.OK);
+    }
+
 
 }
