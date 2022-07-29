@@ -216,4 +216,23 @@ public class EnumeratorController {
         return new ResponseEntity<>(resp, HttpStatus.OK);
     }
 
+    @GetMapping("/getenumeratorswithstatus")
+    public ResponseEntity<Response> getEnumeratorsWithVerificationStatus(@RequestParam(value = "verificationStatus")String verificationStatus) {
+        Response resp = new Response();
+        resp.setCode(CustomResponseCode.SUCCESS);
+        resp.setDescription("Record fetched successfully !");
+        resp.setData(service.getEnumeratorByVerificartionStatus(verificationStatus));
+        return new ResponseEntity<>(resp, HttpStatus.OK);
+    }
+
+    @PutMapping("/updateEnumeratorVerificationStatus")
+    public ResponseEntity<Response> updateEnumeratorVerificationStatus(@RequestParam(value = "enumeratorId")Long enumeratorId,
+                                                                       @RequestParam(value = "verificationStatus")String verificationStatus) {
+        Response resp = new Response();
+        resp.setCode(CustomResponseCode.SUCCESS);
+        resp.setDescription("Verification status updated successfully !");
+        service.updateVerificationStatus(enumeratorId, verificationStatus);
+        return new ResponseEntity<>(resp, HttpStatus.OK);
+    }
+
 }
