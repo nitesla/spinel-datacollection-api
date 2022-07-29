@@ -20,6 +20,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @SuppressWarnings("All")
@@ -103,13 +104,18 @@ public class UserController {
     public ResponseEntity<Response> getUsers(@RequestParam(value = "firstName",required = false)String firstName,
                                              @RequestParam(value = "lastName",required = false)String lastName,
                                              @RequestParam(value = "phone",required = false)String phone,
+                                             @RequestParam(value = "role",required = false)String role,
+                                             @RequestParam(value = "roleId",required = false)Long roleId,
                                              @RequestParam(value = "isActive",required = false)Boolean isActive,
+                                             @RequestParam(value = "startDate",required = false)LocalDateTime startDate,
+                                             @RequestParam(value = "endDate",required = false)LocalDateTime endDate,
                                              @RequestParam(value = "email",required = false)String email,
                                                        @RequestParam(value = "page") int page,
                                                        @RequestParam(value = "pageSize") int pageSize){
-        HttpStatus httpCode ;
+
+            HttpStatus httpCode ;
         Response resp = new Response();
-        Page<User> response = service.findAll(firstName,lastName,phone,isActive,email, PageRequest.of(page, pageSize));
+        Page<User> response = service.findAll(firstName,lastName,phone,role,roleId,isActive,startDate,endDate,email, PageRequest.of(page, pageSize));
         resp.setCode(CustomResponseCode.SUCCESS);
         resp.setDescription("Record fetched successfully !");
         resp.setData(response);
