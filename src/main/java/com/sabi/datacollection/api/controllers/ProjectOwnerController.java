@@ -136,4 +136,13 @@ public class ProjectOwnerController {
         resp.setDescription("Successfully");
         return new ResponseEntity<>(resp, HttpStatus.OK);
     }
+
+    @GetMapping("/getprojectownerwithuserid")
+    public ResponseEntity<Response> getEnumeratorWithUserId(@RequestParam(value = "userId")Long userId) {
+        Response resp = new Response();
+        resp.setCode(CustomResponseCode.SUCCESS);
+        resp.setDescription("Record fetched successfully !");
+        resp.setData(service.findProjectOwnerByUserId(userId));
+        return new ResponseEntity<>(resp, HttpStatus.OK);
+    }
 }

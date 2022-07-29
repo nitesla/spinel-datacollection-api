@@ -178,6 +178,17 @@ public class EnumeratorController {
         return new ResponseEntity<>(resp, HttpStatus.OK);
     }
 
+    @GetMapping("/enumeratorsummarywithdate")
+    public ResponseEntity<Response> enumeratorSummaryWithDate(@RequestParam(value = "enumeratorId")Long enumeratorId,
+                                                      @RequestParam(value = "startDate")String startDate,
+                                                      @RequestParam(value = "endDate", required = false)String endDate) {
+        Response resp = new Response();
+        resp.setData(service.enumeratorSummary(enumeratorId, startDate, endDate));
+        resp.setCode(CustomResponseCode.SUCCESS);
+        resp.setDescription("Record fetched successfully !");
+        return new ResponseEntity<>(resp, HttpStatus.OK);
+    }
+
     @PutMapping("/validateOtp")
     public ResponseEntity<Response> validateOtpAndActivateUser(@Validated @RequestBody ActivateUserAccountDto request){
         Response resp = new Response();
@@ -187,12 +198,40 @@ public class EnumeratorController {
         return new ResponseEntity<>(resp, HttpStatus.OK);
     }
 
-    @PostMapping("/passwordactivation")
-    public ResponseEntity<Response> passwordActivation(@Validated @RequestBody PasswordActivationRequest request) {
+    @PostMapping("/accountactivation")
+    public ResponseEntity<Response> accountActivation(@Validated @RequestBody PasswordActivationRequest request) {
         Response resp = new Response();
         resp.setCode(CustomResponseCode.SUCCESS);
         resp.setDescription("Record fetched successfully !");
         resp.setData(userService.userPasswordActivation(request));
+        return new ResponseEntity<>(resp, HttpStatus.OK);
+    }
+
+    @GetMapping("/getenumeratorwithuserid")
+    public ResponseEntity<Response> getEnumeratorWithUserId(@RequestParam(value = "userId")Long userId) {
+        Response resp = new Response();
+        resp.setCode(CustomResponseCode.SUCCESS);
+        resp.setDescription("Record fetched successfully !");
+        resp.setData(service.getEnumeratorWithUserId(userId));
+        return new ResponseEntity<>(resp, HttpStatus.OK);
+    }
+
+    @GetMapping("/getenumeratorswithstatus")
+    public ResponseEntity<Response> getEnumeratorsWithVerificationStatus(@RequestParam(value = "verificationStatus")String verificationStatus) {
+        Response resp = new Response();
+        resp.setCode(CustomResponseCode.SUCCESS);
+        resp.setDescription("Record fetched successfully !");
+        resp.setData(service.getEnumeratorByVerificartionStatus(verificationStatus));
+        return new ResponseEntity<>(resp, HttpStatus.OK);
+    }
+
+    @PutMapping("/updateEnumeratorVerificationStatus")
+    public ResponseEntity<Response> updateEnumeratorVerificationStatus(@RequestParam(value = "enumeratorId")Long enumeratorId,
+                                                                       @RequestParam(value = "verificationStatus")String verificationStatus) {
+        Response resp = new Response();
+        resp.setCode(CustomResponseCode.SUCCESS);
+        resp.setDescription("Verification status updated successfully !");
+        service.updateVerificationStatus(enumeratorId, verificationStatus);
         return new ResponseEntity<>(resp, HttpStatus.OK);
     }
 
