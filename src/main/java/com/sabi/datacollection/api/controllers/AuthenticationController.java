@@ -139,7 +139,7 @@ public class AuthenticationController {
         return new ResponseEntity<>(details, HttpStatus.OK);
     }
 
-    @PostMapping("/adminlogin")
+    @PostMapping("/admin/login")
     public ResponseEntity<?> loginAdminUser(@RequestBody @Valid LoginRequest loginRequest, HttpServletRequest request) throws JsonProcessingException {
         AccessTokenWithUserDetails details = authenticationService.loginAdminUser(loginRequest, request);
         return new ResponseEntity<>(details, HttpStatus.OK);
