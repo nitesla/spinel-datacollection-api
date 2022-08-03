@@ -62,13 +62,14 @@ public class EnumeratorProjectController {
     @GetMapping("/page")
     public ResponseEntity<Response> getProjectCategories(@RequestParam(value = "projectId",required = false)Long projectId,
                                                          @RequestParam(value = "enumeratorId",required = false)Long enumeratorId,
+                                                         @RequestParam(value = "verificationStatus",required = false)String verificationStatus,
                                                          @RequestParam(value = "assignedDate",required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)  LocalDateTime assignedDate,
                                                          @RequestParam(value = "completionDate",required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime completionDate,
                                                          @RequestParam(value = "status",required = false) Status status,
                                                          @RequestParam(value = "page") Integer page,
                                                          @RequestParam(value = "pageSize") Integer pageSize) {
         Response response = new Response();
-        Page<EnumeratorProject> enumeratorProjectPage = service.findAll(projectId, enumeratorId, assignedDate, completionDate, status, PageRequest.of(page, pageSize));
+        Page<EnumeratorProject> enumeratorProjectPage = service.findAll(projectId, enumeratorId,verificationStatus, assignedDate, completionDate, status, PageRequest.of(page, pageSize));
         response.setCode(CustomResponseCode.SUCCESS);
         response.setDescription("Record fetched successfully !");
         response.setData(enumeratorProjectPage);
