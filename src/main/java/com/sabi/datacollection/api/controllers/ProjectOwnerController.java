@@ -4,10 +4,7 @@ import com.sabi.datacollection.core.dto.request.CompleteSignupRequest;
 import com.sabi.datacollection.core.dto.request.EnableDisableDto;
 import com.sabi.datacollection.core.dto.request.ProjectOwnerDto;
 import com.sabi.datacollection.core.dto.request.ProjectOwnerSignUpDto;
-import com.sabi.datacollection.core.dto.response.CompleteSignUpResponse;
-import com.sabi.datacollection.core.dto.response.ProjectOwnerActivationResponse;
-import com.sabi.datacollection.core.dto.response.ProjectOwnerResponseDto;
-import com.sabi.datacollection.core.dto.response.ProjectOwnerSignUpResponseDto;
+import com.sabi.datacollection.core.dto.response.*;
 import com.sabi.datacollection.core.models.ProjectOwner;
 import com.sabi.datacollection.service.services.ProjectOwnerService;
 import com.sabi.framework.dto.requestDto.ActivateUserAccountDto;
@@ -52,7 +49,7 @@ public class ProjectOwnerController {
     @PutMapping("/completesignup")
     public ResponseEntity<Response> completeSignUp(@RequestBody CompleteSignupRequest request) {
         Response response = new Response();
-        CompleteSignUpResponse completeSignUpResponse = service.completeSignUp(request);
+        CompleteProjectOwnerSignUpResponse completeSignUpResponse = service.completeSignUp(request);
         response.setCode(CustomResponseCode.SUCCESS);
         response.setDescription("Successful");
         response.setData(completeSignUpResponse);
