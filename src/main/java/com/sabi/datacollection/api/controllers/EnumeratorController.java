@@ -235,4 +235,13 @@ public class EnumeratorController {
         return new ResponseEntity<>(resp, HttpStatus.OK);
     }
 
+    @GetMapping("/getenumeratorKyc/{enumeratorId}")
+    public ResponseEntity<Response> getEnumeratorKyc(@PathVariable Long enumeratorId) {
+        Response resp = new Response();
+        resp.setCode(CustomResponseCode.SUCCESS);
+        resp.setDescription("Record fetched successfully !");
+        resp.setData(service.getEnumeratorKYC(enumeratorId));
+        return new ResponseEntity<>(resp, HttpStatus.OK);
+    }
+
 }

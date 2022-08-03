@@ -3,6 +3,7 @@ package com.sabi.datacollection.api.controllers;
 
 import com.sabi.datacollection.core.dto.request.EnableDisableDto;
 import com.sabi.datacollection.core.dto.request.ProjectEnumeratorRequestDto;
+import com.sabi.datacollection.core.enums.VerificationStatus;
 import com.sabi.datacollection.service.services.ProjectEnumeratorService;
 import com.sabi.framework.dto.responseDto.Response;
 import com.sabi.framework.utils.CustomResponseCode;
@@ -60,11 +61,11 @@ public class ProjectEnumeratorController {
     @GetMapping("/page")
     public ResponseEntity<Response> getProjectEnumerators(@RequestParam(value = "projectId", required = false)Long projectId,
                                                           @RequestParam(value = "enumeratorId", required = false)Long enumeratorId,
-                                                          @RequestParam(value = "name", required = false)String name,
+                                                          @RequestParam(value = "verification", required = false) VerificationStatus verification,
                                                         @RequestParam(value = "page") Integer page,
                                                         @RequestParam(value = "pageSize")Integer pageSize) {
         Response response = new Response(CustomResponseCode.SUCCESS,"Record fetched Successfully");
-        response.setData(projectEnumeratorService.searchAll(projectId,enumeratorId,name, PageRequest.of(page,pageSize)));
+        response.setData(projectEnumeratorService.searchAll(projectId,enumeratorId,verification, PageRequest.of(page,pageSize)));
         return new ResponseEntity<>(response,HttpStatus.OK);
     }
 
