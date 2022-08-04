@@ -58,17 +58,17 @@ public class FormController {
      * <remarks>this endpoint is responsible for updating forms</remarks>
      */
 
-    @PutMapping("")
-    public ResponseEntity<Response> updateForm(@Validated @RequestBody  FormDto request){
-        HttpStatus httpCode ;
-        Response resp = new Response();
-        FormResponseDto response = service.updateForm(request);
-        resp.setCode(CustomResponseCode.SUCCESS);
-        resp.setDescription("Update Successful");
-        resp.setData(response);
-        httpCode = HttpStatus.OK;
-        return new ResponseEntity<>(resp, httpCode);
-    }
+//    @PutMapping("")
+//    public ResponseEntity<Response> updateForm(@Validated @RequestBody  FormDto request){
+//        HttpStatus httpCode ;
+//        Response resp = new Response();
+//        FormResponseDto response = service.updateForm(request);
+//        resp.setCode(CustomResponseCode.SUCCESS);
+//        resp.setDescription("Update Successful");
+//        resp.setData(response);
+//        httpCode = HttpStatus.OK;
+//        return new ResponseEntity<>(resp, httpCode);
+//    }
 
 
 
