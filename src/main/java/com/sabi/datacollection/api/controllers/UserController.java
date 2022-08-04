@@ -191,41 +191,41 @@ public class UserController {
     }
 
 
-    @PutMapping("/changepin")
-    public ResponseEntity<Response> transactionPin(@Validated @RequestBody ChangeTransactionPin request){
-        HttpStatus httpCode ;
-        Response resp = new Response();
-        service.setPin(request);
-        resp.setCode(CustomResponseCode.SUCCESS);
-        resp.setDescription("Successful");
-        httpCode = HttpStatus.OK;
-        return new ResponseEntity<>(resp, httpCode);
-    }
+//    @PutMapping("/changepin")
+//    public ResponseEntity<Response> transactionPin(@Validated @RequestBody ChangeTransactionPin request){
+//        HttpStatus httpCode ;
+//        Response resp = new Response();
+//        service.setPin(request);
+//        resp.setCode(CustomResponseCode.SUCCESS);
+//        resp.setDescription("Successful");
+//        httpCode = HttpStatus.OK;
+//        return new ResponseEntity<>(resp, httpCode);
+//    }
 
 
-
-    @PutMapping("/pinotp")
-    public ResponseEntity<Response> transactionPinOtp(@Validated @RequestBody CreateTransactionPinDto request){
-        HttpStatus httpCode ;
-        Response resp = new Response();
-        service.changePinOTP(request);
-        resp.setCode(CustomResponseCode.SUCCESS);
-        resp.setDescription("Successful");
-        httpCode = HttpStatus.OK;
-        return new ResponseEntity<>(resp, httpCode);
-    }
-
-
-    @PutMapping("/transactionpin")
-    public ResponseEntity<Response> changeTransactionPin(@Validated @RequestBody CreateTransactionPinDto request){
-        HttpStatus httpCode ;
-        Response resp = new Response();
-        service.changePin(request);
-        resp.setCode(CustomResponseCode.SUCCESS);
-        resp.setDescription("Successful");
-        httpCode = HttpStatus.OK;
-        return new ResponseEntity<>(resp, httpCode);
-    }
+//
+//    @PutMapping("/pinotp")
+//    public ResponseEntity<Response> transactionPinOtp(@Validated @RequestBody CreateTransactionPinDto request){
+//        HttpStatus httpCode ;
+//        Response resp = new Response();
+//        service.changePinOTP(request);
+//        resp.setCode(CustomResponseCode.SUCCESS);
+//        resp.setDescription("Successful");
+//        httpCode = HttpStatus.OK;
+//        return new ResponseEntity<>(resp, httpCode);
+//    }
+//
+//
+//    @PutMapping("/transactionpin")
+//    public ResponseEntity<Response> changeTransactionPin(@Validated @RequestBody CreateTransactionPinDto request){
+//        HttpStatus httpCode ;
+//        Response resp = new Response();
+//        service.changePin(request);
+//        resp.setCode(CustomResponseCode.SUCCESS);
+//        resp.setDescription("Successful");
+//        httpCode = HttpStatus.OK;
+//        return new ResponseEntity<>(resp, httpCode);
+//    }
 
 
 

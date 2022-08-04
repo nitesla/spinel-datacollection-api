@@ -1,6 +1,7 @@
 package com.sabi.datacollection.api.controllers;
 
 
+
 import com.sabi.framework.dto.requestDto.RolePermissionDto;
 import com.sabi.framework.dto.responseDto.Response;
 import com.sabi.framework.dto.responseDto.RolePermissionResponseDto;
@@ -37,13 +38,12 @@ public class RolePermissionController {
      */
 
     @PostMapping("")
-    public ResponseEntity<Response> createRolePermission(@Validated @RequestBody RolePermissionDto request,HttpServletRequest request1){
+    public ResponseEntity<Response> assignPermission(@Validated @RequestBody RolePermissionDto request){
         HttpStatus httpCode ;
         Response resp = new Response();
-        RolePermissionResponseDto response = service.createRolePermission(request,request1);
+        service.assignPermission(request);
         resp.setCode(CustomResponseCode.SUCCESS);
         resp.setDescription("Successful");
-        resp.setData(response);
         httpCode = HttpStatus.CREATED;
         return new ResponseEntity<>(resp, httpCode);
     }
@@ -55,17 +55,6 @@ public class RolePermissionController {
      * <remarks>this endpoint is responsible for updating RolePermission</remarks>
      */
 
-    @PutMapping("")
-    public ResponseEntity<Response> updateRolePermission(@Validated @RequestBody  RolePermissionDto request,HttpServletRequest request1){
-        HttpStatus httpCode ;
-        Response resp = new Response();
-        RolePermissionResponseDto response = service.updateRolePermission(request,request1);
-        resp.setCode(CustomResponseCode.SUCCESS);
-        resp.setDescription("Update Successful");
-        resp.setData(response);
-        httpCode = HttpStatus.OK;
-        return new ResponseEntity<>(resp, httpCode);
-    }
 
 
     /** <summary>
@@ -93,9 +82,9 @@ public class RolePermissionController {
      */
     @GetMapping("")
     public ResponseEntity<Response> getRolePermissions(@RequestParam(value = "roleId",required = false)Long roleId,
-                                             @RequestParam(value = "isActive",required = false)Boolean isActive,
-                                             @RequestParam(value = "page") int page,
-                                             @RequestParam(value = "pageSize") int pageSize){
+                                                       @RequestParam(value = "isActive",required = false)Boolean isActive,
+                                                       @RequestParam(value = "page") int page,
+                                                       @RequestParam(value = "pageSize") int pageSize){
         HttpStatus httpCode ;
         Response resp = new Response();
         Page<RolePermission> response = service.findAll(roleId,isActive, PageRequest.of(page, pageSize));
@@ -106,32 +95,18 @@ public class RolePermissionController {
         return new ResponseEntity<>(resp, httpCode);
     }
 
-    @GetMapping("/list")
-    public ResponseEntity<Response> getAll(@RequestParam(value = "roleId",required = false)Long roleId,
-                                           @RequestParam(value = "isActive")Boolean isActive){
+
+
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Response> removePermission(@PathVariable Long id){
         HttpStatus httpCode ;
         Response resp = new Response();
-        List<RolePermission> response = service.getAll(roleId, isActive);
+        service.removePermission(id);
         resp.setCode(CustomResponseCode.SUCCESS);
-        resp.setDescription("Record fetched successfully !");
-        resp.setData(response);
+        resp.setDescription("Permission removed successfully !");
         httpCode = HttpStatus.OK;
         return new ResponseEntity<>(resp, httpCode);
     }
-
-
-
-
-//    @GetMapping("/permission/{roleId}")
-//    public ResponseEntity<Response> getPermissionsByRole(@PathVariable Long roleId){
-//        HttpStatus httpCode ;
-//        Response resp = new Response();
-//        List<RolePermission> response = service.getPermissionsByRole(roleId);
-//        resp.setCode(CustomResponseCode.SUCCESS);
-//        resp.setDescription("Record fetched successfully !");
-//        resp.setData(response);
-//        httpCode = HttpStatus.OK;
-//        return new ResponseEntity<>(resp, httpCode);
-//    }
 
 }
