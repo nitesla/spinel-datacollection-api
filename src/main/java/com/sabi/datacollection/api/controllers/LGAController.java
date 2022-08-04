@@ -1,16 +1,14 @@
 package com.sabi.datacollection.api.controllers;
 
 
+import com.sabi.datacollection.core.dto.request.EnableDisableDto;
 import com.sabi.datacollection.core.dto.request.LGADto;
 import com.sabi.datacollection.core.dto.response.LGAResponseDto;
 import com.sabi.datacollection.core.models.LGA;
 import com.sabi.datacollection.service.services.LGAService;
-import com.sabi.framework.dto.requestDto.EnableDisEnableDto;
 import com.sabi.framework.dto.responseDto.Response;
 import com.sabi.framework.utils.Constants;
 import com.sabi.framework.utils.CustomResponseCode;
-
-
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
@@ -88,8 +86,6 @@ public class LGAController {
         return new ResponseEntity<>(resp, httpCode);
     }
 
-
-
     /** <summary>
      * Get all records endpoint
      * </summary>
@@ -119,7 +115,7 @@ public class LGAController {
      */
 
     @PutMapping("/enabledisenable")
-    public ResponseEntity<Response> enableDisEnable(@Validated @RequestBody EnableDisEnableDto request){
+    public ResponseEntity<Response> enableDisEnable(@Validated @RequestBody EnableDisableDto request){
         HttpStatus httpCode ;
         Response resp = new Response();
         service.enableDisEnableState(request);

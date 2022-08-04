@@ -1,12 +1,12 @@
 package com.sabi.datacollection.api.controllers;
 
-import com.sabi.datacollection.core.dto.request.BankDto;
+
 import com.sabi.datacollection.core.dto.request.EnableDisableDto;
-import com.sabi.datacollection.core.dto.response.BankResponseDto;
-import com.sabi.datacollection.core.models.Bank;
-import com.sabi.datacollection.service.services.BankService;
+import com.sabi.datacollection.core.dto.request.TransactionDto;
+import com.sabi.datacollection.core.dto.response.TransactionResponseDto;
+import com.sabi.datacollection.core.models.Transaction;
+import com.sabi.datacollection.service.services.TransactionService;
 import com.sabi.framework.dto.responseDto.Response;
-import com.sabi.framework.service.WhatsAppService;
 import com.sabi.framework.utils.Constants;
 import com.sabi.framework.utils.CustomResponseCode;
 import org.springframework.data.domain.Page;
@@ -16,31 +16,34 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
 import java.util.List;
+
 
 @SuppressWarnings("All")
 @RestController
-@RequestMapping(Constants.APP_CONTENT +"bank")
-public class BankController {
+@RequestMapping(Constants.APP_CONTENT+"transaction")
+public class TransactionController {
 
 
-    private final BankService service;
+    private final TransactionService service;
 
-    public BankController(BankService service, WhatsAppService whatsAppService) {
+    public TransactionController(TransactionService service) {
         this.service = service;
     }
 
 
     /** <summary>
-     * Bank creation endpoint
+     * Transaction creation endpoint
      * </summary>
-     * <remarks>this endpoint is responsible for creation of new bank</remarks>
+     * <remarks>this endpoint is responsible for creation of new transactions</remarks>
      */
+
     @PostMapping("")
-    public ResponseEntity<Response> createBank(@Validated @RequestBody BankDto request){
+    public ResponseEntity<Response> createTransaction(@Validated @RequestBody TransactionDto request){
         HttpStatus httpCode ;
         Response resp = new Response();
-        BankResponseDto response = service.createBank(request);
+        TransactionResponseDto response = service.createTransaction(request);
         resp.setCode(CustomResponseCode.SUCCESS);
         resp.setDescription("Successful");
         resp.setData(response);
@@ -49,17 +52,19 @@ public class BankController {
     }
 
 
+
     /** <summary>
-     * Bank update endpoint
+     * Transaction update endpoint
      * </summary>
-     * <remarks>this endpoint is responsible for updating bank</remarks>
+     * <remarks>this endpoint is responsible for updating transactions</remarks>
      */
 
     @PutMapping("")
-    public ResponseEntity<Response> updateBank(@Validated @RequestBody  BankDto request){
+    // @PreAuthorize("hasAnyRole('ROLE_SUPER_ADMIN','ROLE_CREATE_USER')")
+    public ResponseEntity<Response> updateTransaction(@Validated @RequestBody  TransactionDto request){
         HttpStatus httpCode ;
         Response resp = new Response();
-        BankResponseDto response = service.updateBank(request);
+        TransactionResponseDto response = service.updateTransaction(request);
         resp.setCode(CustomResponseCode.SUCCESS);
         resp.setDescription("Update Successful");
         resp.setData(response);
@@ -68,16 +73,18 @@ public class BankController {
     }
 
 
+
     /** <summary>
      * Get single record endpoint
      * </summary>
      * <remarks>this endpoint is responsible for getting a single record</remarks>
      */
     @GetMapping("/{id}")
-    public ResponseEntity<Response> getBank(@PathVariable Long id){
+    // @PreAuthorize("hasAnyRole('ROLE_SUPER_ADMIN','ROLE_CREATE_USER')")
+    public ResponseEntity<Response> getTransaction(@PathVariable Long id){
         HttpStatus httpCode ;
         Response resp = new Response();
-        BankResponseDto response = service.findBank(id);
+        TransactionResponseDto response = service.findTransaction(id);
         resp.setCode(CustomResponseCode.SUCCESS);
         resp.setDescription("Record fetched successfully !");
         resp.setData(response);
@@ -91,14 +98,16 @@ public class BankController {
      * </summary>
      * <remarks>this endpoint is responsible for getting all records and its searchable</remarks>
      */
-    @GetMapping("")
-    public ResponseEntity<Response> getBanks(@RequestParam(value = "name",required = false)String name,
-                                              @RequestParam(value = "code",required = false)String code,
-                                              @RequestParam(value = "page") int page,
-                                              @RequestParam(value = "pageSize") int pageSize){
+
+    @GetMapping("/page")
+    public ResponseEntity<Response> getTransactions(@RequestParam(value = "walletId",required = false)Long walletId,
+                                              @RequestParam(value = "amount",required = false) BigDecimal amount,
+                                                    @RequestParam(value = "reference",required = false)String reference,
+                                             @RequestParam(value = "page") int page,
+                                             @RequestParam(value = "pageSize") int pageSize){
         HttpStatus httpCode ;
         Response resp = new Response();
-        Page<Bank> response = service.findAll(name,code, PageRequest.of(page, pageSize));
+        Page<Transaction> response = service.findAll(walletId, amount, reference, PageRequest.of(page, pageSize));
         resp.setCode(CustomResponseCode.SUCCESS);
         resp.setDescription("Record fetched successfully !");
         resp.setData(response);
@@ -107,31 +116,28 @@ public class BankController {
     }
 
 
-
     /** <summary>
      * Enable disenable
      * </summary>
-     * <remarks>this endpoint is responsible for enabling and disabling a bank</remarks>
+     * <remarks>this endpoint is responsible for enabling and disenabling a Transaction</remarks>
      */
 
-    @PutMapping("/enabledisable")
-    public ResponseEntity<Response> enableDisable(@Validated @RequestBody EnableDisableDto request){
+    @PutMapping("/enabledisenable")
+    public ResponseEntity<Response> enableDisEnable(@Validated @RequestBody EnableDisableDto request){
         HttpStatus httpCode ;
         Response resp = new Response();
-        service.enableDisable(request);
+        service.enableDisEnableTransaction(request);
         resp.setCode(CustomResponseCode.SUCCESS);
         resp.setDescription("Successful");
         httpCode = HttpStatus.OK;
         return new ResponseEntity<>(resp, httpCode);
     }
 
-
-
     @GetMapping("/list")
-    public ResponseEntity<Response> getAll(@RequestParam(value = "isActive")Boolean isActive){
+    public ResponseEntity<Response> getAllByActive(@RequestParam(value = "isActive",required = false)Boolean isActive){
         HttpStatus httpCode ;
         Response resp = new Response();
-        List<Bank> response = service.getAll(isActive);
+        List<Transaction> response = service.getAll(isActive);
         resp.setCode(CustomResponseCode.SUCCESS);
         resp.setDescription("Record fetched successfully !");
         resp.setData(response);

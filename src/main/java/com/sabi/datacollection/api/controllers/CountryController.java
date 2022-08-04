@@ -2,10 +2,10 @@ package com.sabi.datacollection.api.controllers;
 
 
 import com.sabi.datacollection.core.dto.request.CountryDto;
+import com.sabi.datacollection.core.dto.request.EnableDisableDto;
 import com.sabi.datacollection.core.dto.response.CountryResponseDto;
 import com.sabi.datacollection.core.models.Country;
 import com.sabi.datacollection.service.services.CountryService;
-import com.sabi.framework.dto.requestDto.EnableDisEnableDto;
 import com.sabi.framework.dto.responseDto.Response;
 import com.sabi.framework.utils.Constants;
 import com.sabi.framework.utils.CustomResponseCode;
@@ -75,6 +75,9 @@ public class CountryController {
      * </summary>
      * <remarks>this endpoint is responsible for getting a single record</remarks>
      */
+
+
+
     @GetMapping("/{id}")
     public ResponseEntity<Response> getCountry(@PathVariable Long id){
         HttpStatus httpCode ;
@@ -94,6 +97,10 @@ public class CountryController {
      * </summary>
      * <remarks>this endpoint is responsible for getting all records and its searchable</remarks>
      */
+
+
+
+
     @GetMapping("/page")
     public ResponseEntity<Response> getCountries(@RequestParam(value = "name",required = false)String name,
                                               @RequestParam(value = "code",required = false)String code,
@@ -117,7 +124,7 @@ public class CountryController {
      */
 
     @PutMapping("/enabledisenable")
-    public ResponseEntity<Response> enableDisEnable(@Validated @RequestBody EnableDisEnableDto request){
+    public ResponseEntity<Response> enableDisEnable(@Validated @RequestBody EnableDisableDto request){
         HttpStatus httpCode ;
         Response resp = new Response();
         service.enableDisEnableState(request);
@@ -126,6 +133,8 @@ public class CountryController {
         httpCode = HttpStatus.OK;
         return new ResponseEntity<>(resp, httpCode);
     }
+
+
 
 
     @GetMapping("/list")

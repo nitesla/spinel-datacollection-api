@@ -1,18 +1,15 @@
 package com.sabi.datacollection.api.runner;
 
 
-import com.sabi.datacollection.core.models.Bank;
 import com.sabi.datacollection.core.models.Country;
 import com.sabi.datacollection.core.models.LGA;
 import com.sabi.datacollection.core.models.State;
-import com.sabi.datacollection.service.repositories.BankRepository;
 import com.sabi.datacollection.service.repositories.CountryRepository;
 import com.sabi.datacollection.service.repositories.LGARepository;
 import com.sabi.datacollection.service.repositories.StateRepository;
 import com.sabi.framework.models.User;
 import com.sabi.framework.repositories.UserRepository;
 import com.sabi.framework.utils.Constants;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,8 +33,6 @@ public class DataSeed implements ApplicationListener<ContextRefreshedEvent> {
     @Autowired
     private LGARepository localGovernmentRepository;
     @Autowired
-    private BankRepository bankRepository;
-    @Autowired
     private UserRepository userRepo;
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -52,12 +47,12 @@ public class DataSeed implements ApplicationListener<ContextRefreshedEvent> {
     @Override
     public void onApplicationEvent(ContextRefreshedEvent event) {
 
-        seedCountries();
-        seedStates();
-        seedLocalGovernments();
-        seedBanks();
+//        seedCountries();
+//        seedStates();
+//        seedLocalGovernments();
+//        seedBanks();
         seedAppleUsers();
-        seedSabiUsers();
+        seedSpinelUsers();
         seedAdminUsers();
 
     }
@@ -373,42 +368,8 @@ public class DataSeed implements ApplicationListener<ContextRefreshedEvent> {
 
 
 
-    private void seedBanks() {
-        List<Bank> banks = new ArrayList<Bank>() {
-            {
-                add(new Bank("First Bank of Nigeria Plc","011"));
-                add(new Bank("Citibank Nigeria Limited","023"));
-                add(new Bank("Heritage Bank Plc","030"));
-                add(new Bank("Union Bank of Nigeria","032"));
-                add(new Bank("United Bank for Africa Plc","033"));
-                add(new Bank("Wema Bank Plc","035"));
-                add(new Bank("Access Bank Plc","044"));
-                add(new Bank("Ecobank Nigeria Plc","050"));
-                add(new Bank("Zenith International Bank Plc","057"));
-                add(new Bank("Guaranty Trust Bank Plc","058"));
-                add(new Bank("Standard Chartered Bank Plc","068"));
-                add(new Bank("Fidelity Bank Plc","070"));
-                add(new Bank("Polaris Bank Plc","076"));
-                add(new Bank("Keystone Bank Limited","082"));
-                add(new Bank("First City Monument Bank Plc","214"));
-                add(new Bank("Unity Bank Plc","215"));
-                add(new Bank("Stanbic IBTC Bank Plc","221"));
-                add(new Bank("Sterling Bank Plc","232"));
-                add(new Bank("Jaiz Bank Plc","301"));
-            }
-        };
-
-        banks.forEach(bank -> {
-            Bank fetchBank = bankRepository.findByName(bank.getName());
-            if (fetchBank == null) {
-                bankRepository.saveAndFlush(bank);
-            }
-        });
-    }
-
-
     private void seedAppleUsers() {
-        User user = userRepo.findByEmail("appleUser@sabi.com");
+        User user = userRepo.findByEmail("appleUser@spinel.com");
         if (user == null) {
             createUser();
         }
@@ -421,8 +382,8 @@ public class DataSeed implements ApplicationListener<ContextRefreshedEvent> {
         appleUser.setLastName("appleUser2");
         appleUser.setPassword(passwordEncoder.encode("000000"));
         appleUser.setPhone("01156548654");
-        appleUser.setEmail("appleUser@sabi.com");
-        appleUser.setUsername("appleUser@sabi.com");
+        appleUser.setEmail("appleUser@spinel.com");
+        appleUser.setUsername("appleUser@spinel.com");
         appleUser.setLoginAttempts(0);
         appleUser.setUserCategory(Constants.OTHER_USER);
         appleUser.setIsActive(true);
@@ -435,35 +396,126 @@ public class DataSeed implements ApplicationListener<ContextRefreshedEvent> {
     }
 
 
-    private void seedSabiUsers() {
-        User user = userRepo.findByEmail("sabi@sabi.com");
+    private void seedSpinelUsers() {
+        User user = userRepo.findByEmail("spinel@spinel.com");
         if (user == null) {
-            createSabiUser();
+            createSpinelUser();
         }
     }
 
-    private User createSabiUser() {
-        User sabiUser = new User();
-        sabiUser.setFirstName("sabi");
-        sabiUser.setLastName("sabi2");
-        sabiUser.setPassword(passwordEncoder.encode("777777"));
-        sabiUser.setPhone("02163976228");
-        sabiUser.setEmail("sabi@sabi.com");
-        sabiUser.setUsername("sabi@sabi.com");
-        sabiUser.setLoginAttempts(0);
-        sabiUser.setUserCategory(Constants.ADMIN_USER);
-        sabiUser.setIsActive(true);
-        sabiUser.setPasswordChangedOn(LocalDateTime.now());
-        sabiUser.setCreatedBy(0L);
-        sabiUser.setCreatedDate(LocalDateTime.now());
-        sabiUser.setUpdatedDate(LocalDateTime.now());
-        userRepo.saveAndFlush(sabiUser);
-        return sabiUser;
+    private void seedUser1() {
+        User user1 = new User();
+        user1.setFirstName("diekola");
+        user1.setLastName("alabi");
+        user1.setPassword(passwordEncoder.encode("1111111"));
+        user1.setPhone("02163976228");
+        user1.setEmail("diekola@spinel.consulting");
+        user1.setUsername("diekola@spinel.consulting");
+        user1.setLoginAttempts(0);
+        user1.setUserCategory(Constants.ADMIN_USER);
+        user1.setIsActive(true);
+        user1.setPasswordChangedOn(LocalDateTime.now());
+        user1.setCreatedBy(0L);
+        user1.setCreatedDate(LocalDateTime.now());
+        user1.setUpdatedDate(LocalDateTime.now());
+        userRepo.saveAndFlush(user1);
+    }
+
+    private void seedUser2() {
+        User user1 = new User();
+        user1.setFirstName("chioma");
+        user1.setLastName("Udoh");
+        user1.setPassword(passwordEncoder.encode("1111111"));
+        user1.setPhone("02163976228");
+        user1.setEmail("chioma.u@spinel.consulting");
+        user1.setUsername("chioma.u@spinel.consulting");
+        user1.setLoginAttempts(0);
+        user1.setUserCategory(Constants.ADMIN_USER);
+        user1.setIsActive(true);
+        user1.setPasswordChangedOn(LocalDateTime.now());
+        user1.setCreatedBy(0L);
+        user1.setCreatedDate(LocalDateTime.now());
+        user1.setUpdatedDate(LocalDateTime.now());
+        userRepo.save(user1);
+    }
+
+    private void seedUser3() {
+        User user1 = new User();
+        user1.setFirstName("mumin");
+        user1.setLastName("abubakar");
+        user1.setPassword(passwordEncoder.encode("1111111"));
+        user1.setPhone("02163976228");
+        user1.setEmail("mumin.a@spinel.consulting");
+        user1.setUsername("mumin.a@spinel.consulting");
+        user1.setLoginAttempts(0);
+        user1.setUserCategory(Constants.ADMIN_USER);
+        user1.setIsActive(true);
+        user1.setPasswordChangedOn(LocalDateTime.now());
+        user1.setCreatedBy(0L);
+        user1.setCreatedDate(LocalDateTime.now());
+        user1.setUpdatedDate(LocalDateTime.now());
+        userRepo.save(user1);
+    }
+
+    private void seedUser4() {
+        User user1 = new User();
+        user1.setFirstName("deborah");
+        user1.setLastName("durosinmi");
+        user1.setPassword(passwordEncoder.encode("1111111"));
+        user1.setPhone("02163976228");
+        user1.setEmail("deborah.d@spinel.consulting");
+        user1.setUsername("deborah.d@spinel.consulting");
+        user1.setLoginAttempts(0);
+        user1.setUserCategory(Constants.ADMIN_USER);
+        user1.setIsActive(true);
+        user1.setPasswordChangedOn(LocalDateTime.now());
+        user1.setCreatedBy(0L);
+        user1.setCreatedDate(LocalDateTime.now());
+        user1.setUpdatedDate(LocalDateTime.now());
+        userRepo.save(user1);
+    }
+
+    private void seedUser5() {
+//        User user1 = new User();
+//        user1.setFirstName("chika");
+//        user1.setLastName("iduma");
+//        user1.setPassword(passwordEncoder.encode("1111111"));
+//        user1.setPhone("02163976228");
+//        user1.setEmail("chika.i@spinel.com");
+//        user1.setUsername("chika.i@spinel.com");
+//        user1.setLoginAttempts(0);
+//        user1.setUserCategory(Constants.ADMIN_USER);
+//        user1.setIsActive(true);
+//        user1.setPasswordChangedOn(LocalDateTime.now());
+//        user1.setCreatedBy(0L);
+//        user1.setCreatedDate(LocalDateTime.now());
+//        user1.setUpdatedDate(LocalDateTime.now());
+//        userRepo.save(user1);
+    }
+
+
+    private User createSpinelUser() {
+        User spinelUser = new User();
+        spinelUser.setFirstName("spinel");
+        spinelUser.setLastName("spinel2");
+        spinelUser.setPassword(passwordEncoder.encode("777777"));
+        spinelUser.setPhone("02163976228");
+        spinelUser.setEmail("spinel@spinel.com");
+        spinelUser.setUsername("spinel@spinel.com");
+        spinelUser.setLoginAttempts(0);
+        spinelUser.setUserCategory(Constants.ADMIN_USER);
+        spinelUser.setIsActive(true);
+        spinelUser.setPasswordChangedOn(LocalDateTime.now());
+        spinelUser.setCreatedBy(0L);
+        spinelUser.setCreatedDate(LocalDateTime.now());
+        spinelUser.setUpdatedDate(LocalDateTime.now());
+        userRepo.save(spinelUser);
+        return spinelUser;
     }
 
 
     private void seedAdminUsers() {
-        User user = userRepo.findByEmail("admin@sabi.com");
+        User user = userRepo.findByEmail("admin@spinel.com");
         if (user == null) {
             createAdminUser();
         }
@@ -475,8 +527,8 @@ public class DataSeed implements ApplicationListener<ContextRefreshedEvent> {
         user.setLastName("adminUser2");
         user.setPassword(passwordEncoder.encode("1111111"));
         user.setPhone("08136529363");
-        user.setEmail("admin@sabi.com");
-        user.setUsername("admin@sabi.com");
+        user.setEmail("admin@spinel.com");
+        user.setUsername("admin@spinel.com");
         user.setLoginAttempts(0);
         user.setUserCategory(Constants.ADMIN_USER);
         user.setIsActive(true);

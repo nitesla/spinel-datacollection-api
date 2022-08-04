@@ -2,6 +2,8 @@ package com.sabi.datacollection.api.controllers;
 
 
 
+import com.sabi.datacollection.core.dto.response.RoleSummaryResponseDto;
+import com.sabi.datacollection.service.services.RoleSummaryService;
 import com.sabi.framework.dto.requestDto.EnableDisEnableDto;
 import com.sabi.framework.dto.requestDto.RoleDto;
 import com.sabi.framework.dto.responseDto.Response;
@@ -28,9 +30,11 @@ public class RoleController {
 
 
     private final RoleService service;
+    private final RoleSummaryService summaryService;
 
-    public RoleController(RoleService service) {
+    public RoleController(RoleService service, RoleSummaryService summaryService) {
         this.service = service;
+        this.summaryService = summaryService;
     }
 
 
@@ -60,7 +64,7 @@ public class RoleController {
      */
 
     @PutMapping("")
-    public ResponseEntity<Response> updateRole(@Validated @RequestBody  RoleDto request,HttpServletRequest request1){
+    public ResponseEntity<Response> updateRole(@Validated @RequestBody RoleDto request,HttpServletRequest request1){
         HttpStatus httpCode ;
         Response resp = new Response();
         RoleResponseDto response = service.updateRole(request,request1);
@@ -111,8 +115,17 @@ public class RoleController {
     }
 
 
-
-
+    @GetMapping("/list")
+    public ResponseEntity<Response> getAll(@RequestParam(value = "isActive")Boolean isActive){
+        HttpStatus httpCode;
+        Response resp = new Response();
+        List<Role> response = service.getAll(isActive);
+        resp.setCode(CustomResponseCode.SUCCESS);
+        resp.setDescription("Record fetched successfully !");
+        resp.setData(response);
+        httpCode = HttpStatus.OK;
+        return new ResponseEntity<>(resp, httpCode);
+    }
 
     /** <summary>
      * Enable disable
@@ -128,6 +141,18 @@ public class RoleController {
         resp.setCode(CustomResponseCode.SUCCESS);
         resp.setDescription("Successful");
         httpCode = HttpStatus.OK;
+        return new ResponseEntity<>(resp, httpCode);
+    }
+
+    @PostMapping("roleSummary")
+    public ResponseEntity<Response> roleSummary(){
+        HttpStatus httpCode ;
+        Response resp = new Response();
+        RoleSummaryResponseDto response = summaryService.roleSummary();
+        resp.setCode(CustomResponseCode.SUCCESS);
+        resp.setDescription("Successful");
+        resp.setData(response);
+        httpCode = HttpStatus.CREATED;
         return new ResponseEntity<>(resp, httpCode);
     }
 

@@ -1,8 +1,6 @@
 package com.sabi.datacollection.api.controllers;
 
 
-
-
 import com.sabi.framework.dto.requestDto.PermissionDto;
 import com.sabi.framework.dto.responseDto.PermissionResponseDto;
 import com.sabi.framework.dto.responseDto.Response;
@@ -94,9 +92,9 @@ public class PermissionController {
      * </summary>
      * <remarks>this endpoint is responsible for getting all records and its searchable</remarks>
      */
-    @GetMapping("/page")
+    @GetMapping("")
     public ResponseEntity<Response> getPermissions(@RequestParam(value = "name",required = false)String name,
-                                                   @RequestParam(value = "isActive",required = false)Boolean isActive,
+                                                   @RequestParam(value = "isActive")Boolean isActive,
                                                    @RequestParam(value = "page") int page,
                                                    @RequestParam(value = "pageSize") int pageSize){
         HttpStatus httpCode ;
@@ -109,9 +107,8 @@ public class PermissionController {
         return new ResponseEntity<>(resp, httpCode);
     }
 
-
     @GetMapping("/list")
-    public ResponseEntity<Response> getAll(@RequestParam(value = "isActive",required = false)Boolean isActive){
+    public ResponseEntity<Response> getAll(@RequestParam(value = "isActive")Boolean isActive){
         HttpStatus httpCode ;
         Response resp = new Response();
         List<Permission> response = service.getAll(isActive);
@@ -121,5 +118,4 @@ public class PermissionController {
         httpCode = HttpStatus.OK;
         return new ResponseEntity<>(resp, httpCode);
     }
-
 }

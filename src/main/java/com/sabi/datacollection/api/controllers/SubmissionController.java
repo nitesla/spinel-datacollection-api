@@ -1,12 +1,13 @@
 package com.sabi.datacollection.api.controllers;
 
-import com.sabi.datacollection.core.dto.request.BankDto;
+
 import com.sabi.datacollection.core.dto.request.EnableDisableDto;
-import com.sabi.datacollection.core.dto.response.BankResponseDto;
-import com.sabi.datacollection.core.models.Bank;
-import com.sabi.datacollection.service.services.BankService;
+import com.sabi.datacollection.core.dto.request.SubmissionDto;
+import com.sabi.datacollection.core.dto.response.SubmissionResponseDto;
+import com.sabi.datacollection.core.enums.Status;
+import com.sabi.datacollection.core.models.Submission;
+import com.sabi.datacollection.service.services.SubmissionService;
 import com.sabi.framework.dto.responseDto.Response;
-import com.sabi.framework.service.WhatsAppService;
 import com.sabi.framework.utils.Constants;
 import com.sabi.framework.utils.CustomResponseCode;
 import org.springframework.data.domain.Page;
@@ -18,29 +19,31 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+
 @SuppressWarnings("All")
 @RestController
-@RequestMapping(Constants.APP_CONTENT +"bank")
-public class BankController {
+@RequestMapping(Constants.APP_CONTENT+"submission")
+public class SubmissionController {
 
 
-    private final BankService service;
+    private final SubmissionService service;
 
-    public BankController(BankService service, WhatsAppService whatsAppService) {
+    public SubmissionController(SubmissionService service) {
         this.service = service;
     }
 
 
     /** <summary>
-     * Bank creation endpoint
+     * Submission creation endpoint
      * </summary>
-     * <remarks>this endpoint is responsible for creation of new bank</remarks>
+     * <remarks>this endpoint is responsible for creation of new submissions</remarks>
      */
+
     @PostMapping("")
-    public ResponseEntity<Response> createBank(@Validated @RequestBody BankDto request){
+    public ResponseEntity<Response> createSubmission(@Validated @RequestBody SubmissionDto request){
         HttpStatus httpCode ;
         Response resp = new Response();
-        BankResponseDto response = service.createBank(request);
+        SubmissionResponseDto response = service.createSubmission(request);
         resp.setCode(CustomResponseCode.SUCCESS);
         resp.setDescription("Successful");
         resp.setData(response);
@@ -49,17 +52,18 @@ public class BankController {
     }
 
 
+
     /** <summary>
-     * Bank update endpoint
+     * Submission update endpoint
      * </summary>
-     * <remarks>this endpoint is responsible for updating bank</remarks>
+     * <remarks>this endpoint is responsible for updating submissions</remarks>
      */
 
     @PutMapping("")
-    public ResponseEntity<Response> updateBank(@Validated @RequestBody  BankDto request){
+    public ResponseEntity<Response> updateSubmission(@Validated @RequestBody  SubmissionDto request){
         HttpStatus httpCode ;
         Response resp = new Response();
-        BankResponseDto response = service.updateBank(request);
+        SubmissionResponseDto response = service.updateSubmission(request);
         resp.setCode(CustomResponseCode.SUCCESS);
         resp.setDescription("Update Successful");
         resp.setData(response);
@@ -68,16 +72,17 @@ public class BankController {
     }
 
 
+
     /** <summary>
      * Get single record endpoint
      * </summary>
      * <remarks>this endpoint is responsible for getting a single record</remarks>
      */
     @GetMapping("/{id}")
-    public ResponseEntity<Response> getBank(@PathVariable Long id){
+    public ResponseEntity<Response> getSubmission(@PathVariable Long id){
         HttpStatus httpCode ;
         Response resp = new Response();
-        BankResponseDto response = service.findBank(id);
+        SubmissionResponseDto response = service.findSubmission(id);
         resp.setCode(CustomResponseCode.SUCCESS);
         resp.setDescription("Record fetched successfully !");
         resp.setData(response);
@@ -91,14 +96,17 @@ public class BankController {
      * </summary>
      * <remarks>this endpoint is responsible for getting all records and its searchable</remarks>
      */
-    @GetMapping("")
-    public ResponseEntity<Response> getBanks(@RequestParam(value = "name",required = false)String name,
-                                              @RequestParam(value = "code",required = false)String code,
-                                              @RequestParam(value = "page") int page,
-                                              @RequestParam(value = "pageSize") int pageSize){
+
+    @GetMapping("/page")
+    public ResponseEntity<Response> getSubmissions(@RequestParam(value = "projectId",required = false)Long projectId,
+                                                   @RequestParam(value = "formId",required = false)Long formId,
+                                                   @RequestParam(value = "status",required = false)Status status,
+                                                   @RequestParam(value = "enumeratorId",required = false) Long enumeratorId,
+                                                   @RequestParam(value = "page") int page,
+                                                   @RequestParam(value = "pageSize") int pageSize){
         HttpStatus httpCode ;
         Response resp = new Response();
-        Page<Bank> response = service.findAll(name,code, PageRequest.of(page, pageSize));
+        Page<Submission> response = service.findAll(projectId,formId, status, enumeratorId,  PageRequest.of(page, pageSize));
         resp.setCode(CustomResponseCode.SUCCESS);
         resp.setDescription("Record fetched successfully !");
         resp.setData(response);
@@ -107,36 +115,43 @@ public class BankController {
     }
 
 
-
     /** <summary>
      * Enable disenable
      * </summary>
-     * <remarks>this endpoint is responsible for enabling and disabling a bank</remarks>
+     * <remarks>this endpoint is responsible for enabling and disenabling a Submission</remarks>
      */
 
     @PutMapping("/enabledisable")
-    public ResponseEntity<Response> enableDisable(@Validated @RequestBody EnableDisableDto request){
+    public ResponseEntity<Response> enableDisEnable(@Validated @RequestBody EnableDisableDto request){
         HttpStatus httpCode ;
         Response resp = new Response();
-        service.enableDisable(request);
+        service.enableDisEnableSubmission(request);
         resp.setCode(CustomResponseCode.SUCCESS);
         resp.setDescription("Successful");
         httpCode = HttpStatus.OK;
         return new ResponseEntity<>(resp, httpCode);
     }
 
-
-
     @GetMapping("/list")
-    public ResponseEntity<Response> getAll(@RequestParam(value = "isActive")Boolean isActive){
+    public ResponseEntity<Response> getAllByActive(@RequestParam(value = "isActive",required = false)Boolean isActive){
         HttpStatus httpCode ;
         Response resp = new Response();
-        List<Bank> response = service.getAll(isActive);
+        List<Submission> response = service.getAll(isActive);
         resp.setCode(CustomResponseCode.SUCCESS);
         resp.setDescription("Record fetched successfully !");
         resp.setData(response);
         httpCode = HttpStatus.OK;
         return new ResponseEntity<>(resp, httpCode);
+    }
+
+    @GetMapping("/getSubmissionGraph")
+    public ResponseEntity<Response> getSubmissionsGraph(@RequestParam(value = "duration")int duration,
+                                                      @RequestParam(value = "dateType")String dateType) {
+        Response resp = new Response();
+        resp.setCode(CustomResponseCode.SUCCESS);
+        resp.setDescription("Records fetched successfully");
+        resp.setData(service.getSubmissions(duration, dateType));
+        return new ResponseEntity<>(resp, HttpStatus.OK);
     }
 
 

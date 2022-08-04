@@ -1,11 +1,11 @@
 package com.sabi.datacollection.api.controllers;
 
 
+import com.sabi.datacollection.core.dto.request.EnableDisableDto;
 import com.sabi.datacollection.core.dto.request.StateDto;
 import com.sabi.datacollection.core.dto.response.StateResponseDto;
 import com.sabi.datacollection.core.models.State;
 import com.sabi.datacollection.service.services.StateService;
-import com.sabi.framework.dto.requestDto.EnableDisEnableDto;
 import com.sabi.framework.dto.responseDto.Response;
 import com.sabi.framework.utils.Constants;
 import com.sabi.framework.utils.CustomResponseCode;
@@ -39,7 +39,6 @@ public class StateController {
      */
 
     @PostMapping("")
-    // @PreAuthorize("hasAnyRole('ROLE_SUPER_ADMIN','ROLE_CREATE_USER')")
     public ResponseEntity<Response> createState(@Validated @RequestBody StateDto request){
         HttpStatus httpCode ;
         Response resp = new Response();
@@ -93,12 +92,12 @@ public class StateController {
     }
 
 
-
     /** <summary>
      * Get all records endpoint
      * </summary>
      * <remarks>this endpoint is responsible for getting all records and its searchable</remarks>
      */
+
     @GetMapping("/page")
     public ResponseEntity<Response> getStates(@RequestParam(value = "name",required = false)String name,
                                               @RequestParam(value = "countryId",required = false)Long countryId,
@@ -106,7 +105,7 @@ public class StateController {
                                              @RequestParam(value = "pageSize") int pageSize){
         HttpStatus httpCode ;
         Response resp = new Response();
-        Page<State> response = service.findAll(name,countryId,PageRequest.of(page, pageSize));
+        Page<State> response = service.findAll(name,countryId, PageRequest.of(page, pageSize));
         resp.setCode(CustomResponseCode.SUCCESS);
         resp.setDescription("Record fetched successfully !");
         resp.setData(response);
@@ -122,7 +121,7 @@ public class StateController {
      */
 
     @PutMapping("/enabledisenable")
-    public ResponseEntity<Response> enableDisEnable(@Validated @RequestBody EnableDisEnableDto request){
+    public ResponseEntity<Response> enableDisEnable(@Validated @RequestBody EnableDisableDto request){
         HttpStatus httpCode ;
         Response resp = new Response();
         service.enableDisEnableState(request);
@@ -131,7 +130,6 @@ public class StateController {
         httpCode = HttpStatus.OK;
         return new ResponseEntity<>(resp, httpCode);
     }
-
 
     @GetMapping("/list")
     public ResponseEntity<Response> getAll(@RequestParam(value = "countryId",required = false)Long countryId){
