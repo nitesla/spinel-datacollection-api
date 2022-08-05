@@ -119,8 +119,8 @@
 		</dependency>
 
 		<dependency>
-			<groupId>com.sabi.framework</groupId>
-			<artifactId>sabi-framework</artifactId>
+			<groupId>com.spinel.framework</groupId>
+			<artifactId>spinel-framework</artifactId>
 			<version>1.0</version>
 		</dependency>
 
@@ -298,13 +298,13 @@
 						</goals>
 					</execution>
 					<execution>
-						<id>install-sabi-framework</id>
+						<id>install-spinel-framework</id>
 						<phase>clean</phase>
 						<configuration>
-							<file>${basedir}/lib/sabi-framework.jar</file>
+							<file>${basedir}/lib/spinel-framework.jar</file>
 							<repositoryLayout>default</repositoryLayout>
-							<groupId>com.sabi.framework</groupId>
-							<artifactId>sabi-framework</artifactId>
+							<groupId>com.spinel.framework</groupId>
+							<artifactId>spinel-framework</artifactId>
 							<version>1.0</version>
 							<packaging>jar</packaging>
 							<generatePom>true</generatePom>
