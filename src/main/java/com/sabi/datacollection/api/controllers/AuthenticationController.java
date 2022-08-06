@@ -2,6 +2,7 @@ package com.sabi.datacollection.api.controllers;
 
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.sabi.datacollection.service.services.AuthenticationService;
 import com.sabi.framework.dto.requestDto.LoginRequest;
 import com.sabi.framework.dto.responseDto.AccessTokenWithUserDetails;
 import com.sabi.framework.dto.responseDto.Response;
@@ -51,20 +52,22 @@ public class AuthenticationController {
     private final PermissionRepository permissionRepository;
     private final PermissionService permissionService;
     private final UserRoleService userRoleService;
+    private final AuthenticationService authenticationService;
 
 
     public AuthenticationController(UserService userService, AuditTrailService auditTrailService,
                                     PermissionRepository permissionRepository, PermissionService permissionService,
-                                    UserRoleService userRoleService) {
+                                    UserRoleService userRoleService, AuthenticationService authenticationService) {
         this.userService = userService;
         this.auditTrailService = auditTrailService;
         this.permissionRepository = permissionRepository;
         this.permissionService = permissionService;
         this.userRoleService = userRoleService;
-
+        this.authenticationService = authenticationService;
     }
 
-    @PostMapping("/login")
+    @Deprecated
+    @PostMapping("/loginUser")
     public ResponseEntity<?> loginUser(@RequestBody @Valid LoginRequest loginRequest, HttpServletRequest request) throws JsonProcessingException {
 
         log.info(":::::::::: login Request %s:::::::::::::" + loginRequest.getUsername());
@@ -130,7 +133,17 @@ public class AuthenticationController {
     }
 
 
+    @PostMapping("/login")
+    public ResponseEntity<?> loginEnumeratorOrProjectOwner(@RequestBody @Valid LoginRequest loginRequest, HttpServletRequest request) {
+        AccessTokenWithUserDetails details = authenticationService.loginUser(loginRequest, request);
+        return new ResponseEntity<>(details, HttpStatus.OK);
+    }
 
+    @PostMapping("/admin/login")
+    public ResponseEntity<?> loginAdminUser(@RequestBody @Valid LoginRequest loginRequest, HttpServletRequest request) throws JsonProcessingException {
+        AccessTokenWithUserDetails details = authenticationService.loginAdminUser(loginRequest, request);
+        return new ResponseEntity<>(details, HttpStatus.OK);
+    }
 
 
     @PostMapping("/logout")

@@ -4,15 +4,14 @@ import com.sabi.datacollection.core.dto.request.CompleteSignupRequest;
 import com.sabi.datacollection.core.dto.request.EnableDisableDto;
 import com.sabi.datacollection.core.dto.request.ProjectOwnerDto;
 import com.sabi.datacollection.core.dto.request.ProjectOwnerSignUpDto;
-import com.sabi.datacollection.core.dto.response.CompleteSignUpResponse;
-import com.sabi.datacollection.core.dto.response.ProjectOwnerActivationResponse;
-import com.sabi.datacollection.core.dto.response.ProjectOwnerResponseDto;
-import com.sabi.datacollection.core.dto.response.ProjectOwnerSignUpResponseDto;
+import com.sabi.datacollection.core.dto.response.*;
 import com.sabi.datacollection.core.models.ProjectOwner;
 import com.sabi.datacollection.service.services.ProjectOwnerService;
+import com.sabi.framework.dto.requestDto.ActivateUserAccountDto;
 import com.sabi.framework.dto.requestDto.ChangePasswordDto;
 import com.sabi.framework.dto.requestDto.ForgetPasswordDto;
 import com.sabi.framework.dto.responseDto.Response;
+import com.sabi.framework.service.UserService;
 import com.sabi.framework.utils.Constants;
 import com.sabi.framework.utils.CustomResponseCode;
 import org.springframework.data.domain.Page;
@@ -30,9 +29,11 @@ import java.util.List;
 public class ProjectOwnerController {
 
     private final ProjectOwnerService service;
+    private final UserService userService;
 
-    public ProjectOwnerController(ProjectOwnerService service) {
+    public ProjectOwnerController(ProjectOwnerService service, UserService userService) {
         this.service = service;
+        this.userService = userService;
     }
 
     @PostMapping("/signup")
@@ -48,7 +49,7 @@ public class ProjectOwnerController {
     @PutMapping("/completesignup")
     public ResponseEntity<Response> completeSignUp(@RequestBody CompleteSignupRequest request) {
         Response response = new Response();
-        CompleteSignUpResponse completeSignUpResponse = service.completeSignUp(request);
+        CompleteProjectOwnerSignUpResponse completeSignUpResponse = service.completeSignUp(request);
         response.setCode(CustomResponseCode.SUCCESS);
         response.setDescription("Successful");
         response.setData(completeSignUpResponse);
@@ -56,9 +57,9 @@ public class ProjectOwnerController {
     }
 
     @PutMapping("/passwordactivation")
-    public ResponseEntity<Response> enumeratorPasswordActivation(@RequestBody ChangePasswordDto request) {
+    public ResponseEntity<Response> passwordActivation(@RequestBody ChangePasswordDto request) {
         Response response = new Response();
-        ProjectOwnerActivationResponse projectOwnerActivationResponse = service.enumeratorPasswordActivation(request);
+        ProjectOwnerActivationResponse projectOwnerActivationResponse = service.passwordActivation(request);
         response.setCode(CustomResponseCode.SUCCESS);
         response.setDescription("Password changed successfully");
         response.setData(projectOwnerActivationResponse);
@@ -138,11 +139,41 @@ public class ProjectOwnerController {
     }
 
     @GetMapping("/getprojectownerwithuserid")
-    public ResponseEntity<Response> getEnumeratorWithUserId(@RequestParam(value = "userId")Long userId) {
+    public ResponseEntity<Response> getProjectOwnerWithUserId(@RequestParam(value = "userId")Long userId) {
         Response resp = new Response();
         resp.setCode(CustomResponseCode.SUCCESS);
         resp.setDescription("Record fetched successfully !");
         resp.setData(service.findProjectOwnerByUserId(userId));
         return new ResponseEntity<>(resp, HttpStatus.OK);
     }
+
+    @GetMapping("/getsummary")
+    public ResponseEntity<Response> getProjectOwnerSummary(@RequestParam(value = "projectOwnerId")Long projectOwnerId) {
+        Response resp = new Response();
+        resp.setCode(CustomResponseCode.SUCCESS);
+        resp.setDescription("Record fetched successfully !");
+        resp.setData(service.getProjectSummary(projectOwnerId));
+        return new ResponseEntity<>(resp, HttpStatus.OK);
+    }
+
+    @PutMapping("/validateOtp")
+    public ResponseEntity<Response> validateOtpAndActivateUser(@Validated @RequestBody ActivateUserAccountDto request){
+        Response resp = new Response();
+        resp.setCode(CustomResponseCode.SUCCESS);
+        resp.setDescription("Successful");
+        resp.setData(userService.activateUser(request));
+        return new ResponseEntity<>(resp, HttpStatus.OK);
+    }
+
+    @GetMapping("/getprojectownersummarywithdate")
+    public ResponseEntity<Response> getProjectOwnerSummaryWithDate(@RequestParam(value = "projectOwnerId")Long projectOwnerId,
+                                                              @RequestParam(value = "startDate")String startDate,
+                                                              @RequestParam(value = "endDate", required = false)String endDate) {
+        Response resp = new Response();
+        resp.setData(service.getProjectSummary(projectOwnerId, startDate, endDate));
+        resp.setCode(CustomResponseCode.SUCCESS);
+        resp.setDescription("Record fetched successfully !");
+        return new ResponseEntity<>(resp, HttpStatus.OK);
+    }
+
 }
