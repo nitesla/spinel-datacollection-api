@@ -15,6 +15,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import com.sabi.datacollection.core.enums.ActionType;
+import com.sabi.datacollection.core.enums.Status;
+import com.sabi.datacollection.core.enums.TransactionType;
+import java.time.LocalDateTime;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -100,14 +104,22 @@ public class TransactionController {
      */
 
     @GetMapping("/page")
-    public ResponseEntity<Response> getTransactions(@RequestParam(value = "walletId",required = false)Long walletId,
-                                              @RequestParam(value = "amount",required = false) BigDecimal amount,
-                                                    @RequestParam(value = "reference",required = false)String reference,
-                                             @RequestParam(value = "page") int page,
-                                             @RequestParam(value = "pageSize") int pageSize){
+    public ResponseEntity<Response> getTransactions(
+                                        @RequestParam(value = "walletId",required = false)Long walletId,
+                                        @RequestParam(value = "amount",required = false) BigDecimal amount,
+                                        @RequestParam(value = "initialBalance",required = false) BigDecimal initialBalance,
+                                        @RequestParam(value = "finalBalance",required = false) BigDecimal finalBalance,
+                                        @RequestParam(value = "actionType",required = false) ActionType actionType,
+                                        @RequestParam(value = "transactionType",required = false) TransactionType transactionType,
+                                        @RequestParam(value = "status",required = false) Status status,
+                                        @RequestParam(value = "reference",required = false)String reference,
+                                        @RequestParam(value = "fromDate",required = false) LocalDateTime fromDate,
+                                        @RequestParam(value = "toDate",required = false)LocalDateTime toDate,
+                                        @RequestParam(value = "page") int page,
+                                        @RequestParam(value = "pageSize") int pageSize){
         HttpStatus httpCode ;
         Response resp = new Response();
-        Page<Transaction> response = service.findAll(walletId, amount, reference, PageRequest.of(page, pageSize));
+        Page<Transaction> response = service.findAll(walletId, amount, initialBalance,finalBalance,actionType,transactionType,status, reference,fromDate,toDate, PageRequest.of(page, pageSize));
         resp.setCode(CustomResponseCode.SUCCESS);
         resp.setDescription("Record fetched successfully !");
         resp.setData(response);
