@@ -1,10 +1,7 @@
 package com.spinel.datacollection.api.controllers;
 
 
-import com.spinel.datacollection.core.dto.request.CompleteSignupRequest;
-import com.spinel.datacollection.core.dto.request.EnableDisableDto;
-import com.spinel.datacollection.core.dto.request.ProjectOwnerDto;
-import com.spinel.datacollection.core.dto.request.ProjectOwnerSignUpDto;
+import com.spinel.datacollection.core.dto.request.*;
 import com.spinel.datacollection.core.dto.response.CompleteProjectOwnerSignUpResponse;
 import com.spinel.datacollection.core.dto.response.ProjectOwnerActivationResponse;
 import com.spinel.datacollection.core.dto.response.ProjectOwnerResponseDto;
@@ -82,7 +79,7 @@ public class ProjectOwnerController {
     }
 
     @PutMapping("")
-    public ResponseEntity<Response> updateProjectOwner(@RequestBody ProjectOwnerDto request, HttpServletRequest httpServletRequest) {
+    public ResponseEntity<Response> updateProjectOwner(@RequestBody UpdateProjectOwnerDto request, HttpServletRequest httpServletRequest) {
         Response response = new Response();
         ProjectOwnerResponseDto projectOwnerResponse = service.updateProjectOwner(request, httpServletRequest);
         response.setDescription("Update Successful");
