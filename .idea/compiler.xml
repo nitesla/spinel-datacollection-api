@@ -9,7 +9,6 @@
         <outputRelativeToContentRoot value="true" />
         <module name="spinel-datacollection-api" />
         <module name="sabi-logistic-api" />
-        <module name="sabi-datacollection-api" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
