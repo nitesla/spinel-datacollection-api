@@ -1,13 +1,13 @@
-package com.sabi.datacollection.api.controllers;
+package com.spinel.datacollection.api.controllers;
 
-import com.sabi.datacollection.core.dto.request.EnableDisableDto;
-import com.sabi.datacollection.core.dto.request.UserBankRequestDto;
 import com.sabi.datacollection.core.dto.response.UserBankResponseDto;
 import com.sabi.datacollection.core.models.UserBank;
-import com.sabi.datacollection.service.services.UserBankService;
-import com.sabi.framework.dto.responseDto.Response;
-import com.sabi.framework.utils.Constants;
-import com.sabi.framework.utils.CustomResponseCode;
+import com.spinel.datacollection.core.dto.request.EnableDisableDto;
+import com.spinel.datacollection.core.dto.request.UserBankRequestDto;
+import com.spinel.datacollection.service.services.UserBankService;
+import com.spinel.framework.dto.responseDto.Response;
+import com.spinel.framework.utils.Constants;
+import com.spinel.framework.utils.CustomResponseCode;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
