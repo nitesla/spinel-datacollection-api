@@ -60,10 +60,12 @@ public class ProjectController {
 
     @GetMapping("/page")
     public ResponseEntity<Response> getProjects(@RequestParam(value = "name",required = false)String name,
+                                                @RequestParam(value = "status",required = false) String status,
+                                                @RequestParam(value = "category",required = false) String category,
                                                 @RequestParam(value = "page") Integer page,
                                                 @RequestParam(value = "pageSize") Integer pageSize) {
         Response response = new Response();
-        Page<Project> projectPage = service.findAll(name, PageRequest.of(page, pageSize));
+        Page<Project> projectPage = service.findAll(name, status, category, PageRequest.of(page, pageSize));
         response.setCode(CustomResponseCode.SUCCESS);
         response.setDescription("Record fetched successfully !");
         response.setData(projectPage);
@@ -128,4 +130,36 @@ public class ProjectController {
         resp.setDescription("Successfully");
         return new ResponseEntity<>(resp, HttpStatus.OK);
     }
+
+
+
+    @GetMapping("getProjectSummary")
+    public ResponseEntity<Response> getProjectSummary(@RequestParam(value = "projectOwnerId") Long projectOwnerId){
+        Response resp = new Response();
+        resp.setData(service.getProjectSummary(projectOwnerId));
+        resp.setCode(CustomResponseCode.SUCCESS);
+        resp.setDescription("Successfully");
+        return new ResponseEntity<>(resp, HttpStatus.OK);
+    }
+
+    @GetMapping("getRecentProjects")
+    public ResponseEntity<Response> getRecentProjects(@RequestParam(value = "projectOwnerId") Long projectOwnerId,
+                                                      @RequestParam(value = "count") Integer count){
+        Response resp = new Response();
+        resp.setData(service.getRecentProjects(projectOwnerId, count));
+        resp.setCode(CustomResponseCode.SUCCESS);
+        resp.setDescription("Successfully");
+        return new ResponseEntity<>(resp, HttpStatus.OK);
+    }
+
+    @GetMapping("getProjectDrafts")
+    public ResponseEntity<Response> getProjectDrafts(@RequestParam(value = "projectOwnerId") Long projectOwnerId,
+                                                     @RequestParam(value = "count") Integer count){
+        Response resp = new Response();
+        resp.setData(service.getDrafts(projectOwnerId, count));
+        resp.setCode(CustomResponseCode.SUCCESS);
+        resp.setDescription("Successfully");
+        return new ResponseEntity<>(resp, HttpStatus.OK);
+    }
+
 }

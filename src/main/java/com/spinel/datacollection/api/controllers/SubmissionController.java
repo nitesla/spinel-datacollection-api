@@ -6,7 +6,7 @@ package com.spinel.datacollection.api.controllers;
 import com.spinel.datacollection.core.dto.request.EnableDisableDto;
 import com.spinel.datacollection.core.dto.request.SubmissionDto;
 import com.spinel.datacollection.core.dto.response.SubmissionResponseDto;
-import com.spinel.datacollection.core.enums.Status;
+import com.spinel.datacollection.core.enums.SubmissionStatus;
 import com.spinel.datacollection.core.models.Submission;
 import com.spinel.datacollection.service.services.SubmissionService;
 import com.spinel.framework.dto.responseDto.Response;
@@ -102,7 +102,7 @@ public class SubmissionController {
     @GetMapping("/page")
     public ResponseEntity<Response> getSubmissions(@RequestParam(value = "projectId",required = false)Long projectId,
                                                    @RequestParam(value = "formId",required = false)Long formId,
-                                                   @RequestParam(value = "status",required = false) Status status,
+                                                   @RequestParam(value = "status",required = false) SubmissionStatus status,
                                                    @RequestParam(value = "enumeratorId",required = false) Long enumeratorId,
                                                    @RequestParam(value = "page") int page,
                                                    @RequestParam(value = "pageSize") int pageSize){
