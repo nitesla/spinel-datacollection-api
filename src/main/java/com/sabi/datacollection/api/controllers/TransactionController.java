@@ -11,6 +11,7 @@ import com.sabi.framework.utils.Constants;
 import com.sabi.framework.utils.CustomResponseCode;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -113,8 +114,8 @@ public class TransactionController {
                                         @RequestParam(value = "transactionType",required = false) TransactionType transactionType,
                                         @RequestParam(value = "status",required = false) Status status,
                                         @RequestParam(value = "reference",required = false)String reference,
-                                        @RequestParam(value = "fromDate",required = false) LocalDateTime fromDate,
-                                        @RequestParam(value = "toDate",required = false)LocalDateTime toDate,
+                                        @RequestParam(value = "fromDate",required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime fromDate,
+                                        @RequestParam(value = "toDate",required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime toDate,
                                         @RequestParam(value = "page") int page,
                                         @RequestParam(value = "pageSize") int pageSize){
         HttpStatus httpCode ;
