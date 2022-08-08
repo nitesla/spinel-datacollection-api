@@ -9,10 +9,10 @@
 		<version>2.1.6.RELEASE</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.sabi.datacollection.api</groupId>
-	<artifactId>sabi-datacollection-api</artifactId>
+	<groupId>com.spinel.datacollection.api</groupId>
+	<artifactId>spinel-datacollection-api</artifactId>
 	<version>1.0</version>
-	<name>sabi-datacollection-api</name>
+	<name>spinel-datacollection-api</name>
 	<description>api</description>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -119,20 +119,20 @@
 		</dependency>
 
 		<dependency>
-			<groupId>com.sabi.framework</groupId>
-			<artifactId>sabi-framework</artifactId>
+			<groupId>com.spinel.framework</groupId>
+			<artifactId>spinel-framework</artifactId>
 			<version>1.0</version>
 		</dependency>
 
 		<dependency>
-			<groupId>com.sabi.datacollection.core</groupId>
-			<artifactId>sabi-datacollection-core</artifactId>
+			<groupId>com.spinel.datacollection.core</groupId>
+			<artifactId>spinel-datacollection-core</artifactId>
 			<version>1.0</version>
 		</dependency>
 
 		<dependency>
-			<groupId>com.sabi.datacollection.service</groupId>
-			<artifactId>sabi-datacollection-service</artifactId>
+			<groupId>com.spinel.datacollection.service</groupId>
+			<artifactId>spinel-datacollection-service</artifactId>
 			<version>1.0</version>
 		</dependency>
 
@@ -270,7 +270,7 @@
 
 
 	<build>
-		<finalName>sabi-datacollection-api-1.0</finalName>
+		<finalName>spinel-datacollection-api-1.0</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
@@ -285,10 +285,10 @@
 						<id>install-datacollection-core</id>
 						<phase>clean</phase>
 						<configuration>
-							<file>${basedir}/lib/sabi-datacollection-core.jar</file>
+							<file>${basedir}/lib/spinel-datacollection-core.jar</file>
 							<repositoryLayout>default</repositoryLayout>
-							<groupId>com.sabi.datacollection.core</groupId>
-							<artifactId>sabi-datacollection-core</artifactId>
+							<groupId>com.spinel.datacollection.core</groupId>
+							<artifactId>spinel-datacollection-core</artifactId>
 							<version>1.0</version>
 							<packaging>jar</packaging>
 							<generatePom>true</generatePom>
@@ -298,13 +298,13 @@
 						</goals>
 					</execution>
 					<execution>
-						<id>install-sabi-framework</id>
+						<id>install-spinel-framework</id>
 						<phase>clean</phase>
 						<configuration>
-							<file>${basedir}/lib/sabi-framework.jar</file>
+							<file>${basedir}/lib/spinel-framework.jar</file>
 							<repositoryLayout>default</repositoryLayout>
-							<groupId>com.sabi.framework</groupId>
-							<artifactId>sabi-framework</artifactId>
+							<groupId>com.spinel.framework</groupId>
+							<artifactId>spinel-framework</artifactId>
 							<version>1.0</version>
 							<packaging>jar</packaging>
 							<generatePom>true</generatePom>
@@ -317,10 +317,10 @@
 						<id>install-datacollection-service</id>
 						<phase>clean</phase>
 						<configuration>
-							<file>${basedir}/lib/sabi-datacollection-service.jar</file>
+							<file>${basedir}/lib/spinel-datacollection-service.jar</file>
 							<repositoryLayout>default</repositoryLayout>
-							<groupId>com.sabi.datacollection.service</groupId>
-							<artifactId>sabi-datacollection-service</artifactId>
+							<groupId>com.spinel.datacollection.service</groupId>
+							<artifactId>spinel-datacollection-service</artifactId>
 							<version>1.0</version>
 							<packaging>jar</packaging>
 							<generatePom>true</generatePom>

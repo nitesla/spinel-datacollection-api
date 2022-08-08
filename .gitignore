@@ -22,7 +22,9 @@ compiler.xml
 modules.xml
 application-local.properties
 application-dev.properties
-
+encodings.xml
+jarRepositories.xml
+.idea/misc.xml
 ### NetBeans ###
 /nbproject/private/
 /nbbuild/
