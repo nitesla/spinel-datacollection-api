@@ -177,4 +177,13 @@ public class ProjectOwnerController {
         return new ResponseEntity<>(resp, HttpStatus.OK);
     }
 
+
+    @GetMapping("/getProjectOwnerKyc/{projectOwnerId}")
+    public ResponseEntity<Response> getEnumeratorKyc(@PathVariable Long projectOwnerId) {
+        Response resp = new Response();
+        resp.setCode(CustomResponseCode.SUCCESS);
+        resp.setDescription("Record fetched successfully !");
+        resp.setData(service.getProjectOwnerKYC(projectOwnerId));
+        return new ResponseEntity<>(resp, HttpStatus.OK);
+    }
 }
