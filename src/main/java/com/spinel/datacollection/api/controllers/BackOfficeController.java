@@ -1,17 +1,14 @@
-package com.sabi.datacollection.api.controllers;
+package com.spinel.datacollection.api.controllers;
 
-import com.sabi.datacollection.core.dto.request.BankDto;
-import com.sabi.datacollection.core.dto.response.*;
-import com.sabi.datacollection.service.services.BackOfficeDashboardService;
-import com.sabi.framework.dto.responseDto.Response;
-import com.sabi.framework.utils.Constants;
-import com.sabi.framework.utils.CustomResponseCode;
+import com.spinel.datacollection.core.dto.response.*;
+import com.spinel.datacollection.service.services.BackOfficeDashboardService;
+import com.spinel.framework.dto.responseDto.Response;
+import com.spinel.framework.utils.Constants;
+import com.spinel.framework.utils.CustomResponseCode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
