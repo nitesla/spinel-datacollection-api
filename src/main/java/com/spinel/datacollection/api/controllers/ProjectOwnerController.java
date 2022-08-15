@@ -11,10 +11,11 @@ import com.spinel.datacollection.service.services.ProjectOwnerService;
 import com.spinel.framework.dto.requestDto.ActivateUserAccountDto;
 import com.spinel.framework.dto.requestDto.ChangePasswordDto;
 import com.spinel.framework.dto.requestDto.ForgetPasswordDto;
+import com.spinel.framework.dto.requestDto.PasswordActivationRequest;
 import com.spinel.framework.dto.responseDto.Response;
-import com.spinel.framework.service.UserService;
 import com.spinel.framework.utils.Constants;
 import com.spinel.framework.utils.CustomResponseCode;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
@@ -30,11 +31,9 @@ import java.util.List;
 public class ProjectOwnerController {
 
     private final ProjectOwnerService service;
-    private final UserService userService;
 
-    public ProjectOwnerController(ProjectOwnerService service, UserService userService) {
+    public ProjectOwnerController(ProjectOwnerService service) {
         this.service = service;
-        this.userService = userService;
     }
 
     @PostMapping("/signup")
@@ -67,11 +66,10 @@ public class ProjectOwnerController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
-    @Deprecated
     @PostMapping("")
-    public ResponseEntity<Response> createProjectOwner(@RequestBody ProjectOwnerDto request) {
+    public ResponseEntity<Response> createProjectOwner(@RequestBody ProjectOwnerDto request, HttpServletRequest httpServletRequest) {
         Response response = new Response();
-        ProjectOwnerResponseDto projectOwnerResponse = service.createProjectOwner(request);
+        ProjectOwnerResponseDto projectOwnerResponse = service.createProjectOwner(request, httpServletRequest);
         response.setCode(CustomResponseCode.SUCCESS);
         response.setDescription("Successful");
         response.setData(projectOwnerResponse);
@@ -162,7 +160,7 @@ public class ProjectOwnerController {
         Response resp = new Response();
         resp.setCode(CustomResponseCode.SUCCESS);
         resp.setDescription("Successful");
-        resp.setData(userService.activateUser(request));
+        resp.setData(service.validateOtpAndActivateUser(request));
         return new ResponseEntity<>(resp, HttpStatus.OK);
     }
 
@@ -177,13 +175,14 @@ public class ProjectOwnerController {
         return new ResponseEntity<>(resp, HttpStatus.OK);
     }
 
-
-    @GetMapping("/getProjectOwnerKyc/{projectOwnerId}")
-    public ResponseEntity<Response> getEnumeratorKyc(@PathVariable Long projectOwnerId) {
+    @ApiOperation(value = "Activate account with userId", notes = "Required id is user id")
+    @PostMapping("/accountactivation")
+    public ResponseEntity<Response> accountActivation(@Validated @RequestBody PasswordActivationRequest request) {
         Response resp = new Response();
         resp.setCode(CustomResponseCode.SUCCESS);
-        resp.setDescription("Record fetched successfully !");
-        resp.setData(service.getProjectOwnerKYC(projectOwnerId));
+        resp.setDescription("Account activated successfully !");
+        resp.setData(service.accountActivation(request));
         return new ResponseEntity<>(resp, HttpStatus.OK);
     }
+
 }
