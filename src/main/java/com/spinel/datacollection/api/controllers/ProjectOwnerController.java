@@ -47,7 +47,7 @@ public class ProjectOwnerController {
     }
 
     @PutMapping("/completesignup")
-    public ResponseEntity<Response> completeSignUp(@RequestBody CompleteSignupRequest request) {
+    public ResponseEntity<Response> completeSignUp(@RequestBody CompleteSignupProjectOwnerRequest request) {
         Response response = new Response();
         CompleteProjectOwnerSignUpResponse completeSignUpResponse = service.completeSignUp(request);
         response.setCode(CustomResponseCode.SUCCESS);
