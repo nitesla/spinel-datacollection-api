@@ -1,54 +1,44 @@
 package com.spinel.datacollection.api.controllers;
 
+import com.sabi.datacollection.core.dto.response.UserBankResponseDto;
 
 import com.spinel.datacollection.core.dto.request.EnableDisableDto;
-import com.spinel.datacollection.core.dto.request.TransactionDto;
-import com.spinel.datacollection.core.dto.response.TransactionResponseDto;
-import com.spinel.datacollection.core.enums.ActionType;
-import com.spinel.datacollection.core.enums.Status;
-import com.spinel.datacollection.core.enums.TransactionType;
-import com.spinel.datacollection.core.models.Transaction;
-import com.spinel.datacollection.service.services.TransactionService;
+import com.spinel.datacollection.core.dto.request.UserBankRequestDto;
+import com.spinel.datacollection.core.models.UserBank;
+import com.spinel.datacollection.service.services.UserBankService;
 import com.spinel.framework.dto.responseDto.Response;
 import com.spinel.framework.utils.Constants;
 import com.spinel.framework.utils.CustomResponseCode;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import java.math.BigDecimal;
-import java.time.LocalDateTime;
 import java.util.List;
 
-
-@SuppressWarnings("All")
 @RestController
-@RequestMapping(Constants.APP_CONTENT+"transaction")
-public class TransactionController {
+@RequestMapping(Constants.APP_CONTENT+"userBank")
+public class UserBankController {
+    private final UserBankService service;
 
-
-    private final TransactionService service;
-
-    public TransactionController(TransactionService service) {
+    public UserBankController(UserBankService service) {
         this.service = service;
     }
 
 
     /** <summary>
-     * Transaction creation endpoint
+     * UserBank creation endpoint
      * </summary>
-     * <remarks>this endpoint is responsible for creation of new transactions</remarks>
+     * <remarks>this endpoint is responsible for creation of new UserBanks</remarks>
      */
 
     @PostMapping("")
-    public ResponseEntity<Response> createTransaction(@Validated @RequestBody TransactionDto request){
+    public ResponseEntity<Response> createUserBank(@Validated @RequestBody UserBankRequestDto request){
         HttpStatus httpCode ;
         Response resp = new Response();
-        TransactionResponseDto response = service.createTransaction(request);
+        UserBankResponseDto response = service.createUserBank(request);
         resp.setCode(CustomResponseCode.SUCCESS);
         resp.setDescription("Successful");
         resp.setData(response);
@@ -59,17 +49,17 @@ public class TransactionController {
 
 
     /** <summary>
-     * Transaction update endpoint
+     * UserBank update endpoint
      * </summary>
-     * <remarks>this endpoint is responsible for updating transactions</remarks>
+     * <remarks>this endpoint is responsible for updating UserBanks</remarks>
      */
 
     @PutMapping("")
     // @PreAuthorize("hasAnyRole('ROLE_SUPER_ADMIN','ROLE_CREATE_USER')")
-    public ResponseEntity<Response> updateTransaction(@Validated @RequestBody  TransactionDto request){
+    public ResponseEntity<Response> updateUserBank(@Validated @RequestBody  UserBankRequestDto request){
         HttpStatus httpCode ;
         Response resp = new Response();
-        TransactionResponseDto response = service.updateTransaction(request);
+        UserBankResponseDto response = service.updateUserBank(request);
         resp.setCode(CustomResponseCode.SUCCESS);
         resp.setDescription("Update Successful");
         resp.setData(response);
@@ -86,10 +76,10 @@ public class TransactionController {
      */
     @GetMapping("/{id}")
     // @PreAuthorize("hasAnyRole('ROLE_SUPER_ADMIN','ROLE_CREATE_USER')")
-    public ResponseEntity<Response> getTransaction(@PathVariable Long id){
+    public ResponseEntity<Response> getUserBank(@PathVariable Long id){
         HttpStatus httpCode ;
         Response resp = new Response();
-        TransactionResponseDto response = service.findTransaction(id);
+        UserBankResponseDto response = service.findUserBank(id);
         resp.setCode(CustomResponseCode.SUCCESS);
         resp.setDescription("Record fetched successfully !");
         resp.setData(response);
@@ -105,22 +95,14 @@ public class TransactionController {
      */
 
     @GetMapping("/page")
-    public ResponseEntity<Response> getTransactions(
-                                        @RequestParam(value = "walletId",required = false)Long walletId,
-                                        @RequestParam(value = "amount",required = false) BigDecimal amount,
-                                        @RequestParam(value = "initialBalance",required = false) BigDecimal initialBalance,
-                                        @RequestParam(value = "finalBalance",required = false) BigDecimal finalBalance,
-                                        @RequestParam(value = "actionType",required = false) ActionType actionType,
-                                        @RequestParam(value = "transactionType",required = false) TransactionType transactionType,
-                                        @RequestParam(value = "status",required = false) Status status,
-                                        @RequestParam(value = "reference",required = false)String reference,
-                                        @RequestParam(value = "fromDate",required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime fromDate,
-                                        @RequestParam(value = "toDate",required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime toDate,
-                                        @RequestParam(value = "page") int page,
-                                        @RequestParam(value = "pageSize") int pageSize){
+    public ResponseEntity<Response> getUserBanks(@RequestParam(value = "bankId",required = false)Long bankId,
+                                                    @RequestParam(value = "userId",required = false) Long userId,
+                                                    @RequestParam(value = "accountNumber",required = false)String accountNumber,
+                                                    @RequestParam(value = "page") int page,
+                                                    @RequestParam(value = "pageSize") int pageSize){
         HttpStatus httpCode ;
         Response resp = new Response();
-        Page<Transaction> response = service.findAll(walletId, amount, initialBalance,finalBalance,actionType,transactionType,status, reference,fromDate,toDate, PageRequest.of(page, pageSize));
+        Page<UserBank> response = service.findAll(bankId, userId, accountNumber,PageRequest.of(page, pageSize));
         resp.setCode(CustomResponseCode.SUCCESS);
         resp.setDescription("Record fetched successfully !");
         resp.setData(response);
@@ -132,14 +114,14 @@ public class TransactionController {
     /** <summary>
      * Enable disenable
      * </summary>
-     * <remarks>this endpoint is responsible for enabling and disenabling a Transaction</remarks>
+     * <remarks>this endpoint is responsible for enabling and disenabling a UserBank</remarks>
      */
 
     @PutMapping("/enabledisenable")
     public ResponseEntity<Response> enableDisEnable(@Validated @RequestBody EnableDisableDto request){
         HttpStatus httpCode ;
         Response resp = new Response();
-        service.enableDisEnableTransaction(request);
+        service.enableDisEnableUserBank(request);
         resp.setCode(CustomResponseCode.SUCCESS);
         resp.setDescription("Successful");
         httpCode = HttpStatus.OK;
@@ -150,13 +132,12 @@ public class TransactionController {
     public ResponseEntity<Response> getAllByActive(@RequestParam(value = "isActive",required = false)Boolean isActive){
         HttpStatus httpCode ;
         Response resp = new Response();
-        List<Transaction> response = service.getAll(isActive);
+        List<UserBank> response = service.getAll(isActive);
         resp.setCode(CustomResponseCode.SUCCESS);
         resp.setDescription("Record fetched successfully !");
         resp.setData(response);
         httpCode = HttpStatus.OK;
         return new ResponseEntity<>(resp, httpCode);
     }
-
 
 }
