@@ -60,8 +60,6 @@
 <!--			<version>6.1.0.jre7</version>-->
 <!--		</dependency>-->
 
-
-
 		<dependency>
 			<groupId>com.wordnik</groupId>
 			<artifactId>swagger-annotations</artifactId>
