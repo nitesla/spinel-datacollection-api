@@ -4,33 +4,23 @@ package com.spinel.datacollection.api.controllers;
 import com.fasterxml.jackson.core.JsonProcessingException;
 
 
+import com.spinel.datacollection.core.dto.request.auth.DataCollectionLoginRequest;
 import com.spinel.datacollection.service.services.AuthenticationService;
-import com.spinel.framework.dto.requestDto.LoginRequest;
-import com.spinel.framework.dto.responseDto.AccessTokenWithUserDetails;
-import com.spinel.framework.dto.responseDto.Response;
-import com.spinel.framework.exceptions.LockedException;
-import com.spinel.framework.exceptions.UnauthorizedException;
 import com.spinel.framework.loggers.LoggerUtil;
-import com.spinel.framework.models.User;
 import com.spinel.framework.repositories.PermissionRepository;
 import com.spinel.framework.security.AuthenticationWithToken;
 import com.spinel.framework.service.*;
-import com.spinel.framework.utils.AuditTrailFlag;
 import com.spinel.framework.utils.Constants;
-import com.spinel.framework.utils.CustomResponseCode;
-import com.spinel.framework.utils.Utility;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
-import java.util.List;
 
 
 @Slf4j
