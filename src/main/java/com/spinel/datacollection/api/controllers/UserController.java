@@ -13,7 +13,6 @@ import com.spinel.framework.utils.CustomResponseCode;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -110,8 +109,8 @@ public class UserController {
                                              @RequestParam(value = "role",required = false)String role,
                                              @RequestParam(value = "roleId",required = false)Long roleId,
                                              @RequestParam(value = "isActive",required = false)Boolean isActive,
-                                             @RequestParam(value = "startDate", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime startDate,
-                                             @RequestParam(value = "endDate", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime endDate,
+                                             @RequestParam(value = "startDate", required = false) String startDate,
+                                             @RequestParam(value = "endDate", required = false) String endDate,
                                              @RequestParam(value = "email",required = false)String email,
                                                        @RequestParam(value = "page") int page,
                                                        @RequestParam(value = "pageSize") int pageSize){
@@ -256,6 +255,15 @@ public class UserController {
         resp.setCode(CustomResponseCode.SUCCESS);
         resp.setDescription("Record fetched successfully !");
         resp.setData(service.userPasswordActivation(request));
+        return new ResponseEntity<>(resp, HttpStatus.OK);
+    }
+
+    @GetMapping("/country/group")
+    public ResponseEntity<Response> groupByCountry() {
+        Response resp = new Response();
+        resp.setCode(CustomResponseCode.SUCCESS);
+        resp.setDescription("Record fetched successfully!");
+        resp.setData(service.getGroupUserByCountry());
         return new ResponseEntity<>(resp, HttpStatus.OK);
     }
 
