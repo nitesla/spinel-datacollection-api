@@ -159,4 +159,13 @@ public class RoleController {
         return new ResponseEntity<>(resp, httpCode);
     }
 
+    @GetMapping("count/user/{roleId}")
+    public ResponseEntity<Response> countUsersAssignedToRole(@PathVariable Long roleId){
+        Response response = new Response();
+        response.setCode(CustomResponseCode.SUCCESS);
+        response.setDescription("Successful");
+        response.setData(service.getCountOfActiveUsersAssignedToARole(roleId));
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
 }
