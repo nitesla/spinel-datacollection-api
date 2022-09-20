@@ -51,6 +51,18 @@ public class FormController {
         return new ResponseEntity<>(resp, httpCode);
     }
 
+    @PostMapping("/createbulk")
+    public ResponseEntity<Response> createBulkForm(@Validated @RequestBody List<FormDto> requestLists){
+        HttpStatus httpCode ;
+        Response resp = new Response();
+        List<FormResponseDto> response = service.createBulkForm(requestLists);
+        resp.setCode(CustomResponseCode.SUCCESS);
+        resp.setDescription("Successful");
+        resp.setData(response);
+        httpCode = HttpStatus.CREATED;
+        return new ResponseEntity<>(resp, httpCode);
+    }
+
 
 
     /** <summary>
