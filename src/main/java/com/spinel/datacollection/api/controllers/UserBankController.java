@@ -1,9 +1,8 @@
 package com.spinel.datacollection.api.controllers;
 
-import com.sabi.datacollection.core.dto.response.UserBankResponseDto;
-
 import com.spinel.datacollection.core.dto.request.EnableDisableDto;
 import com.spinel.datacollection.core.dto.request.UserBankRequestDto;
+import com.spinel.datacollection.core.dto.response.UserBankResponseDto;
 import com.spinel.datacollection.core.models.UserBank;
 import com.spinel.datacollection.service.services.UserBankService;
 import com.spinel.framework.dto.responseDto.Response;

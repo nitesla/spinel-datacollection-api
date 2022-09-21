@@ -1,8 +1,8 @@
 package com.spinel.datacollection.api.controllers;
 
-import com.sabi.datacollection.core.dto.request.JobRequestDto;
-import com.sabi.datacollection.core.dto.response.JobRequestResponseDto;
 import com.spinel.datacollection.core.dto.request.EnableDisableDto;
+import com.spinel.datacollection.core.dto.request.JobRequestDto;
+import com.spinel.datacollection.core.dto.response.JobRequestResponseDto;
 import com.spinel.datacollection.core.models.JobRequest;
 import com.spinel.datacollection.service.services.JobRequestService;
 import com.spinel.framework.dto.responseDto.Response;
