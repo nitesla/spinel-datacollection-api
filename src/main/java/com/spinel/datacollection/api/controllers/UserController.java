@@ -1,12 +1,12 @@
 package com.spinel.datacollection.api.controllers;
 
 
-
 import com.spinel.framework.dto.requestDto.*;
 import com.spinel.framework.dto.responseDto.ActivateUserResponse;
 import com.spinel.framework.dto.responseDto.Response;
 import com.spinel.framework.dto.responseDto.UserResponse;
 import com.spinel.framework.models.User;
+import com.spinel.framework.notification.requestDto.ResendOtpDto;
 import com.spinel.framework.service.UserService;
 import com.spinel.framework.utils.Constants;
 import com.spinel.framework.utils.CustomResponseCode;
@@ -15,14 +15,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
-import java.time.LocalDateTime;
 import java.util.List;
 
 @SuppressWarnings("All")
@@ -265,6 +263,17 @@ public class UserController {
         resp.setDescription("Record fetched successfully!");
         resp.setData(service.getGroupUserByCountry());
         return new ResponseEntity<>(resp, HttpStatus.OK);
+    }
+
+    @PostMapping("/resendotp")
+    public ResponseEntity<Response> resendOTP(@Validated @RequestBody ResendOtpDto request){
+        HttpStatus httpCode ;
+        Response resp = new Response();
+        service.resendOTP(request);
+        resp.setCode(CustomResponseCode.SUCCESS);
+        resp.setDescription("Resend OTP Successful");
+        httpCode = HttpStatus.OK;
+        return new ResponseEntity<>(resp, httpCode);
     }
 
 }
