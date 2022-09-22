@@ -45,6 +45,18 @@ public class JobRequestController {
         return new ResponseEntity<>(resp, httpCode);
     }
 
+    @PostMapping("/createbulk")
+    public ResponseEntity<Response> createBulkJobRequest(@Validated @RequestBody List<JobRequestDto> requestLists){
+        HttpStatus httpCode ;
+        Response resp = new Response();
+        List<JobRequestResponseDto> response = service.createBulkJobRequest(requestLists);
+        resp.setCode(CustomResponseCode.SUCCESS);
+        resp.setDescription("Successful");
+        resp.setData(response);
+        httpCode = HttpStatus.CREATED;
+        return new ResponseEntity<>(resp, httpCode);
+    }
+
 
 
     /** <summary>
