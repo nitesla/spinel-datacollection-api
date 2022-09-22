@@ -46,7 +46,7 @@ public class DataPaymentController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
-    @GetMapping("/verify")
+    @PostMapping("/verify")
     public ResponseEntity<Response> verifyTransaction(@RequestBody VerifyTransaction request) {
         Response response = new Response();
         response.setData(service.verifyTransaction(request));
