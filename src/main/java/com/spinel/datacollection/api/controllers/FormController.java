@@ -146,10 +146,11 @@ public class FormController {
     @GetMapping("/list")
     public ResponseEntity<Response> getAllByActive(@RequestParam(value = "isActive",required = false)Boolean isActive,
                                                    @RequestParam(value = "projectId",required = false)Long projectId,
+                                                   @RequestParam(value = "userId",required = false)Long userId,
                                                    @RequestParam(value = "projectOwnerId",required = false)Long projectOwnerId){
         HttpStatus httpCode ;
         Response resp = new Response();
-        List<Form> response = service.getAll(isActive,projectId, projectOwnerId);
+        List<Form> response = service.getAll(isActive,projectId, userId, projectOwnerId);
         resp.setCode(CustomResponseCode.SUCCESS);
         resp.setDescription("Record fetched successfully !");
         resp.setData(response);

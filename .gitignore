@@ -3,7 +3,7 @@ target/
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
-
+!**/.idea/
 ### STS ###
 .apt_generated
 .classpath
@@ -15,16 +15,14 @@ target/
 
 ### IntelliJ IDEA ###
 .idea
+*.idea
 *.iws
 *.iml
 *.ipr
-compiler.xml
-modules.xml
-application-local.properties
-application-dev.properties
-encodings.xml
-jarRepositories.xml
-.idea/misc.xml
+workspace.xml
+.idea/workspace.xml
+pom.xml
+
 ### NetBeans ###
 /nbproject/private/
 /nbbuild/
