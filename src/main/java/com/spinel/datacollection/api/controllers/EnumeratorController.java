@@ -207,7 +207,7 @@ public class EnumeratorController {
         Response resp = new Response();
         resp.setCode(CustomResponseCode.SUCCESS);
         resp.setDescription("Successful");
-        resp.setData(userService.activateUser(request));
+        resp.setData(service.validateOtpAndActivateUser(request));
         return new ResponseEntity<>(resp, HttpStatus.OK);
     }
 

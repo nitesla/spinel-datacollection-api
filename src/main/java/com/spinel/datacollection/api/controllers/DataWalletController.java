@@ -3,6 +3,7 @@ package com.spinel.datacollection.api.controllers;
 
 
 import com.spinel.datacollection.core.dto.request.EnableDisableDto;
+import com.spinel.datacollection.core.dto.request.auth.FundWalletRequest;
 import com.spinel.datacollection.core.dto.wallet.CreateWalletDto;
 import com.spinel.datacollection.service.services.DataWalletService;
 import com.spinel.framework.dto.responseDto.Response;
@@ -101,15 +102,15 @@ public class DataWalletController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
-//    @PostMapping("/fundWallet")
-//    public ResponseEntity<Response> fundWallet(@RequestBody FundsTransferDto request) {
-//        Response response = new Response();
-//        service.fundWallet(request);
-//        response.setCode(CustomResponseCode.SUCCESS);
-//        response.setDescription("Successful");
-//        return new ResponseEntity<>(response, HttpStatus.OK);
-//    }
-//
+    @PutMapping("/fund")
+    public ResponseEntity<Response> fundWallet(@RequestBody FundWalletRequest request) {
+        Response response = new Response();
+        response.setData(service.fundWallet(request));
+        response.setCode(CustomResponseCode.SUCCESS);
+        response.setDescription("Successful");
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
 //    @PostMapping("/withdrawFunds")
 //    public ResponseEntity<Response> withdrawFunds(@RequestBody FundsTransferDto request) {
 //        Response response = new Response();
