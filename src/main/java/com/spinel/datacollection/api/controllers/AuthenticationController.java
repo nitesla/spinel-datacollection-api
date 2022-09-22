@@ -2,8 +2,6 @@ package com.spinel.datacollection.api.controllers;
 
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-
-
 import com.spinel.datacollection.core.dto.request.auth.DataCollectionLoginRequest;
 import com.spinel.datacollection.service.services.AuthenticationService;
 import com.spinel.framework.loggers.LoggerUtil;
@@ -120,7 +118,7 @@ public class AuthenticationController {
 //       String clientId= "";
 //        String referralCode="";
 //        String isEmailVerified="";
-////        List<com.sabi.framework.dto.responseDto.PartnersCategoryReturn> partnerCategory= null;
+////        List<com.spinel.framework.dto.responseDto.PartnersCategoryReturn> partnerCategory= null;
 //
 //        AccessTokenWithUserDetails details = new AccessTokenWithUserDetails(newToken, user,
 //                accessList,userService.getSessionExpiry(),clientId,referralCode,isEmailVerified);

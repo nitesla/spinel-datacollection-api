@@ -1,8 +1,8 @@
-//package com.sabi.datacollection.api.config;
+//package com.spinel.datacollection.api.config;
 //
 //
-//import com.sabi.framework.security.AuthenticationFilter;
-//import com.sabi.framework.security.TokenAuthenticationProvider;
+//import com.spinel.framework.security.AuthenticationFilter;
+//import com.spinel.framework.security.TokenAuthenticationProvider;
 //import org.springframework.context.annotation.Bean;
 //import org.springframework.context.annotation.Configuration;
 //import org.springframework.core.annotation.Order;

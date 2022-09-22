@@ -51,6 +51,18 @@ public class FormController {
         return new ResponseEntity<>(resp, httpCode);
     }
 
+    @PostMapping("/createbulk")
+    public ResponseEntity<Response> createBulkForm(@Validated @RequestBody List<FormDto> requestLists){
+        HttpStatus httpCode ;
+        Response resp = new Response();
+        List<FormResponseDto> response = service.createBulkForm(requestLists);
+        resp.setCode(CustomResponseCode.SUCCESS);
+        resp.setDescription("Successful");
+        resp.setData(response);
+        httpCode = HttpStatus.CREATED;
+        return new ResponseEntity<>(resp, httpCode);
+    }
+
 
 
     /** <summary>
@@ -132,10 +144,12 @@ public class FormController {
     }
 
     @GetMapping("/list")
-    public ResponseEntity<Response> getAllByActive(@RequestParam(value = "isActive",required = false)Boolean isActive){
+    public ResponseEntity<Response> getAllByActive(@RequestParam(value = "isActive",required = false)Boolean isActive,
+                                                   @RequestParam(value = "projectId",required = false)Long projectId,
+                                                   @RequestParam(value = "projectOwnerId",required = false)Long projectOwnerId){
         HttpStatus httpCode ;
         Response resp = new Response();
-        List<Form> response = service.getAll(isActive);
+        List<Form> response = service.getAll(isActive,projectId, projectOwnerId);
         resp.setCode(CustomResponseCode.SUCCESS);
         resp.setDescription("Record fetched successfully !");
         resp.setData(response);
