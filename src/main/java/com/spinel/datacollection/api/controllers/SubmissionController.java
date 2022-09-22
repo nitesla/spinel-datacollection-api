@@ -135,10 +135,15 @@ public class SubmissionController {
     }
 
     @GetMapping("/list")
-    public ResponseEntity<Response> getAllByActive(@RequestParam(value = "isActive",required = false)Boolean isActive){
+    public ResponseEntity<Response> getAllByActive(@RequestParam(value = "isActive",required = false)Boolean isActive,
+                                                   @RequestParam(value = "projectId",required = false)Long projectId,
+                                                   @RequestParam(value = "formId",required = false)Long formId,
+                                                   @RequestParam(value = "enumeratorId",required = false) Long enumeratorId,
+                                                   @RequestParam(value = "commentId",required = false) Long commentId,
+                                                   @RequestParam(value = "deviceId",required = false) Long deviceId){
         HttpStatus httpCode ;
         Response resp = new Response();
-        List<Submission> response = service.getAll(isActive);
+        List<Submission> response = service.getAll(isActive, projectId, formId, enumeratorId, commentId, deviceId);
         resp.setCode(CustomResponseCode.SUCCESS);
         resp.setDescription("Record fetched successfully !");
         resp.setData(response);

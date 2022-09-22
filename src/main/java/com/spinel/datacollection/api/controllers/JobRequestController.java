@@ -1,8 +1,8 @@
 package com.spinel.datacollection.api.controllers;
 
-import com.sabi.datacollection.core.dto.request.JobRequestDto;
-import com.sabi.datacollection.core.dto.response.JobRequestResponseDto;
 import com.spinel.datacollection.core.dto.request.EnableDisableDto;
+import com.spinel.datacollection.core.dto.request.JobRequestDto;
+import com.spinel.datacollection.core.dto.response.JobRequestResponseDto;
 import com.spinel.datacollection.core.models.JobRequest;
 import com.spinel.datacollection.service.services.JobRequestService;
 import com.spinel.framework.dto.responseDto.Response;
@@ -38,6 +38,18 @@ public class JobRequestController {
         HttpStatus httpCode ;
         Response resp = new Response();
         JobRequestResponseDto response = service.createJobRequest(request);
+        resp.setCode(CustomResponseCode.SUCCESS);
+        resp.setDescription("Successful");
+        resp.setData(response);
+        httpCode = HttpStatus.CREATED;
+        return new ResponseEntity<>(resp, httpCode);
+    }
+
+    @PostMapping("/createbulk")
+    public ResponseEntity<Response> createBulkJobRequest(@Validated @RequestBody List<JobRequestDto> requestLists){
+        HttpStatus httpCode ;
+        Response resp = new Response();
+        List<JobRequestResponseDto> response = service.createBulkJobRequest(requestLists);
         resp.setCode(CustomResponseCode.SUCCESS);
         resp.setDescription("Successful");
         resp.setData(response);
