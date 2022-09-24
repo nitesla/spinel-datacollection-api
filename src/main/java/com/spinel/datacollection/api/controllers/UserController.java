@@ -196,6 +196,15 @@ public class UserController {
         return new ResponseEntity<>(resp, httpCode);
     }
 
+    @PutMapping("/validateOtp")
+    public ResponseEntity<Response> validateOtpAndActivateUser(@Validated @RequestBody ActivateUserAccountDto request){
+        Response resp = new Response();
+        resp.setCode(CustomResponseCode.SUCCESS);
+        resp.setDescription("Successful");
+        resp.setData(service.validateOtpAndActivateUser(request));
+        return new ResponseEntity<>(resp, HttpStatus.OK);
+    }
+
 
     @PutMapping("/changepin")
     public ResponseEntity<Response> transactionPin(@Validated @RequestBody SetTransactionPin request){

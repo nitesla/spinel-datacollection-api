@@ -20,6 +20,7 @@ import com.spinel.framework.dto.responseDto.Response;
 import com.spinel.framework.service.UserService;
 import com.spinel.framework.utils.Constants;
 import com.spinel.framework.utils.CustomResponseCode;
+import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -211,6 +212,7 @@ public class EnumeratorController {
         return new ResponseEntity<>(resp, HttpStatus.OK);
     }
 
+    @ApiOperation(value = "Activate account with userId ", notes = "Required id is user id")
     @PostMapping("/accountactivation")
     public ResponseEntity<Response> accountActivation(@Validated @RequestBody PasswordActivationRequest request) {
         Response resp = new Response();
