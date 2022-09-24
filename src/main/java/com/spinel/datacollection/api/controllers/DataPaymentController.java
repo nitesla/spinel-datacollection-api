@@ -23,14 +23,14 @@ public class DataPaymentController {
         this.service = service;
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<Response> findById(@PathVariable Long id) {
-        Response response = new Response();
-        response.setData(service.findPaymentById(id));
-        response.setCode(CustomResponseCode.SUCCESS);
-        response.setDescription("Successful");
-        return new ResponseEntity<>(response, HttpStatus.OK);
-    }
+//    @GetMapping("/{id}")
+//    public ResponseEntity<Response> findById(@PathVariable Long id) {
+//        Response response = new Response();
+//        response.setData(service.findPaymentById(id));
+//        response.setCode(CustomResponseCode.SUCCESS);
+//        response.setDescription("Successful");
+//        return new ResponseEntity<>(response, HttpStatus.OK);
+//    }
 
     @GetMapping("/findAll")
     public ResponseEntity<Response> findAll(@RequestParam(value = "paymentReference",required = false)String paymentReference,
