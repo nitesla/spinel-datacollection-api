@@ -61,11 +61,10 @@ public class ProjectController {
     @GetMapping("/page")
     public ResponseEntity<Response> getProjects(@RequestParam(value = "name",required = false)String name,
                                                 @RequestParam(value = "status",required = false) String status,
-                                                @RequestParam(value = "category",required = false) String category,
                                                 @RequestParam(value = "page") Integer page,
                                                 @RequestParam(value = "pageSize") Integer pageSize) {
         Response response = new Response();
-        Page<Project> projectPage = service.findAll(name, status, category, PageRequest.of(page, pageSize));
+        Page<Project> projectPage = service.findAll(name, status, PageRequest.of(page, pageSize));
         response.setCode(CustomResponseCode.SUCCESS);
         response.setDescription("Record fetched successfully !");
         response.setData(projectPage);
@@ -91,7 +90,7 @@ public class ProjectController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
-    @GetMapping("/projectowner/{id}")
+    @GetMapping("/projectowner/{projectOwnerId}")
     public ResponseEntity<Response> getProjectByProjectOwnerId(@PathVariable Long projectOwnerId) {
         Response response = new Response();
         response.setCode(CustomResponseCode.SUCCESS);
@@ -100,24 +99,24 @@ public class ProjectController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
-    @GetMapping("/category/{id}")
-    public ResponseEntity<Response> getProjectByProjectCategoryId(@PathVariable Long categoryId) {
-        Response response = new Response();
-        response.setCode(CustomResponseCode.SUCCESS);
-        response.setDescription("Record fetched successfully!");
-        response.setData(service.findProjectByCategory(categoryId));
-        return new ResponseEntity<>(response, HttpStatus.OK);
-    }
+//    @GetMapping("/category/{id}")
+//    public ResponseEntity<Response> getProjectByProjectCategoryId(@PathVariable Long categoryId) {
+//        Response response = new Response();
+//        response.setCode(CustomResponseCode.SUCCESS);
+//        response.setDescription("Record fetched successfully!");
+//        response.setData(service.findProjectByCategory(categoryId));
+//        return new ResponseEntity<>(response, HttpStatus.OK);
+//    }
 
-    @GetMapping("/category/status")
-    public ResponseEntity<Response> getProjectByCategoryAndStatus(@RequestParam(value = "status")String status,
-                                                                  @RequestParam(value = "categoryId",required = false) Long categoryId) {
-        Response response = new Response();
-        response.setCode(CustomResponseCode.SUCCESS);
-        response.setDescription("Record fetched successfully!");
-        response.setData(service.findProjectByStatusAndCategory(status, categoryId));
-        return new ResponseEntity<>(response, HttpStatus.OK);
-    }
+//    @GetMapping("/category/status")
+//    public ResponseEntity<Response> getProjectByCategoryAndStatus(@RequestParam(value = "status")String status,
+//                                                                  @RequestParam(value = "categoryId",required = false) Long categoryId) {
+//        Response response = new Response();
+//        response.setCode(CustomResponseCode.SUCCESS);
+//        response.setDescription("Record fetched successfully!");
+//        response.setData(service.findProjectByStatusAndCategory(status, categoryId));
+//        return new ResponseEntity<>(response, HttpStatus.OK);
+//    }
 
     @GetMapping("/audittrail")
     public ResponseEntity<Response> getProjectAuditTrail(@RequestParam(value = "projectName",required = false) String projectName,
