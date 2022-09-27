@@ -4,6 +4,7 @@ package com.spinel.datacollection.api.controllers;
 
 import com.spinel.datacollection.core.dto.request.EnableDisableDto;
 import com.spinel.datacollection.core.dto.request.FormDto;
+import com.spinel.datacollection.core.dto.request.GetRequestDto;
 import com.spinel.datacollection.core.dto.response.FormResponseDto;
 import com.spinel.datacollection.core.models.Form;
 import com.spinel.datacollection.service.services.FormService;
@@ -11,7 +12,6 @@ import com.spinel.framework.dto.responseDto.Response;
 import com.spinel.framework.utils.Constants;
 import com.spinel.framework.utils.CustomResponseCode;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -109,18 +109,23 @@ public class FormController {
      * <remarks>this endpoint is responsible for getting all records and its searchable</remarks>
      */
 
-    @GetMapping("/page")
-    public ResponseEntity<Response> getForms(@RequestParam(value = "name",required = false)String name,
-                                              @RequestParam(value = "version",required = false)String version,
-                                             @RequestParam(value = "description",required = false)String description,
-                                             @RequestParam(value = "page") int page,
-                                             @RequestParam(value = "pageSize") int pageSize){
+    @PostMapping("/filter")
+    public ResponseEntity<Response> getForms(@Validated @RequestBody GetRequestDto request){
+
         HttpStatus httpCode ;
         Response resp = new Response();
-        Page<Form> response = service.findAll(name, version, description, PageRequest.of(page, pageSize));
+        if ((request.getPage() != null || request.getPageSize() != null) && request.getFilterCriteria() == null){
+            Page<Form> response = service.getEntities(request);
+            resp.setData(response);
+        } else if (request.getPage() != null && request.getPageSize() != null) {
+            Page<Form> response = service.findPaginated(request);
+            resp.setData(response);
+        } else {
+            List<Form> response = service.findList(request);
+            resp.setData(response);
+        }
         resp.setCode(CustomResponseCode.SUCCESS);
         resp.setDescription("Record fetched successfully !");
-        resp.setData(response);
         httpCode = HttpStatus.OK;
         return new ResponseEntity<>(resp, httpCode);
     }
@@ -146,11 +151,10 @@ public class FormController {
     @GetMapping("/list")
     public ResponseEntity<Response> getAllByActive(@RequestParam(value = "isActive",required = false)Boolean isActive,
                                                    @RequestParam(value = "projectId",required = false)Long projectId,
-                                                   @RequestParam(value = "userId",required = false)Long userId,
-                                                   @RequestParam(value = "projectOwnerId",required = false)Long projectOwnerId){
+                                                   @RequestParam(value = "userId",required = false)Long userId){
         HttpStatus httpCode ;
         Response resp = new Response();
-        List<Form> response = service.getAll(isActive,projectId, userId, projectOwnerId);
+        List<Form> response = service.getAll(isActive,projectId, userId);
         resp.setCode(CustomResponseCode.SUCCESS);
         resp.setDescription("Record fetched successfully !");
         resp.setData(response);
