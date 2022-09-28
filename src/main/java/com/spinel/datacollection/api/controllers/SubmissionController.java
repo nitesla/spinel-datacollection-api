@@ -1,9 +1,8 @@
 package com.spinel.datacollection.api.controllers;
 
 
-
-
 import com.spinel.datacollection.core.dto.request.EnableDisableDto;
+import com.spinel.datacollection.core.dto.request.GetRequestDto;
 import com.spinel.datacollection.core.dto.request.SubmissionDto;
 import com.spinel.datacollection.core.dto.response.SubmissionResponseDto;
 import com.spinel.datacollection.core.enums.SubmissionStatus;
@@ -159,6 +158,27 @@ public class SubmissionController {
         resp.setDescription("Records fetched successfully");
         resp.setData(service.getSubmissions(duration, dateType));
         return new ResponseEntity<>(resp, HttpStatus.OK);
+    }
+
+    @PostMapping("/filter")
+    public ResponseEntity<Response> getForms(@Validated @RequestBody GetRequestDto request){
+
+        HttpStatus httpCode ;
+        Response resp = new Response();
+        if ((request.getPage() != null || request.getPageSize() != null) && request.getFilterCriteria() == null){
+            Page<Submission> response = service.getEntities(request);
+            resp.setData(response);
+        } else if (request.getPage() != null && request.getPageSize() != null) {
+            Page<Submission> response = service.findPaginated(request);
+            resp.setData(response);
+        } else {
+            List<Submission> response = service.findList(request);
+            resp.setData(response);
+        }
+        resp.setCode(CustomResponseCode.SUCCESS);
+        resp.setDescription("Record fetched successfully !");
+        httpCode = HttpStatus.OK;
+        return new ResponseEntity<>(resp, httpCode);
     }
 
 
