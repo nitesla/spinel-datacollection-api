@@ -12,6 +12,7 @@ import com.spinel.framework.dto.responseDto.Response;
 import com.spinel.framework.utils.Constants;
 import com.spinel.framework.utils.CustomResponseCode;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -108,6 +109,22 @@ public class FormController {
      * </summary>
      * <remarks>this endpoint is responsible for getting all records and its searchable</remarks>
      */
+
+    @GetMapping("/page")
+    public ResponseEntity<Response> getForms(@RequestParam(value = "name",required = false)String name,
+                                             @RequestParam(value = "version",required = false)String version,
+                                             @RequestParam(value = "description",required = false)String description,
+                                             @RequestParam(value = "page") int page,
+                                             @RequestParam(value = "pageSize") int pageSize){
+        HttpStatus httpCode ;
+        Response resp = new Response();
+        Page<Form> response = service.findAll(name, version, description, PageRequest.of(page, pageSize));
+        resp.setCode(CustomResponseCode.SUCCESS);
+        resp.setDescription("Record fetched successfully !");
+        resp.setData(response);
+        httpCode = HttpStatus.OK;
+        return new ResponseEntity<>(resp, httpCode);
+    }
 
     @PostMapping("/filter")
     public ResponseEntity<Response> getForms(@Validated @RequestBody GetRequestDto request){
