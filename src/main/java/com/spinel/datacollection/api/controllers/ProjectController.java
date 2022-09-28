@@ -2,6 +2,7 @@ package com.spinel.datacollection.api.controllers;
 
 
 import com.spinel.datacollection.core.dto.request.EnableDisableDto;
+import com.spinel.datacollection.core.dto.request.GetRequestDto;
 import com.spinel.datacollection.core.dto.request.ProjectDto;
 import com.spinel.datacollection.core.dto.response.ProjectResponseDto;
 import com.spinel.datacollection.core.models.Project;
@@ -13,6 +14,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -159,6 +161,27 @@ public class ProjectController {
         resp.setCode(CustomResponseCode.SUCCESS);
         resp.setDescription("Successfully");
         return new ResponseEntity<>(resp, HttpStatus.OK);
+    }
+
+    @PostMapping("/filter")
+    public ResponseEntity<Response> getForms(@Validated @RequestBody GetRequestDto request){
+
+        HttpStatus httpCode ;
+        Response resp = new Response();
+        if ((request.getPage() != null || request.getPageSize() != null) && request.getFilterCriteria() == null){
+            Page<Project> response = service.getEntities(request);
+            resp.setData(response);
+        } else if (request.getPage() != null && request.getPageSize() != null) {
+            Page<Project> response = service.findPaginated(request);
+            resp.setData(response);
+        } else {
+            List<Project> response = service.findList(request);
+            resp.setData(response);
+        }
+        resp.setCode(CustomResponseCode.SUCCESS);
+        resp.setDescription("Record fetched successfully !");
+        httpCode = HttpStatus.OK;
+        return new ResponseEntity<>(resp, httpCode);
     }
 
 }

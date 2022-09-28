@@ -1,12 +1,7 @@
 package com.spinel.datacollection.api.controllers;
 
 
-
-
-import com.spinel.datacollection.core.dto.request.CompleteSignupRequest;
-import com.spinel.datacollection.core.dto.request.EnableDisableDto;
-import com.spinel.datacollection.core.dto.request.EnumeratorDto;
-import com.spinel.datacollection.core.dto.request.EnumeratorSignUpDto;
+import com.spinel.datacollection.core.dto.request.*;
 import com.spinel.datacollection.core.dto.response.CompleteSignUpResponse;
 import com.spinel.datacollection.core.dto.response.EnumeratorActivationResponse;
 import com.spinel.datacollection.core.dto.response.EnumeratorResponseDto;
@@ -257,6 +252,27 @@ public class EnumeratorController {
         resp.setDescription("Record fetched successfully !");
         resp.setData(service.getEnumeratorKYC(enumeratorId));
         return new ResponseEntity<>(resp, HttpStatus.OK);
+    }
+
+    @PostMapping("/filter")
+    public ResponseEntity<Response> getForms(@Validated @RequestBody GetRequestDto request){
+
+        HttpStatus httpCode ;
+        Response resp = new Response();
+        if ((request.getPage() != null || request.getPageSize() != null) && request.getFilterCriteria() == null){
+            Page<Enumerator> response = service.getEntities(request);
+            resp.setData(response);
+        } else if (request.getPage() != null && request.getPageSize() != null) {
+            Page<Enumerator> response = service.findPaginated(request);
+            resp.setData(response);
+        } else {
+            List<Enumerator> response = service.findList(request);
+            resp.setData(response);
+        }
+        resp.setCode(CustomResponseCode.SUCCESS);
+        resp.setDescription("Record fetched successfully !");
+        httpCode = HttpStatus.OK;
+        return new ResponseEntity<>(resp, httpCode);
     }
 
 }
