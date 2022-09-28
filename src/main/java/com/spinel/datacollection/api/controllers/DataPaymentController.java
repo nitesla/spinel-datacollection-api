@@ -2,8 +2,7 @@ package com.spinel.datacollection.api.controllers;
 
 
 
-import com.spinel.datacollection.core.dto.payment.request.InitializeTransactionRequest;
-import com.spinel.datacollection.core.dto.payment.request.VerifyTransaction;
+import com.spinel.datacollection.core.dto.payment.request.*;
 import com.spinel.datacollection.service.services.DataPaymentService;
 import com.spinel.framework.dto.responseDto.Response;
 import com.spinel.framework.utils.Constants;
@@ -100,6 +99,65 @@ public class DataPaymentController {
         response.setCode(CustomResponseCode.SUCCESS);
         response.setDescription("Successful");
         return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    @PostMapping("/validate/customer")
+    public ResponseEntity<Response> validateCustomer(@RequestBody ValidateCustomer validateCustomer) {
+        Response response = new Response();
+        response.setData(service.validateCustomer(validateCustomer));
+        response.setCode(CustomResponseCode.SUCCESS);
+        response.setDescription("Successful");
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    @PostMapping("/resolve/account")
+    public ResponseEntity<Response> resolveAccountNumber(@RequestBody ResolveAccountNumber resolveAccountNumber) {
+        Response response = new Response();
+        response.setData(service.resolveAccountNumber(resolveAccountNumber));
+        response.setCode(CustomResponseCode.SUCCESS);
+        response.setDescription("Successful");
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    @PostMapping("/single/transfer")
+    public ResponseEntity<Response> singleTransfer(@RequestBody SingleTransfer singleTransfer) {
+        Response response = new Response();
+        response.setData(service.singleTransfer(singleTransfer));
+        response.setCode(CustomResponseCode.SUCCESS);
+        response.setDescription("Successful");
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    @PostMapping("/subscription/create")
+    public ResponseEntity<Response> createSubscription(@RequestBody CreateSubscription createSubscription) {
+        Response response = new Response();
+        response.setData(service.createSubscription(createSubscription));
+        response.setCode(CustomResponseCode.SUCCESS);
+        response.setDescription("Successful");
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    @PostMapping("/resolve/card/bin")
+    public ResponseEntity<Response> resolveCardBin(@RequestBody ResolveCardBin resolveCardBin) {
+        Response response = new Response();
+        response.setData(service.resolveCardBin(resolveCardBin));
+        response.setCode(CustomResponseCode.SUCCESS);
+        response.setDescription("Successful");
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    @PostMapping("/charge/authorization")
+    public ResponseEntity<Response> chargeAuthorization(@RequestBody ChargeAuthorization chargeAuthorization) {
+        Response response = new Response();
+        response.setData(service.chargeAuthorization(chargeAuthorization));
+        response.setCode(CustomResponseCode.SUCCESS);
+        response.setDescription("Successful");
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    @PostMapping("/paystack/webhook")
+    public void paystackWebhookListener(@RequestBody String body){
+        service.paystackWebhookListener(body);
     }
 
 }
