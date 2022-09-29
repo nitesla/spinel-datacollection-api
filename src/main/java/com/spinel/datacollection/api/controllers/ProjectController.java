@@ -168,7 +168,7 @@ public class ProjectController {
     }
 
     @PostMapping("/filter")
-    public ResponseEntity<Response> getForms(@Validated @RequestBody GetRequestDto request){
+    public ResponseEntity<Response> getProjectFilter(@Validated @RequestBody GetRequestDto request){
 
         HttpStatus httpCode ;
         Response resp = new Response();

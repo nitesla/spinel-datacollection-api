@@ -166,7 +166,7 @@ public class SubmissionController {
     }
 
     @PostMapping("/filter")
-    public ResponseEntity<Response> getSubmissions(@Validated @RequestBody GetRequestDto request){
+    public ResponseEntity<Response> getSubmissionFilter(@Validated @RequestBody GetRequestDto request){
 
         HttpStatus httpCode ;
         Response resp = new Response();

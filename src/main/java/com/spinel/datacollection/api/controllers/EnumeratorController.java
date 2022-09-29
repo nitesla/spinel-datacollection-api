@@ -259,7 +259,7 @@ public class EnumeratorController {
     }
 
     @PostMapping("/filter")
-    public ResponseEntity<Response> getForms(@Validated @RequestBody GetRequestDto request){
+    public ResponseEntity<Response> getEnumeratorFilter(@Validated @RequestBody GetRequestDto request){
 
         HttpStatus httpCode ;
         Response resp = new Response();

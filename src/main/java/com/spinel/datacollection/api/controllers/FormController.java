@@ -132,7 +132,7 @@ public class FormController {
     }
 
     @PostMapping("/filter")
-    public ResponseEntity<Response> getForms(@Validated @RequestBody GetRequestDto request){
+    public ResponseEntity<Response> getFormFilter(@Validated @RequestBody GetRequestDto request){
 
         HttpStatus httpCode ;
         Response resp = new Response();
