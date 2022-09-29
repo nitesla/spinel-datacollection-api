@@ -11,6 +11,8 @@ import com.spinel.datacollection.service.services.SubmissionService;
 import com.spinel.framework.dto.responseDto.Response;
 import com.spinel.framework.utils.Constants;
 import com.spinel.framework.utils.CustomResponseCode;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
@@ -28,6 +30,9 @@ public class SubmissionController {
 
 
     private final SubmissionService service;
+
+    private  static final Logger logger = LoggerFactory.getLogger(SubmissionController.class);
+
 
     public SubmissionController(SubmissionService service) {
         this.service = service;
@@ -161,18 +166,25 @@ public class SubmissionController {
     }
 
     @PostMapping("/filter")
-    public ResponseEntity<Response> getForms(@Validated @RequestBody GetRequestDto request){
+    public ResponseEntity<Response> getSubmissions(@Validated @RequestBody GetRequestDto request){
 
         HttpStatus httpCode ;
         Response resp = new Response();
-        if ((request.getPage() != null || request.getPageSize() != null) && request.getFilterCriteria() == null){
-            Page<Submission> response = service.getEntities(request);
+        if (request.isPaginated() == true && request.isFiltered() == false){
+            logger.info("Here now 1" );
+            Page<Submission> response = service.findUnfilteredPage(request);
             resp.setData(response);
-        } else if (request.getPage() != null && request.getPageSize() != null) {
-            Page<Submission> response = service.findPaginated(request);
+        } else if (request.isPaginated() == true && request.isFiltered() == true) {
+            logger.info("Here now 2" );
+            Page<Submission> response = service.findFilteredPage(request);
             resp.setData(response);
-        } else {
-            List<Submission> response = service.findList(request);
+        } else if (request.isPaginated() == false && request.isFiltered() == true) {
+            logger.info("Here now 3" );
+            List<Submission> response = service.findFilteredList(request);
+            resp.setData(response);
+        } else if (request.isPaginated() == false && request.isFiltered() == false) {
+            logger.info("Here now 4");
+            List<Submission> response = service.findUnfilteredList();
             resp.setData(response);
         }
         resp.setCode(CustomResponseCode.SUCCESS);

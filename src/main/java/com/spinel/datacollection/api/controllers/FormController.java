@@ -11,6 +11,8 @@ import com.spinel.datacollection.service.services.FormService;
 import com.spinel.framework.dto.responseDto.Response;
 import com.spinel.framework.utils.Constants;
 import com.spinel.framework.utils.CustomResponseCode;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
@@ -28,6 +30,9 @@ public class FormController {
 
 
     private final FormService service;
+
+    private  static final Logger logger = LoggerFactory.getLogger(FormController.class);
+
 
     public FormController(FormService service) {
         this.service = service;
@@ -131,14 +136,21 @@ public class FormController {
 
         HttpStatus httpCode ;
         Response resp = new Response();
-        if ((request.getPage() != null || request.getPageSize() != null) && request.getFilterCriteria() == null){
-            Page<Form> response = service.getEntities(request);
+        if (request.isPaginated() == true && request.isFiltered() == false){
+            logger.info("Here now 1" );
+            Page<Form> response = service.findUnfilteredPage(request);
             resp.setData(response);
-        } else if (request.getPage() != null && request.getPageSize() != null) {
-            Page<Form> response = service.findPaginated(request);
+        } else if (request.isPaginated() == true && request.isFiltered() == true) {
+            logger.info("Here now 2" );
+            Page<Form> response = service.findFilteredPage(request);
             resp.setData(response);
-        } else {
-            List<Form> response = service.findList(request);
+        } else if (request.isPaginated() == false && request.isFiltered() == true) {
+            logger.info("Here now 3" );
+            List<Form> response = service.findFilteredList(request);
+            resp.setData(response);
+        } else if (request.isPaginated() == false && request.isFiltered() == false) {
+            logger.info("Here now 4");
+            List<Form> response = service.findUnfilteredList();
             resp.setData(response);
         }
         resp.setCode(CustomResponseCode.SUCCESS);

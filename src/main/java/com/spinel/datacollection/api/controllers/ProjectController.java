@@ -10,6 +10,8 @@ import com.spinel.datacollection.service.services.ProjectService;
 import com.spinel.framework.dto.responseDto.Response;
 import com.spinel.framework.utils.Constants;
 import com.spinel.framework.utils.CustomResponseCode;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
@@ -25,6 +27,8 @@ import java.util.List;
 public class ProjectController {
 
     private final ProjectService service;
+
+    private  static final Logger logger = LoggerFactory.getLogger(ProjectController.class);
 
 
     public ProjectController(ProjectService service) {
@@ -168,14 +172,21 @@ public class ProjectController {
 
         HttpStatus httpCode ;
         Response resp = new Response();
-        if ((request.getPage() != null || request.getPageSize() != null) && request.getFilterCriteria() == null){
-            Page<Project> response = service.getEntities(request);
+        if (request.isPaginated() && !request.isFiltered()){
+            logger.info("Here now 1" );
+            Page<Project> response = service.findUnfilteredPage(request);
             resp.setData(response);
-        } else if (request.getPage() != null && request.getPageSize() != null) {
-            Page<Project> response = service.findPaginated(request);
+        } else if (request.isPaginated() && request.isFiltered()) {
+            logger.info("Here now 2" );
+            Page<Project> response = service.findFilteredPage(request);
             resp.setData(response);
-        } else {
-            List<Project> response = service.findList(request);
+        } else if (!request.isPaginated() && request.isFiltered()) {
+            logger.info("Here now 3" );
+            List<Project> response = service.findFilteredList(request);
+            resp.setData(response);
+        } else if (!request.isPaginated() && !request.isFiltered()) {
+            logger.info("Here now 4");
+            List<Project> response = service.findUnfilteredList();
             resp.setData(response);
         }
         resp.setCode(CustomResponseCode.SUCCESS);

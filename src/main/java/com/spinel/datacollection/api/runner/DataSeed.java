@@ -21,6 +21,7 @@ import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -395,8 +396,8 @@ public class DataSeed implements ApplicationListener<ContextRefreshedEvent> {
         appleUser.setIsActive(true);
         appleUser.setPasswordChangedOn(LocalDateTime.now());
         appleUser.setCreatedBy(0L);
-        appleUser.setCreatedDate(LocalDateTime.now());
-        appleUser.setUpdatedDate(LocalDateTime.now());
+        appleUser.setCreatedDate(LocalDate.now());
+        appleUser.setUpdatedDate(LocalDate.now());
         userRepo.saveAndFlush(appleUser);
         return appleUser;
     }
@@ -422,8 +423,8 @@ public class DataSeed implements ApplicationListener<ContextRefreshedEvent> {
         user1.setIsActive(true);
         user1.setPasswordChangedOn(LocalDateTime.now());
         user1.setCreatedBy(0L);
-        user1.setCreatedDate(LocalDateTime.now());
-        user1.setUpdatedDate(LocalDateTime.now());
+        user1.setCreatedDate(LocalDate.now());
+        user1.setUpdatedDate(LocalDate.now());
         userRepo.saveAndFlush(user1);
     }
 
@@ -440,8 +441,8 @@ public class DataSeed implements ApplicationListener<ContextRefreshedEvent> {
         user1.setIsActive(true);
         user1.setPasswordChangedOn(LocalDateTime.now());
         user1.setCreatedBy(0L);
-        user1.setCreatedDate(LocalDateTime.now());
-        user1.setUpdatedDate(LocalDateTime.now());
+        user1.setCreatedDate(LocalDate.now());
+        user1.setUpdatedDate(LocalDate.now());
         userRepo.save(user1);
     }
 
@@ -458,8 +459,8 @@ public class DataSeed implements ApplicationListener<ContextRefreshedEvent> {
         user1.setIsActive(true);
         user1.setPasswordChangedOn(LocalDateTime.now());
         user1.setCreatedBy(0L);
-        user1.setCreatedDate(LocalDateTime.now());
-        user1.setUpdatedDate(LocalDateTime.now());
+        user1.setCreatedDate(LocalDate.now());
+        user1.setUpdatedDate(LocalDate.now());
         userRepo.save(user1);
     }
 
@@ -477,8 +478,8 @@ public class DataSeed implements ApplicationListener<ContextRefreshedEvent> {
         user1.setPasswordChangedOn(LocalDateTime.now());
         user1.setCreatedBy(0L);
         user1.setRoleId(1l);
-        user1.setCreatedDate(LocalDateTime.now());
-        user1.setUpdatedDate(LocalDateTime.now());
+        user1.setCreatedDate(LocalDate.now());
+        user1.setUpdatedDate(LocalDate.now());
         userRepo.save(user1);
     }
 
@@ -515,8 +516,8 @@ public class DataSeed implements ApplicationListener<ContextRefreshedEvent> {
         spinelUser.setPasswordChangedOn(LocalDateTime.now());
         spinelUser.setCreatedBy(0L);
         spinelUser.setRoleId(1l);
-        spinelUser.setCreatedDate(LocalDateTime.now());
-        spinelUser.setUpdatedDate(LocalDateTime.now());
+        spinelUser.setCreatedDate(LocalDate.now());
+        spinelUser.setUpdatedDate(LocalDate.now());
         userRepo.save(spinelUser);
         return spinelUser;
     }
@@ -543,8 +544,8 @@ public class DataSeed implements ApplicationListener<ContextRefreshedEvent> {
         user.setPasswordChangedOn(LocalDateTime.now());
         user.setCreatedBy(0L);
         user.setRoleId(1l);
-        user.setCreatedDate(LocalDateTime.now());
-        user.setUpdatedDate(LocalDateTime.now());
+        user.setCreatedDate(LocalDate.now());
+        user.setUpdatedDate(LocalDate.now());
         userRepo.save(user);
         return user;
     }

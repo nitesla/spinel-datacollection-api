@@ -17,6 +17,8 @@ import com.spinel.framework.utils.Constants;
 import com.spinel.framework.utils.CustomResponseCode;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
@@ -35,6 +37,8 @@ public class EnumeratorController {
 
     private final EnumeratorService service;
     private final UserService userService;
+
+    private  static final Logger logger = LoggerFactory.getLogger(EnumeratorController.class);
 
     public EnumeratorController(EnumeratorService service, UserService userService) {
         this.service = service;
@@ -259,14 +263,21 @@ public class EnumeratorController {
 
         HttpStatus httpCode ;
         Response resp = new Response();
-        if ((request.getPage() != null || request.getPageSize() != null) && request.getFilterCriteria() == null){
-            Page<Enumerator> response = service.getEntities(request);
+        if (request.isPaginated() == true && request.isFiltered() == false){
+            logger.info("Here now 1" );
+            Page<Enumerator> response = service.findUnfilteredPage(request);
             resp.setData(response);
-        } else if (request.getPage() != null && request.getPageSize() != null) {
-            Page<Enumerator> response = service.findPaginated(request);
+        } else if (request.isPaginated() == true && request.isFiltered() == true) {
+            logger.info("Here now 2" );
+            Page<Enumerator> response = service.findFilteredPage(request);
             resp.setData(response);
-        } else {
-            List<Enumerator> response = service.findList(request);
+        } else if (request.isPaginated() == false && request.isFiltered() == true) {
+            logger.info("Here now 3" );
+            List<Enumerator> response = service.findFilteredList(request);
+            resp.setData(response);
+        } else if (request.isPaginated() == false && request.isFiltered() == false) {
+            logger.info("Here now 4");
+            List<Enumerator> response = service.findUnfilteredList();
             resp.setData(response);
         }
         resp.setCode(CustomResponseCode.SUCCESS);
