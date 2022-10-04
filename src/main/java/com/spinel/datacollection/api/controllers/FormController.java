@@ -191,5 +191,18 @@ public class FormController {
         return new ResponseEntity<>(resp, httpCode);
     }
 
+    @PostMapping("/newfilter")
+    public ResponseEntity<Response> getNewFormFilter(@Validated @RequestBody GetRequestDto request){
+
+        HttpStatus httpCode ;
+        Response resp = new Response();
+        List response = service.findGroupPage(request);
+        resp.setData(response);
+        resp.setCode(CustomResponseCode.SUCCESS);
+        resp.setDescription("Record fetched successfully !");
+        httpCode = HttpStatus.OK;
+        return new ResponseEntity<>(resp, httpCode);
+    }
+
 
 }
